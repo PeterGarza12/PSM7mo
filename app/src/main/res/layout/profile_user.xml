@@ -76,7 +76,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="64dp"
             android:layout_marginTop="40dp"
-            android:text="ejemplo@gmail.com"
+            android:text="ejemplo1@gmail.com"
             android:textColor="#474747"
             android:textSize="18sp"
             app:layout_constraintStart_toEndOf="@+id/textView6"
