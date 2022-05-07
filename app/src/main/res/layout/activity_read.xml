@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/id_appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#000000"
+        android:theme="@style/Theme.Horrorg"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/black"
+            app:logo="@drawable/ic_logo"
+            app:popupTheme="@style/Theme.Horrorg" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="450dp"
+        android:layout_height="250dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/id_appBarLayout"
+        app:srcCompat="@drawable/itwall" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:background="#000000"
+        android:backgroundTint="#978267B3"
+        android:fontFamily="@font/reggae_one"
+        android:gravity="center_vertical"
+        android:text="Capítulo 1: Después de la inundación"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView8"
+        app:layout_constraintEnd_toEndOf="@+id/imageView8"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="@+id/imageView8"
+        tools:ignore="RtlCompat,TextContrastCheck" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="16dp"
+        android:text="El terror, que no terminaría por otros veintiocho años - si es que terminó alguna vez-, comenzó hasta donde sé o puedo contar, con un barco de papel que flotaba a loa largo del arroyo de una calle anegada de lluvia. El barquito cabeceó, se ladeó, volvió a enderezarse en medio de traicioneros remolinos y continuó su marcha por Witcham Street"
+        android:textAlignment="textStart"
+        android:textAllCaps="false"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navegator"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView8" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navegator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:itemBackground="@color/black"
+        app:itemIconTint="@drawable/selector"
+        app:itemTextColor="@drawable/selector"
+        app:menu="@menu/bottom_menu"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

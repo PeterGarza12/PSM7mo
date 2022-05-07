@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:icon="@drawable/ic_folder_24"
+        android:title="Categorias"
+        app:showAsAction="never">
+        <menu>
+            <item
+                android:id="@+id/opc_suspenso"
+                android:icon="@drawable/ic_warning_24"
+                android:title="Suspenso" />
+            <item
+                android:id="@+id/opc_criminología"
+                android:icon="@drawable/ic_mood_bad_24"
+                android:title="Criminología" />
+            <item
+                android:id="@+id/opc_creepypastas"
+                android:icon="@drawable/ic_push_pin_24"
+                android:title="Creepypastas" />
+        </menu>
+    </item>
+    <item
+        android:id="@+id/opc_biblioteca"
+        android:icon="@drawable/ic_bookmark_24"
+        android:title="Biblioteca" />
+    <item
+        android:id="@+id/opc_mislibros"
+        android:icon="@drawable/ic_menu_book_24"
+        android:title="Mis libros"/>
+    <item
+        android:id="@+id/opc_Perfil"
+        android:icon="@drawable/ic_person_24"
+        android:title="Perfil" />
+</menu>

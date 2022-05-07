@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.psm.horrorg">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Horrorg">
+        <activity
+            android:name=".SinopsisBookActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".ReadActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".BookActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DrawerActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity
+            android:name=".EditProfileUser"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity
+            android:name=".SearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".HomeActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+    </application>
+
+</manifest>
