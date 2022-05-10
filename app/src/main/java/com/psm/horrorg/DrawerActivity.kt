@@ -3,6 +3,7 @@ package com.psm.horrorg
 import android.app.Notification
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -34,6 +35,7 @@ class DrawerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.drawer_layout)
+        val extras = intent.extras
 
         val miNav = findViewById<NavigationView>(R.id.nav)
         val miDrawer = findViewById<DrawerLayout>(R.id.drawer)

@@ -32,6 +32,8 @@ class RegisterActivity : AppCompatActivity(),View.OnClickListener {
     private fun showInfo(){
         if(this.input_username.text.toString() =="" && this.input_password.text.toString()=="" && this.input_password2.text.toString()==""){
             Toast.makeText(this,"Favor de llenar los campos",Toast.LENGTH_LONG).show();
+        }else if(this.input_password.text.toString()!=this.input_password2.text.toString()){
+            Toast.makeText(this,"Las contraseñas tienen que ser iguales",Toast.LENGTH_LONG).show();
         }else{
 
             var Dbusers = dbUsers(this@RegisterActivity)
