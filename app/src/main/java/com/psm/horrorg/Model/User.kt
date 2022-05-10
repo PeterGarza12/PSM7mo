@@ -14,4 +14,11 @@ class User {
         this.password=password
         this.dateBirth=dateBirth
     }
+
+    override fun toString(): String {
+        return super.toString()
+    }
+    fun isNull():Boolean{
+        return !(username.equals("")&&password.equals("")&&dateBirth.equals(""))
+    }
 }
