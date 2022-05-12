@@ -24,8 +24,11 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_list"
-        android:layout_above="@+id/bottom_navegator"/>
+    <include
+        layout="@layout/content_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_navegator" />
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

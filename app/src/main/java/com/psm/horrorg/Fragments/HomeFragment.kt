@@ -1,25 +1,40 @@
 package com.psm.horrorg.Fragments
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.psm.horrorg.Adapter.AdaptadorLibros
 import com.psm.horrorg.BookActivity
 import com.psm.horrorg.BookRecycleAdapter
 import com.psm.horrorg.Data.ALBUM_POSITION
 import com.psm.horrorg.Data.DEFAULT_ALBUM_POSITION
 import com.psm.horrorg.Data.DataManager
+import com.psm.horrorg.Data.LOREMIPSUM
+import com.psm.horrorg.Model.Libros
 import com.psm.horrorg.R
 import kotlinx.android.synthetic.main.content_list.*
 
-class HomeFragment : Fragment(R.layout.activity_home), SearchView.OnQueryTextListener {
-    private var albumAdapter: BookRecycleAdapter? = null
+class HomeFragment: Fragment(){
+
+    private var context2: Context? = null
+
+    override fun onAttach(context: Context){
+        super.onAttach(context)
+        this.context2 = context
+    }
+
+    private val libros = mutableListOf<Libros>()
+    private var librosAdaptador: AdaptadorLibros? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,33 +42,80 @@ class HomeFragment : Fragment(R.layout.activity_home), SearchView.OnQueryTextLis
         savedInstanceState: Bundle?
     ): View? {
 
-        val view: View = inflater.inflate(R.layout.activity_home, container, false)
-        val fab = view.findViewById<FloatingActionButton>(R.id.fab)
-        fab.setOnClickListener{
-            val intent = Intent(activity, BookActivity::class.java)
-            intent.putExtra(ALBUM_POSITION, DEFAULT_ALBUM_POSITION)
-            startActivity(intent)
-        }
+        val view = inflater.inflate(R.layout.fragment_home, container, false)
 
-        val appContext = requireContext().applicationContext
+        this.librosAdaptador = AdaptadorLibros(libros, this.context2!!)
+        getLibros(view)
 
-        rcListAlbum.layoutManager = LinearLayoutManager(activity)
-        this.albumAdapter = BookRecycleAdapter(appContext, DataManager.albums)
-        rcListAlbum.adapter = this.albumAdapter
-
-
-
-        return super.onCreateView(inflater, container, savedInstanceState)
+        return view
     }
 
-    override fun onQueryTextSubmit(query: String?): Boolean {
-        return false
+    private fun getLibros(view: View) {
+        Toast.makeText(context, "Sí entraaaaa", Toast.LENGTH_SHORT).show()
+
+        val rv_grupos = view.findViewById<RecyclerView>(R.id.rv_libros)
+
+        rv_grupos.adapter = librosAdaptador
+
+        libros.clear()
+
+        var libro = Libros()
+        libro.strTitle =  "Please Please Me"
+        libro.strDescription = LOREMIPSUM
+        //album.imgArray =  ImageUtilities.getByteArrayFromResourse(R.drawable.beatles01,content!!)
+        libro.intIdImage = R.drawable.portada3
+        libro.genre =  DataManager.genres[0]
+
+        libros.add(libro)
+
+        libro = Libros()
+        libro.strTitle =  "With The Beatles"
+        libro.strDescription = LOREMIPSUM
+        //album.imgArray =  ImageUtilities.getByteArrayFromResourse(R.drawable.beatles01,content!!)
+        libro.intIdImage = R.drawable.portada4
+        libro.genre =  DataManager.genres[2]
+
+        libros.add(libro)
+
+        libro = Libros()
+        libro.strTitle =  "A Hard Day Night"
+        libro.strDescription = LOREMIPSUM
+        //album.imgArray =  ImageUtilities.getByteArrayFromResourse(R.drawable.beatles01,content!!)
+        libro.intIdImage = R.drawable.portada5
+        libro.genre =  DataManager.genres[3]
+
+        libros.add(libro)
+
+        libro = Libros()
+        libro.strTitle =  "Please Please Me"
+        libro.strDescription = LOREMIPSUM
+        //album.imgArray =  ImageUtilities.getByteArrayFromResourse(R.drawable.beatles01,content!!)
+        libro.intIdImage = R.drawable.portada6
+        libro.genre =  DataManager.genres[4]
+
+        libros.add(libro)
+
+        libro = Libros()
+        libro.strTitle =  "With The Beatles"
+        libro.strDescription = LOREMIPSUM
+        //album.imgArray =  ImageUtilities.getByteArrayFromResourse(R.drawable.beatles01,content!!)
+        libro.intIdImage = R.drawable.portada7
+        libro.genre =  DataManager.genres[4]
+
+        libros.add(libro)
+
+        libro = Libros()
+        libro.strTitle =  "A Hard Day Night"
+        libro.strDescription = LOREMIPSUM
+        //album.imgArray =  ImageUtilities.getByteArrayFromResourse(R.drawable.beatles01,content!!)
+        libro.intIdImage = R.drawable.portada10
+        libro.genre =  DataManager.genres[1]
+
+        libros.add(libro)
+
+        rv_grupos.smoothScrollToPosition(0)
+
     }
 
-    override fun onQueryTextChange(newText: String?): Boolean {
-        if (newText != null){
-            if(albumAdapter != null) this.albumAdapter?.filter?.filter(newText)//evaluas con el filtrado del adapter
-        }
-        return false
-    }
+
 }

@@ -50,7 +50,7 @@ class DrawerActivity : AppCompatActivity() {
 
         //nombreUsuario = intent.getStringExtra("username") ?: "sin_nombre"
 
-
+        cambiarFragmento(HomeFragment(), "HomeFragment")
 
         miNav.setNavigationItemSelectedListener {
             when(it.itemId){
@@ -59,8 +59,9 @@ class DrawerActivity : AppCompatActivity() {
                 }
 
                 R.id.opc_mislibros -> {
-                    val intent = Intent(this, HomeActivity::class.java)
-                    startActivity(intent)
+                    //val intent = Intent(this, HomeActivity::class.java)
+                    //startActivity(intent)
+                    cambiarFragmento(HomeFragment(), "HomeFragment")
                 }
 
                 else -> {

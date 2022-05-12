@@ -21,13 +21,13 @@ object DataManager {
         genre = Genre(2,"Cuentos Cortos")
         genres.add(genre)
 
-        genre = Genre(2,"Suspenso")
+        genre = Genre(3,"Suspenso")
         genres.add(genre)
 
-        genre = Genre(2,"Criminologia")
+        genre = Genre(4,"Criminologia")
         genres.add(genre)
 
-        genre = Genre(2,"Horror")
+        genre = Genre(5,"Horror")
         genres.add(genre)
 
     }
