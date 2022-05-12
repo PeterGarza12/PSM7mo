@@ -3,6 +3,7 @@ package com.psm.horrorg
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
@@ -23,6 +24,14 @@ class SinopsisBookActivity : AppCompatActivity() {
         val gson = Gson()
         val miLibro = gson.fromJson<Libros>(intent.getStringExtra("Libro"), Libros::class.java)
 
+
+        val tvTitle = findViewById<TextView>(R.id.txt_titulo)
+        val tvCategory = findViewById<TextView>(R.id.txt_Categoria)
+        val tvDescription = findViewById<TextView>(R.id.txt_Descripcion)
+
+        tvTitle.text = miLibro.strTitle
+        tvCategory.text = miLibro.genre.toString()
+        tvDescription.text = miLibro.strDescription
 
 
 
