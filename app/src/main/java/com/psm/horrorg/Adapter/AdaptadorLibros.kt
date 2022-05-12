@@ -6,13 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
 import com.psm.horrorg.Data.ALBUM_POSITION
 import com.psm.horrorg.Model.Libros
 import com.psm.horrorg.R
 import com.psm.horrorg.SinopsisBookActivity
-import com.psm.horrorg.Utilities.ImageUtilities
 import kotlinx.android.synthetic.main.activity_main.view.*
 
 class AdaptadorLibros(private val listaLibros: MutableList<Libros>, val context: Context):
@@ -20,7 +19,7 @@ class AdaptadorLibros(private val listaLibros: MutableList<Libros>, val context:
 
 
     inner class GroupViewholder(itemView: View): RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        var libroPosition : Int ?= null
+        var libroPosition = 0
 
         fun asignarInformacion(libros: Libros) {
             var ivBook = itemView.findViewById<ImageView>(R.id.iv_libro)
@@ -53,8 +52,9 @@ class AdaptadorLibros(private val listaLibros: MutableList<Libros>, val context:
             when(v!!.id){
                 R.id.framegroup->{
                     //TODO("Lanzar el activity del libro")
+                    val gson = Gson()
                     val activityIntent = Intent(context, SinopsisBookActivity::class.java)
-                    activityIntent.putExtra(ALBUM_POSITION, this.libroPosition)
+                    activityIntent.putExtra("Libro", gson.toJson(listaLibros[libroPosition]))
                     context.startActivity(activityIntent)
                 }
             }

@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.gson.Gson
 import com.psm.horrorg.Data.ALBUM_POSITION
+import com.psm.horrorg.Model.Libros
 
 class SinopsisBookActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,13 +20,15 @@ class SinopsisBookActivity : AppCompatActivity() {
             data = extras!!.getInt(ALBUM_POSITION)
         }
 
+        val gson = Gson()
+        val miLibro = gson.fromJson<Libros>(intent.getStringExtra("Libro"), Libros::class.java)
 
 
 
 
         val btnRead = findViewById<Button>(R.id.btn_Read)
         btnRead.setOnClickListener {
-            Toast.makeText(this, data.toString(), Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, miLibro.strTitle, Toast.LENGTH_SHORT).show()
             //val intent = Intent(this, ReadActivity::class.java)
             //startActivity(intent)
         }
