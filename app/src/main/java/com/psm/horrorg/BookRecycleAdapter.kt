@@ -34,7 +34,7 @@ class BookRecycleAdapter (val context: Context, var albums:List<Album>): Recycle
 
             when (v!!.id) {
                 R.id.idFrameLayoutCard -> {
-                    //Lanzamos el intent para abrir el detall
+                    //Lanzamos el intent para abrir el detalle
                     val activityIntent = Intent(context, SinopsisBookActivity::class.java)
                     activityIntent.putExtra(ALBUM_POSITION, this.albumPosition)
                     context.startActivity(activityIntent)

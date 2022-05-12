@@ -54,7 +54,8 @@ class HomeFragment: Fragment(){
         Toast.makeText(context, "Sí entraaaaa", Toast.LENGTH_SHORT).show()
 
         val rv_grupos = view.findViewById<RecyclerView>(R.id.rv_libros)
-
+        // Linea para hacer el recycler horizontal
+        // rv_grupos.layoutManager = LinearLayoutManager(this.context2!!, LinearLayoutManager.HORIZONTAL, false)
         rv_grupos.adapter = librosAdaptador
 
         libros.clear()

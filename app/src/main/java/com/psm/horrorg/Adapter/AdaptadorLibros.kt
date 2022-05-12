@@ -1,14 +1,18 @@
 package com.psm.horrorg.Adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.psm.horrorg.Data.ALBUM_POSITION
 import com.psm.horrorg.Model.Libros
 import com.psm.horrorg.R
+import com.psm.horrorg.SinopsisBookActivity
+import com.psm.horrorg.Utilities.ImageUtilities
 import kotlinx.android.synthetic.main.activity_main.view.*
 
 class AdaptadorLibros(private val listaLibros: MutableList<Libros>, val context: Context):
@@ -16,6 +20,8 @@ class AdaptadorLibros(private val listaLibros: MutableList<Libros>, val context:
 
 
     inner class GroupViewholder(itemView: View): RecyclerView.ViewHolder(itemView), View.OnClickListener {
+        var libroPosition : Int ?= null
+
         fun asignarInformacion(libros: Libros) {
             var ivBook = itemView.findViewById<ImageView>(R.id.iv_libro)
             val tvBookName = itemView.findViewById<TextView>(R.id.tv_nombre_libro)
@@ -47,8 +53,9 @@ class AdaptadorLibros(private val listaLibros: MutableList<Libros>, val context:
             when(v!!.id){
                 R.id.framegroup->{
                     //TODO("Lanzar el activity del libro")
-                    Toast.makeText(context, this.itemView.findViewById<TextView>(R.id.tv_nombre_libro).text, Toast.LENGTH_SHORT).show()
-
+                    val activityIntent = Intent(context, SinopsisBookActivity::class.java)
+                    activityIntent.putExtra(ALBUM_POSITION, this.libroPosition)
+                    context.startActivity(activityIntent)
                 }
             }
         }
@@ -60,7 +67,9 @@ class AdaptadorLibros(private val listaLibros: MutableList<Libros>, val context:
     }
 
     override fun onBindViewHolder(holder: GroupViewholder, position: Int) {
+        holder.libroPosition = position
         holder.asignarInformacion(listaLibros[position])
+
     }
 
     override fun getItemCount(): Int = listaLibros.size
