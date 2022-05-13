@@ -49,56 +49,5 @@ open class DbHelper(context: Context?):SQLiteOpenHelper(context,DATABASE_NAME,nu
             false
         }
     }
-    val allUser:List<User>
-        get(){
-            val lstUsers = ArrayList<User>()
-            val selectQuery = "SELECT * FROM $TABLE_NAME"
-            val db = this.writableDatabase
-            val cursor = db.rawQuery(selectQuery, null )
-            if(cursor.moveToFirst()){
-                do{
-                    val user = User()
-                    user.id= cursor.getColumnIndex(COL_ID)
-                    user.username= cursor.getColumnIndex(COL_NAME).toString()
-                    user.password= cursor.getColumnIndex(COL_PASSWORD).toString()
-                    user.dateBirth= cursor.getColumnIndex(COL_DATE).toString()
-                    lstUsers.add(user)
-                }while (cursor.moveToNext())
-            }
-            db.close()
-            return lstUsers
-        }
-
-    fun addUser(user:User){
-        val db = this.writableDatabase
-        val values = ContentValues()
-        values.put(COL_ID,user.id)
-        values.put(COL_NAME,user.username)
-        values.put(COL_PASSWORD,user.password)
-        values.put(COL_DATE,user.dateBirth)
-        db.insert(TABLE_NAME,null, values)
-        db.close()
-    }
-
-    fun updateUser(user:User):Int{
-        val db = this.writableDatabase
-        val values = ContentValues()
-        values.put(COL_ID,user.id)
-        values.put(COL_NAME,user.username)
-        values.put(COL_PASSWORD,user.password)
-        values.put(COL_DATE,user.dateBirth)
-
-        return db.update(TABLE_NAME,values,"$COL_ID=?", arrayOf(user.id.toString()))
-
-    }
-
-    fun deleteUser(user:User){
-        val db = this.writableDatabase
-
-
-        db.delete(TABLE_NAME,"$COL_ID=?", arrayOf(user.id.toString()))
-        db.close()
-
-    }
 
 }

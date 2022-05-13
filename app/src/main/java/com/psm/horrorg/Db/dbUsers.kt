@@ -9,6 +9,7 @@ import java.lang.Exception
 import java.util.ArrayList
 
 class dbUsers(var context: Context?) : DbHelper(context) {
+
     fun insertarUsuario(username: String?, password: String?, dateBirth: String?): Long {
         var id: Long = 0
         try {
@@ -25,21 +26,22 @@ class dbUsers(var context: Context?) : DbHelper(context) {
         }
         return id
     }
-    fun verUser(username: String?): User? {
+
+    fun verUser(username: String?): User {
         val dbHelper = DbHelper(context)
         val db = dbHelper.writableDatabase
-        val listaUser = ArrayList<User>()
-        val user: User? = null
+
+        val user = User()
         val cursorUser: Cursor
         cursorUser = db.rawQuery(
             "select * from User where UserName = ? LIMIT 1",
             arrayOf(username)
         )
         if (cursorUser.moveToFirst()) {
-            user!!.id = cursorUser.getInt(0)
+            user.id = cursorUser.getInt(0)
             user.username = cursorUser.getString(1)
             user.password = cursorUser.getString(2)
-            user.dateBirth = cursorUser.getString(2)
+            user.dateBirth = cursorUser.getString(3)
         }
         cursorUser.close()
         return user
