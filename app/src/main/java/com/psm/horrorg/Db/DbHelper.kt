@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper
 import com.psm.horrorg.Model.User
 
 open class DbHelper(context: Context?):SQLiteOpenHelper(context,DATABASE_NAME,null,DATABASE_VER){
+
     companion object{
         private val DATABASE_VER= 1
         private val DATABASE_NAME = "Horrorg.db"
@@ -27,6 +28,7 @@ open class DbHelper(context: Context?):SQLiteOpenHelper(context,DATABASE_NAME,nu
         db!!.execSQL("DROP TABLE IF EXISTS $TABLE_NAME")
         onCreate(db!!)
     }
+
     fun onCheckUserName(username: String): Boolean {
         val db = writableDatabase
         val cursor = db.rawQuery("select * from User where UserName = ?", arrayOf(username))
