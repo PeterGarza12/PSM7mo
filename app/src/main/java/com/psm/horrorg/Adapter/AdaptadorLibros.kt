@@ -12,6 +12,7 @@ import com.psm.horrorg.Data.ALBUM_POSITION
 import com.psm.horrorg.Model.Libros
 import com.psm.horrorg.R
 import com.psm.horrorg.SinopsisBookActivity
+import com.psm.horrorg.Utilities.ImageUtilities
 import kotlinx.android.synthetic.main.activity_main.view.*
 
 class AdaptadorLibros(private val listaLibros: MutableList<Libros>, val context: Context):
@@ -27,6 +28,12 @@ class AdaptadorLibros(private val listaLibros: MutableList<Libros>, val context:
             val tvCategoryBook = itemView.findViewById<TextView>(R.id.tv_categoria_libro)
             val tvDescriptionBook = itemView.findViewById<TextView>(R.id.tv_descripcion_libro)
             val contenedorLibros = itemView.findViewById<LinearLayout>(R.id.contenedor_libros)
+
+            if (libros.imgArray == null) {
+                ivBook.setImageResource(libros.intIdImage!!)
+            } else {
+                ivBook.setImageBitmap(ImageUtilities.getBitMapFromByteArray(libros.imgArray!!))
+            }
 
             ivBook.imageAlpha = libros.intIdImage
             tvBookName.text = libros.strTitle

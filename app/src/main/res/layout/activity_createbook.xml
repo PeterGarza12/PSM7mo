@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="SpeakableTextPresentCheck">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#AD807E7E">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/black"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:logo="@drawable/ic_logo" />
+
+        <ImageView
+            android:id="@+id/imgAlbum"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="32dp"
+            android:contentDescription="TODO"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar2"
+            app:srcCompat="@drawable/portada3" />
+
+        <ImageButton
+            android:id="@+id/btnOpenPhotoReel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:minHeight="48dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imgAlbum"
+            app:layout_constraintStart_toEndOf="@+id/imgAlbum"
+            app:srcCompat="@drawable/ic_add_photo_24"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <TextView
+            android:id="@+id/tv_create_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/reggae_one"
+            android:text="Título del libro"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/toolbar2"
+            app:layout_constraintTop_toBottomOf="@+id/imgAlbum" />
+
+        <EditText
+            android:id="@+id/et_create_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            android:text="Ingrese el título"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tv_create_title"
+            app:layout_constraintTop_toBottomOf="@+id/tv_create_title" />
+
+        <TextView
+            android:id="@+id/tv_create_sinopsis"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/reggae_one"
+            android:text="Sinópsis"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/et_create_title"
+            app:layout_constraintTop_toBottomOf="@+id/et_create_title" />
+
+        <EditText
+            android:id="@+id/et_create_sinopsis"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            android:text="Escriba la sinópsis"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tv_create_sinopsis"
+            app:layout_constraintTop_toBottomOf="@+id/tv_create_sinopsis" />
+
+        <TextView
+            android:id="@+id/tv_create_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/reggae_one"
+            android:text="Categoría"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/et_create_sinopsis"
+            app:layout_constraintTop_toBottomOf="@+id/et_create_sinopsis" />
+
+        <Spinner
+            android:id="@+id/sp_create_category"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:entries="@array/array_categories"
+            android:inputType="textMultiLine"
+            android:textColor="#777777"
+            app:layout_constraintStart_toStartOf="@+id/tv_create_category"
+            app:layout_constraintTop_toBottomOf="@+id/tv_create_category" />
+
+        <TextView
+            android:id="@+id/tv_create_question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/reggae_one"
+            android:text="¿Quiere que su contenido sea descargable?"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/sp_create_category"
+            app:layout_constraintTop_toBottomOf="@+id/sp_create_category" />
+
+        <RadioGroup
+            android:id="@+id/rg_create_question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/tv_create_question"
+            app:layout_constraintTop_toBottomOf="@+id/tv_create_question">
+
+            <RadioButton
+                android:id="@+id/rb_create_yes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sí" />
+
+            <RadioButton
+                android:id="@+id/rb_create_no"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="No" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/btn_create_upload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp"
+            android:backgroundTint="@color/black"
+            android:fontFamily="@font/reggae_one"
+            android:text="Subir archivo"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/rg_create_question"
+            app:layout_constraintTop_toBottomOf="@+id/rg_create_question" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

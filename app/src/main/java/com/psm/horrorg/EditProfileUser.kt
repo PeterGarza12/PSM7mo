@@ -38,7 +38,9 @@ class EditProfileUser: AppCompatActivity() {
         val btnUpdate = findViewById<Button>(R.id.btn_edit_update)
 
         val DbUsers= dbUsers(this)
+
         user=DbUsers.verUser("Peter")
+
         if(user!=null){
             txtUsername.text = user!!.username.toString()
             txtPassword.setText(user!!.password.toString())

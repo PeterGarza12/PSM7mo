@@ -20,6 +20,7 @@ import com.psm.horrorg.Data.ALBUM_POSITION
 import com.psm.horrorg.Data.DEFAULT_ALBUM_POSITION
 import com.psm.horrorg.Data.DataManager
 import com.psm.horrorg.Data.LOREMIPSUM
+import com.psm.horrorg.DrawerActivity
 import com.psm.horrorg.Model.Libros
 import com.psm.horrorg.R
 import kotlinx.android.synthetic.main.content_list.*
@@ -32,6 +33,7 @@ class HomeFragment: Fragment(){
         super.onAttach(context)
         this.context2 = context
     }
+
 
     private val libros = mutableListOf<Libros>()
     private var librosAdaptador: AdaptadorLibros? = null
@@ -46,6 +48,15 @@ class HomeFragment: Fragment(){
 
         this.librosAdaptador = AdaptadorLibros(libros, this.context2!!)
         getLibros(view)
+
+        view.findViewById<FloatingActionButton>(R.id.fab_CreateBook).setOnClickListener { view ->
+
+            val  activityIntent =  Intent(this.context2!!,BookActivity::class.java)
+            activityIntent.putExtra(ALBUM_POSITION,DEFAULT_ALBUM_POSITION)
+            startActivity(activityIntent)
+
+
+        }
 
         return view
     }

@@ -59,9 +59,9 @@ class DrawerActivity : AppCompatActivity() {
                 }
 
                 R.id.opc_mislibros -> {
-                    //val intent = Intent(this, HomeActivity::class.java)
-                    //startActivity(intent)
-                    cambiarFragmento(HomeFragment(), "HomeFragment")
+                    val intent = Intent(this, HomeActivity::class.java)
+                    startActivity(intent)
+                    //cambiarFragmento(HomeFragment(), "HomeFragment")
                 }
 
                 else -> {
