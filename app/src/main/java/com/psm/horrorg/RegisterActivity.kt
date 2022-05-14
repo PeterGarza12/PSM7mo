@@ -37,14 +37,19 @@ class RegisterActivity : AppCompatActivity(),View.OnClickListener {
         }else{
 
             var Dbusers = dbUsers(this@RegisterActivity)
-
             var id:Long =Dbusers.insertarUsuario(this.input_username.text.toString(),this.input_password.text.toString(),this.input_password2.text.toString())
+
             if(id>0){
+
                 Toast.makeText(this,"Usuario creado",Toast.LENGTH_LONG).show();
-                val intent=Intent(this,DrawerActivity::class.java)
-                intent.putExtra("user",this.input_username.text.toString())
+                val intent=Intent(this,MainActivity::class.java)
                 startActivity(intent)
-            } else{
+
+                //val intent=Intent(this,DrawerActivity::class.java)
+                //intent.putExtra("user",this.input_username.text.toString())
+
+            }
+            else{
                 Toast.makeText(this,"Error al crear el usuario",Toast.LENGTH_LONG).show();
                 clean()
             }

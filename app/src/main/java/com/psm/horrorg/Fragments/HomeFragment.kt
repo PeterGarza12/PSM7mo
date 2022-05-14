@@ -22,6 +22,7 @@ import com.psm.horrorg.Data.DataManager
 import com.psm.horrorg.Data.LOREMIPSUM
 import com.psm.horrorg.DrawerActivity
 import com.psm.horrorg.Model.Libros
+import com.psm.horrorg.Model.Usuario
 import com.psm.horrorg.R
 import kotlinx.android.synthetic.main.content_list.*
 
@@ -45,6 +46,8 @@ class HomeFragment: Fragment(){
     ): View? {
 
         val view = inflater.inflate(R.layout.fragment_home, container, false)
+
+        Toast.makeText(this.context2!!, Usuario.getUsername(), Toast.LENGTH_SHORT).show()
 
         this.librosAdaptador = AdaptadorLibros(libros, this.context2!!)
         getLibros(view)

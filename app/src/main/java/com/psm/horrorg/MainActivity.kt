@@ -7,11 +7,16 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import com.psm.horrorg.Db.DbHelper
+import com.psm.horrorg.Db.dbUsers
+import com.psm.horrorg.Model.User
+import com.psm.horrorg.Model.Usuario
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
     val DB = DbHelper(this)
+    val DbUsers= dbUsers(this)
+    var user = User()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +57,11 @@ class MainActivity : AppCompatActivity() {
             if(checkuserpass){
                 Toast.makeText(this, "Ingreso correctamente", Toast.LENGTH_SHORT).show()
                 //Cambié el homeactivity por el drawer
+
+                user = DbUsers.verUser(this.input_username.text.toString())
+                if(user!=null){
+                    Usuario.setUsuario(user.id, user.username.toString(), user.password.toString(), user.dateBirth.toString())
+                }
 
                 val intent = Intent(this, DrawerActivity::class.java)
                 intent.putExtra("user", this.input_username.text.toString())
