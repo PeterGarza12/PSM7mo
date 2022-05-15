@@ -1,13 +1,18 @@
 package com.psm.horrorg
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.psm.horrorg.Db.dbBooks
 import com.psm.horrorg.Model.Usuario
 import kotlinx.android.synthetic.main.activity_createbook.*
+import java.io.ByteArrayOutputStream
+
 
 class BookActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnItemSelectedListener {
 
@@ -17,6 +22,14 @@ class BookActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
     var radioGroup: RadioGroup? = null
     var radioButton: RadioButton? = null
     var DBBooks = dbBooks(this@BookActivity)
+
+    private val pickImage = 100
+    private var imageUri: Uri? = null
+    lateinit var imageView: ImageView
+    lateinit var bitmap: Bitmap
+    lateinit var bytes: ByteArrayOutputStream
+    lateinit var byteImage: ByteArray
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,11 +42,35 @@ class BookActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
         spinner = findViewById(R.id.sp_create_category)
         radioGroup = findViewById(R.id.rg_create_question)
 
-        // get selected radio button from radioGroup
-        // get selected radio button from radioGroup
+        imageView = findViewById(R.id.iv_create_image)
+        val imageButton = findViewById<ImageView>(R.id.btnOpenPhotoReel)
+        imageButton.setOnClickListener {
+            val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
+            startActivityForResult(gallery, pickImage)
+        }
 
 
 
+
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK && requestCode == pickImage) {
+            imageUri = data?.data
+            imageView.setImageURI(imageUri)
+
+            bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, imageUri)
+
+            bytes = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.PNG, 0, bytes)
+
+            byteImage = bytes.toByteArray()
+
+            Toast.makeText(this, radioButton!!.text.toString(), Toast.LENGTH_LONG).show()
+
+
+        }
     }
 
     override fun onClick(v: View){
@@ -58,9 +95,19 @@ class BookActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
             Toast.makeText(this, radioButton!!.text.toString(), Toast.LENGTH_LONG).show()
         }
 
+        var idGenre = 1;
+
+        when(spinnerSelected){
+            "Suspenso" ->  idGenre = 1
+            "Criminología" -> idGenre = 2
+            "Creepypastas" -> idGenre = 3
+            else -> {
+                idGenre = 4
+            }
+        }
 
         if(canInsert && radioButton!=null){
-            var id:Long = DBBooks.insertBook(Usuario.getId(), this.et_create_title.text.toString(), this.et_create_sinopsis.text.toString(), 1, 1, "Hola", "Prueba")
+            var id:Long = DBBooks.insertBook(Usuario.getId(), this.et_create_title.text.toString(), this.et_create_sinopsis.text.toString(), 1, idGenre, "Hola", "Prueba")
             if(id>0){
                 Toast.makeText(this, "Libro creado con éxito", Toast.LENGTH_LONG).show()
                 val intent = Intent(this,DrawerActivity::class.java)

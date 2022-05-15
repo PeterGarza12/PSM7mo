@@ -26,8 +26,8 @@
             app:logo="@drawable/ic_logo" />
 
         <ImageView
-            android:id="@+id/imgAlbum"
-            android:layout_width="0dp"
+            android:id="@+id/iv_create_image"
+            android:layout_width="300dp"
             android:layout_height="200dp"
             android:layout_marginTop="32dp"
             android:contentDescription="TODO"
@@ -43,8 +43,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:minHeight="48dp"
-            app:layout_constraintBottom_toBottomOf="@+id/imgAlbum"
-            app:layout_constraintStart_toEndOf="@+id/imgAlbum"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_create_image"
+            app:layout_constraintStart_toEndOf="@+id/iv_create_image"
             app:srcCompat="@drawable/ic_add_photo_24"
             tools:ignore="SpeakableTextPresentCheck" />
 
@@ -59,7 +59,7 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/toolbar2"
-            app:layout_constraintTop_toBottomOf="@+id/imgAlbum" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_create_image" />
 
         <EditText
             android:id="@+id/et_create_title"

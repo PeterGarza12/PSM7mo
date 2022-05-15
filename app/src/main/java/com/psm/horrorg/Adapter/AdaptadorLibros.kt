@@ -30,7 +30,8 @@ class AdaptadorLibros(private val listaLibros: MutableList<Libros>, val context:
             val contenedorLibros = itemView.findViewById<LinearLayout>(R.id.contenedor_libros)
 
             if (libros.imgArray == null) {
-                ivBook.setImageResource(libros.intIdImage!!)
+                //ivBook.setImageResource(libros.intIdImage!!)
+                Toast.makeText(context, "No hay imagen", Toast.LENGTH_SHORT).show()
             } else {
                 ivBook.setImageBitmap(ImageUtilities.getBitMapFromByteArray(libros.imgArray!!))
             }

@@ -2,6 +2,7 @@ package com.psm.horrorg.Fragments
 
 import android.content.Context
 import android.content.Intent
+import android.database.Cursor
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +21,8 @@ import com.psm.horrorg.Data.ALBUM_POSITION
 import com.psm.horrorg.Data.DEFAULT_ALBUM_POSITION
 import com.psm.horrorg.Data.DataManager
 import com.psm.horrorg.Data.LOREMIPSUM
+import com.psm.horrorg.Db.DbHelper
+import com.psm.horrorg.Db.dbBooks
 import com.psm.horrorg.DrawerActivity
 import com.psm.horrorg.Model.Libros
 import com.psm.horrorg.Model.Usuario
@@ -30,13 +33,15 @@ class HomeFragment: Fragment(){
 
     private var context2: Context? = null
 
+
     override fun onAttach(context: Context){
         super.onAttach(context)
         this.context2 = context
     }
 
 
-    private val libros = mutableListOf<Libros>()
+
+    private var libros = mutableListOf<Libros>()
     private var librosAdaptador: AdaptadorLibros? = null
 
     override fun onCreateView(
@@ -47,10 +52,10 @@ class HomeFragment: Fragment(){
 
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
-        Toast.makeText(this.context2!!, Usuario.getUsername(), Toast.LENGTH_SHORT).show()
+        var DBBooks = DbHelper(this.context2!!)
 
         this.librosAdaptador = AdaptadorLibros(libros, this.context2!!)
-        getLibros(view)
+        getLibros(view, DBBooks)
 
         view.findViewById<FloatingActionButton>(R.id.fab_CreateBook).setOnClickListener { view ->
 
@@ -64,69 +69,48 @@ class HomeFragment: Fragment(){
         return view
     }
 
-    private fun getLibros(view: View) {
+    private fun getLibros(view: View, dbHelper: DbHelper) {
         Toast.makeText(context, "Sí entraaaaa", Toast.LENGTH_SHORT).show()
 
         val rv_grupos = view.findViewById<RecyclerView>(R.id.rv_libros)
         // Linea para hacer el recycler horizontal
         // rv_grupos.layoutManager = LinearLayoutManager(this.context2!!, LinearLayoutManager.HORIZONTAL, false)
+
         rv_grupos.adapter = librosAdaptador
 
         libros.clear()
+        var libro: Libros
 
-        var libro = Libros()
-        libro.strTitle =  "Please Please Me"
-        libro.strDescription = LOREMIPSUM
-        //album.imgArray =  ImageUtilities.getByteArrayFromResourse(R.drawable.beatles01,content!!)
-        libro.intIdImage = R.drawable.portada3
-        libro.genre =  DataManager.genres[0]
 
-        libros.add(libro)
-
-        libro = Libros()
-        libro.strTitle =  "With The Beatles"
-        libro.strDescription = LOREMIPSUM
-        //album.imgArray =  ImageUtilities.getByteArrayFromResourse(R.drawable.beatles01,content!!)
-        libro.intIdImage = R.drawable.portada4
-        libro.genre =  DataManager.genres[2]
-
-        libros.add(libro)
-
-        libro = Libros()
-        libro.strTitle =  "A Hard Day Night"
-        libro.strDescription = LOREMIPSUM
-        //album.imgArray =  ImageUtilities.getByteArrayFromResourse(R.drawable.beatles01,content!!)
-        libro.intIdImage = R.drawable.portada5
-        libro.genre =  DataManager.genres[3]
-
-        libros.add(libro)
-
-        libro = Libros()
-        libro.strTitle =  "Please Please Me"
-        libro.strDescription = LOREMIPSUM
-        //album.imgArray =  ImageUtilities.getByteArrayFromResourse(R.drawable.beatles01,content!!)
-        libro.intIdImage = R.drawable.portada6
-        libro.genre =  DataManager.genres[4]
-
-        libros.add(libro)
-
-        libro = Libros()
-        libro.strTitle =  "With The Beatles"
-        libro.strDescription = LOREMIPSUM
-        //album.imgArray =  ImageUtilities.getByteArrayFromResourse(R.drawable.beatles01,content!!)
-        libro.intIdImage = R.drawable.portada7
-        libro.genre =  DataManager.genres[4]
-
-        libros.add(libro)
-
-        libro = Libros()
-        libro.strTitle =  "A Hard Day Night"
-        libro.strDescription = LOREMIPSUM
-        //album.imgArray =  ImageUtilities.getByteArrayFromResourse(R.drawable.beatles01,content!!)
-        libro.intIdImage = R.drawable.portada10
-        libro.genre =  DataManager.genres[1]
-
-        libros.add(libro)
+        try {
+            val db = dbHelper.readableDatabase
+    
+            val cursorUser: Cursor
+            cursorUser = db.rawQuery(
+                "select * from Books where UserId = ?",
+                arrayOf(Usuario.getId().toString())
+            )
+    
+            if (cursorUser.moveToFirst()) {
+                do{
+    
+                    libro = Libros()
+                    libro.strTitle =  cursorUser.getString(2)
+                    libro.strDescription = cursorUser.getString(3)
+                    //album.imgArray =  ImageUtilities.getByteArrayFromResourse(R.drawable.beatles01,content!!)
+                    libro.intIdImage = cursorUser.getInt(4)
+                    libro.genre =  DataManager.genres[cursorUser.getInt(5)]
+    
+                    libros.add(libro)
+                }
+                while (cursorUser.moveToNext())
+            }
+            cursorUser.close()
+    
+        } catch (ex: Exception) {
+            ex.toString()
+            Toast.makeText(this.context2!!, ex.toString(), Toast.LENGTH_SHORT).show()
+        }
 
         rv_grupos.smoothScrollToPosition(0)
 
