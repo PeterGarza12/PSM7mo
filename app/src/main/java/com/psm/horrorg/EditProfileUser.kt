@@ -12,23 +12,21 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.psm.horrorg.Db.dbUsers
 import com.psm.horrorg.Model.User
+
+import com.psm.horrorg.Model.Usuario
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.btn_Login
 import kotlinx.android.synthetic.main.activity_register.*
 
 class EditProfileUser: AppCompatActivity() {
     var user = User()
+
     var sUser:String =""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.profile_user_edit)
 
-        val extras = intent.extras
-        if (extras !=null){
-            val strUser = extras?.getString("user")?:"sin dato"
-            Log.e("Dato", strUser)
-            sUser=strUser.toString()
-        }
+
 
         val txtUsername=findViewById<TextView>(R.id.id_username)
         val txtPassword = findViewById<EditText>(R.id.id_password)
@@ -39,7 +37,7 @@ class EditProfileUser: AppCompatActivity() {
 
         val DbUsers= dbUsers(this)
 
-        user=DbUsers.verUser("Peter")
+        user=DbUsers.verUser(Usuario.getUsername())
 
         if(user!=null){
             txtUsername.text = user!!.username.toString()
