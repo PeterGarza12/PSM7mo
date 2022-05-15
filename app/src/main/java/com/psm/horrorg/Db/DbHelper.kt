@@ -17,11 +17,38 @@ open class DbHelper(context: Context?):SQLiteOpenHelper(context,DATABASE_NAME,nu
         private val COL_NAME = "UserName"
         private val COL_PASSWORD = "Password"
         private val COL_DATE = "DateBirth"
+
+        //Books Table
+        val TABLE_BOOKS_NAME = "Books"
+        private val COL_BOOKS_ID = "Id"
+        private val COL_BOOKS_USER = "UserId"
+        private val COL_BOOKS_TITLE = "Title"
+        private val COL_BOOKS_DESCRIPTION = "Description"
+        private val COL_BOOKS_IDIMAGE = "IdImage"
+        private val COL_BOOKS_IDGENRE = "IdGenre"
+        private val COL_BOOKS_TITLEGENRE = "TitleGenre"
+        private val COL_BOOKS_IMGARRAY = "ImgArray"
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
-        val CREATE_TABLE_QUERY:String = ("CREATE TABLE  $TABLE_NAME ( $COL_ID INTEGER PRIMARY KEY, $COL_NAME TEXT, $COL_PASSWORD TEXT, $COL_DATE TEXT)")
-        db!!.execSQL(CREATE_TABLE_QUERY);
+        val CREATE_BOOKS_TABLE_QUERY:String = ("CREATE TABLE IF NOT EXISTS  $TABLE_BOOKS_NAME ( " +
+                "$COL_BOOKS_ID INTEGER PRIMARY KEY, " +
+                "$COL_BOOKS_USER INTEGER, " +
+                "$COL_BOOKS_TITLE TEXT, " +
+                "$COL_BOOKS_DESCRIPTION TEXT, " +
+                "$COL_BOOKS_IDIMAGE INTEGER, " +
+                "$COL_BOOKS_IDGENRE INTEGER, " +
+                "$COL_BOOKS_TITLEGENRE TEXT, " +
+                "$COL_BOOKS_IMGARRAY TEXT, " +
+                "FOREIGN KEY($COL_BOOKS_USER) REFERENCES $TABLE_NAME($COL_ID)" +
+                ")")
+        db!!.execSQL(CREATE_BOOKS_TABLE_QUERY)
+
+        val CREATE_TABLE_QUERY:String = ("CREATE TABLE IF NOT EXISTS  $TABLE_NAME ( $COL_ID INTEGER PRIMARY KEY, $COL_NAME TEXT, $COL_PASSWORD TEXT, $COL_DATE TEXT)")
+        db!!.execSQL(CREATE_TABLE_QUERY)
+
+
+
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
@@ -32,11 +59,11 @@ open class DbHelper(context: Context?):SQLiteOpenHelper(context,DATABASE_NAME,nu
     fun onCheckUserName(username: String): Boolean {
         val db = writableDatabase
         val cursor = db.rawQuery("select * from User where UserName = ?", arrayOf(username))
-        return if (cursor.count > 0) {
-            true
-        } else {
-            false
+        var flag = false
+        if (cursor.count > 0) {
+            flag = true
         }
+        return flag
     }
 
     fun onCheckUserNameAndPassword(username: String, password: String): Boolean {
@@ -45,11 +72,11 @@ open class DbHelper(context: Context?):SQLiteOpenHelper(context,DATABASE_NAME,nu
             "select * from User where UserName = ? And Password = ?",
             arrayOf(username, password)
         )
-        return if (cursor.count > 0) {
-            true
-        } else {
-            false
+        var flag = false
+        if (cursor.count > 0) {
+            flag = true
         }
+        return flag
     }
 
 }

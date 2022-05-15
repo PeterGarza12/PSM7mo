@@ -148,13 +148,15 @@
                 android:id="@+id/rb_create_yes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sí" />
+                android:text="Sí"
+                android:onClick="onClick"/>
 
             <RadioButton
                 android:id="@+id/rb_create_no"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="No" />
+                android:text="No"
+                android:onClick="onClick"/>
         </RadioGroup>
 
         <Button
