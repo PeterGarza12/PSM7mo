@@ -31,7 +31,7 @@ class dbBooks(var context: Context?) : DbHelper(context) {
             values.put("TitleGenre", TitleGenre)
             values.put("ImgArray", ImgArray)
 
-            id = db.insert(TABLE_NAME, null, values)
+            id = db.insert(TABLE_BOOKS_NAME, null, values)
 
         } catch (ex: Exception) {
             ex.toString()

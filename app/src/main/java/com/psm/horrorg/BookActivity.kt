@@ -1,5 +1,6 @@
 package com.psm.horrorg
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.*
@@ -15,6 +16,7 @@ class BookActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
     var spinner: Spinner? = null
     var radioGroup: RadioGroup? = null
     var radioButton: RadioButton? = null
+    var DBBooks = dbBooks(this@BookActivity)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,52 +48,29 @@ class BookActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
             Toast.makeText(this,"Favor de llenar los campos", Toast.LENGTH_LONG).show()
             canInsert = false
         }
-        var isRadio: Boolean = checkRadioButton(v)
-
-        var DBBooks = dbBooks(this@BookActivity)
 
         spinner?.onItemSelectedListener = this
 
         val selectedId: Int = radioGroup!!.checkedRadioButtonId
 
-        // find the radiobutton by returned id
-
-        // find the radiobutton by returned id
         if(selectedId!=-1){
             radioButton = findViewById<View>(selectedId) as RadioButton
             Toast.makeText(this, radioButton!!.text.toString(), Toast.LENGTH_LONG).show()
         }
 
 
-        if(canInsert){
+        if(canInsert && radioButton!=null){
             var id:Long = DBBooks.insertBook(Usuario.getId(), this.et_create_title.text.toString(), this.et_create_sinopsis.text.toString(), 1, 1, "Hola", "Prueba")
+            if(id>0){
+                Toast.makeText(this, "Libro creado con éxito", Toast.LENGTH_LONG).show()
+                val intent = Intent(this,DrawerActivity::class.java)
+                startActivity(intent)
+            }
         }
         else{
             Toast.makeText(this,"Favor de llenar los campos", Toast.LENGTH_LONG).show()
         }
 
-
-
-
-
-    }
-
-    private fun checkRadioButton(view: View): Boolean {
-        var flag = false
-        if(view is RadioButton){
-            val checked = view.isChecked
-            when (view.getId()){
-                R.id.rb_create_yes ->
-                    if(checked){
-                        flag = true
-                    }
-                R.id.rb_create_no ->
-                    if(checked){
-                        flag = false
-                    }
-            }
-        }
-        return flag
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
