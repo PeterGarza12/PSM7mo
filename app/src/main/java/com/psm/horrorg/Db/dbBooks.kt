@@ -83,24 +83,4 @@ class dbBooks(var context: Context?) : DbHelper(context) {
 
         return myBooks
     }
-
-    /*fun verLibros(userId: Int?): User {
-        val dbHelper = DbHelper(context)
-        val db = dbHelper.writableDatabase
-
-        val user = User()
-        val cursorUser: Cursor
-        cursorUser = db.rawQuery(
-            "select * from User where UserName = ? LIMIT 1",
-            arrayOf(username)
-        )
-        if (cursorUser.moveToFirst()) {
-            user.id = cursorUser.getInt(0)
-            user.username = cursorUser.getString(1)
-            user.password = cursorUser.getString(2)
-            user.dateBirth = cursorUser.getString(3)
-        }
-        cursorUser.close()
-        return user
-    }*/
 }

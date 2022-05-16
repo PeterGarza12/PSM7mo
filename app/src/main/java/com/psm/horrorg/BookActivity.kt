@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.psm.horrorg.Db.dbBooks
+import com.psm.horrorg.Db.dbImages
 import com.psm.horrorg.Model.Usuario
 import kotlinx.android.synthetic.main.activity_createbook.*
 import java.io.ByteArrayOutputStream
@@ -21,7 +22,10 @@ class BookActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
     var spinner: Spinner? = null
     var radioGroup: RadioGroup? = null
     var radioButton: RadioButton? = null
+    var imgid: Int = 0
+
     var DBBooks = dbBooks(this@BookActivity)
+    var dbimg = dbImages(this@BookActivity)
 
     private val pickImage = 100
     private var imageUri: Uri? = null
@@ -40,6 +44,8 @@ class BookActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
 
 
         spinner = findViewById(R.id.sp_create_category)
+        spinner?.onItemSelectedListener = this
+
         radioGroup = findViewById(R.id.rg_create_question)
 
         imageView = findViewById(R.id.iv_create_image)
@@ -54,22 +60,12 @@ class BookActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
 
     }
 
+    //Función que obtiene la imagen y la manda a la db
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK && requestCode == pickImage) {
             imageUri = data?.data
             imageView.setImageURI(imageUri)
-
-            bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, imageUri)
-
-            bytes = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.PNG, 0, bytes)
-
-            byteImage = bytes.toByteArray()
-
-            Toast.makeText(this, radioButton!!.text.toString(), Toast.LENGTH_LONG).show()
-
-
         }
     }
 
@@ -86,7 +82,7 @@ class BookActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
             canInsert = false
         }
 
-        spinner?.onItemSelectedListener = this
+
 
         val selectedId: Int = radioGroup!!.checkedRadioButtonId
 
@@ -106,8 +102,13 @@ class BookActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
             }
         }
 
+        imgid = idDeLaImagen()
+        if(imgid==0){
+            canInsert = false;
+        }
+
         if(canInsert && radioButton!=null){
-            var id:Long = DBBooks.insertBook(Usuario.getId(), this.et_create_title.text.toString(), this.et_create_sinopsis.text.toString(), 1, idGenre, "Hola", "Prueba")
+            var id:Long = DBBooks.insertBook(Usuario.getId(), this.et_create_title.text.toString(), this.et_create_sinopsis.text.toString(), imgid, idGenre, "Hola", "Prueba")
             if(id>0){
                 Toast.makeText(this, "Libro creado con éxito", Toast.LENGTH_LONG).show()
                 val intent = Intent(this,DrawerActivity::class.java)
@@ -118,6 +119,24 @@ class BookActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
             Toast.makeText(this,"Favor de llenar los campos", Toast.LENGTH_LONG).show()
         }
 
+    }
+
+    private fun idDeLaImagen(): Int{
+        var id = 0
+
+        if(imageUri!=null){
+            bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, imageUri)
+
+            bytes = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.PNG, 0, bytes)
+
+            byteImage = bytes.toByteArray()
+
+            id = dbimg.insertImage(byteImage)
+
+        }
+
+        return id
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {

@@ -2,6 +2,7 @@ package com.psm.horrorg.Adapter
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,8 @@ import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.psm.horrorg.Data.ALBUM_POSITION
+import com.psm.horrorg.Db.dbBooks
+import com.psm.horrorg.Db.dbImages
 import com.psm.horrorg.Model.Libros
 import com.psm.horrorg.R
 import com.psm.horrorg.SinopsisBookActivity
@@ -18,6 +21,7 @@ import kotlinx.android.synthetic.main.activity_main.view.*
 class AdaptadorLibros(private val listaLibros: MutableList<Libros>, val context: Context):
     RecyclerView.Adapter<AdaptadorLibros.GroupViewholder>(){
 
+    var dbImg = dbImages(this.context)
 
     inner class GroupViewholder(itemView: View): RecyclerView.ViewHolder(itemView), View.OnClickListener {
         var libroPosition = 0
@@ -36,7 +40,8 @@ class AdaptadorLibros(private val listaLibros: MutableList<Libros>, val context:
                 ivBook.setImageBitmap(ImageUtilities.getBitMapFromByteArray(libros.imgArray!!))
             }
 
-            ivBook.imageAlpha = libros.intIdImage
+            var imageBitmap: Bitmap? = dbImg.getImage(libros.intIdImage)
+            ivBook.setImageBitmap(imageBitmap);
             tvBookName.text = libros.strTitle
             tvCategoryBook.text = libros.genre.toString()
             tvDescriptionBook.text = libros.strDescription
