@@ -32,13 +32,13 @@ class ProfileUser : Fragment(R.layout.profile_user) {
         val txtPassword = view.findViewById<TextView>(R.id.txtPassword)
         val txtDate = view.findViewById<TextView>(R.id.txtDate)
 
-        user=DbUsers.verUser(Usuario.getUsername())
 
-        if(user!=null){
-            txtUsername.text = user.username.toString()
-            txtPassword.text=user.password.toString()
-            txtDate.text=user.dateBirth.toString()
-        }
+
+
+            txtUsername.text =Usuario.getUsername()
+            txtPassword.text=Usuario.getPassword()
+            txtDate.text=Usuario.getDateBirth()
+
 
 
         val editProfile = view.findViewById<Button>(R.id.btn_editProfile)
