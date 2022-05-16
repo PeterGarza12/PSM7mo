@@ -105,7 +105,6 @@ class BookActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
         imgid = idDeLaImagen()
         if(imgid==0){
             canInsert = false;
-            Toast.makeText(this,"Favor de seleccionar una imagen", Toast.LENGTH_LONG).show()
         }
 
         if(canInsert && radioButton!=null){

@@ -22,11 +22,6 @@
             android:exported="false"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
-            android:name=".CreateChapterActivity"
-            android:exported="false"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:windowSoftInputMode="adjustResize"/>
-        <activity
             android:name=".DrawerActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.NoActionBar">
