@@ -73,7 +73,7 @@ class EditProfileUser: AppCompatActivity(),View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
-        if(v!!.id== R.id.btn_Login){
+        if(v!!.id== R.id.btn_edit_update){
             showInfo()
         }
 
@@ -86,14 +86,14 @@ class EditProfileUser: AppCompatActivity(),View.OnClickListener {
         }else{
 
             var Dbusers = dbUsers(this@EditProfileUser)
-            var resultado: Boolean =Dbusers.modificarUser(Usuario.getUsername().toString(),this.id_password.text.toString(),this.editDate.text.toString())
+            var resultado: Boolean =Dbusers.modificarUser(Usuario.getUsername(),this.id_password.text.toString(),this.editDate.text.toString())
 
             if(resultado){
                 user = Dbusers.verUser(Usuario.getUsername())
                 if(user!=null){
                     Usuario.setUsuario(user.id, user.username.toString(), user.password.toString(), user.dateBirth.toString())
                     Toast.makeText(this,"Usuario modificado",Toast.LENGTH_LONG).show();
-                    val intent=Intent(this,ProfileUser::class.java)
+                    val intent=Intent(this,DrawerActivity::class.java)
                     startActivity(intent)
                 }
 
