@@ -99,6 +99,7 @@ class HomeFragment: Fragment(){
                 do{
     
                     libro = Libros()
+                    libro.userId = cursorUser.getInt(1)
                     libro.strTitle =  cursorUser.getString(2)
                     libro.strDescription = cursorUser.getString(3)
                     //
