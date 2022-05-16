@@ -6,26 +6,21 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
-import android.widget.*
+import android.widget.ImageView
+import android.widget.RadioButton
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.psm.horrorg.Db.dbBooks
 import com.psm.horrorg.Db.dbImages
 import com.psm.horrorg.Model.Usuario
+import com.psm.horrorg.R
+import kotlinx.android.synthetic.main.activity_addchapter.*
 import kotlinx.android.synthetic.main.activity_createbook.*
+import kotlinx.android.synthetic.main.activity_sinopsis_book.*
 import java.io.ByteArrayOutputStream
 
+class CreateChapterActivity: AppCompatActivity(), View.OnClickListener {
 
-class BookActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnItemSelectedListener {
-
-    private var spinnerSelected: String ="Suspenso"
-
-    var spinner: Spinner? = null
-    var radioGroup: RadioGroup? = null
-    var radioButton: RadioButton? = null
     var imgid: Int = 0
-
-    var DBBooks = dbBooks(this@BookActivity)
-    var dbimg = dbImages(this@BookActivity)
 
     private val pickImage = 100
     private var imageUri: Uri? = null
@@ -34,29 +29,20 @@ class BookActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
     lateinit var bytes: ByteArrayOutputStream
     lateinit var byteImage: ByteArray
 
+    var dbimg = dbImages(this@CreateChapterActivity)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_createbook)
+        setContentView(R.layout.activity_addchapter)
 
+        btn_addchapter_upload.setOnClickListener(this)
 
-        btn_create_upload.setOnClickListener(this)
-
-
-        spinner = findViewById(R.id.sp_create_category)
-        spinner?.onItemSelectedListener = this
-
-        radioGroup = findViewById(R.id.rg_create_question)
-
-        imageView = findViewById(R.id.iv_create_image)
-        val imageButton = findViewById<ImageView>(R.id.btnOpenPhotoReel)
+        imageView = findViewById(R.id.iv_add_chapter)
+        val imageButton = findViewById<ImageView>(R.id.btn_addchapter_photo)
         imageButton.setOnClickListener {
             val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
             startActivityForResult(gallery, pickImage)
         }
-
-
-
 
     }
 
@@ -71,35 +57,15 @@ class BookActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
 
     override fun onClick(v: View){
         if(v!!.id == R.id.btn_create_upload){
-            insertBook(v)
+            //TODO: Crear función para insertar el capítulo
         }
     }
 
-    private fun insertBook(v: View){
+    private fun insertChapter(v: View){
         var canInsert = true
         if(this.et_create_title.text.toString()=="" || this.et_create_sinopsis.text.toString()==""){
             Toast.makeText(this,"Favor de llenar los campos", Toast.LENGTH_LONG).show()
             canInsert = false
-        }
-
-
-
-        val selectedId: Int = radioGroup!!.checkedRadioButtonId
-
-        if(selectedId!=-1){
-            radioButton = findViewById<View>(selectedId) as RadioButton
-            Toast.makeText(this, radioButton!!.text.toString(), Toast.LENGTH_LONG).show()
-        }
-
-        var idGenre = 1;
-
-        when(spinnerSelected){
-            "Suspenso" ->  idGenre = 1
-            "Criminología" -> idGenre = 2
-            "Creepypastas" -> idGenre = 3
-            else -> {
-                idGenre = 4
-            }
         }
 
         imgid = idDeLaImagen()
@@ -108,7 +74,7 @@ class BookActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
             Toast.makeText(this,"Favor de seleccionar una imagen", Toast.LENGTH_LONG).show()
         }
 
-        if(canInsert && radioButton!=null){
+        /*if(canInsert){
             var id:Long = DBBooks.insertBook(Usuario.getId(), this.et_create_title.text.toString(), this.et_create_sinopsis.text.toString(), imgid, idGenre, "Hola", "Prueba")
             if(id>0){
                 Toast.makeText(this, "Libro creado con éxito", Toast.LENGTH_LONG).show()
@@ -118,7 +84,7 @@ class BookActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
         }
         else{
             Toast.makeText(this,"Favor de llenar los campos", Toast.LENGTH_LONG).show()
-        }
+        }*/
 
     }
 
@@ -133,21 +99,14 @@ class BookActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
 
             byteImage = bytes.toByteArray()
 
-            id = dbimg.insertImage(byteImage)
+            //id = dbimg.insertImage(byteImage)
 
         }
 
         return id
     }
 
-    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        if (parent != null) {
-            spinnerSelected = parent.getItemAtPosition(position).toString()
-        }
-    }
 
-    override fun onNothingSelected(parent: AdapterView<*>?) {
-        TODO("Not yet implemented")
-    }
+
+
 }
-

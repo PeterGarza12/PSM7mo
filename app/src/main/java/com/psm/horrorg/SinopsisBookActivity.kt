@@ -6,11 +6,8 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.gson.Gson
-import com.psm.horrorg.Data.ALBUM_POSITION
 import com.psm.horrorg.Model.Libros
 import com.psm.horrorg.Model.Usuario
 
