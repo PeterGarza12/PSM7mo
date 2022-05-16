@@ -43,7 +43,7 @@ class dbBooks(var context: Context?) : DbHelper(context) {
         return id
     }
 
-    fun showMyBooks(userId: Int?): MutableList<Libros> {
+   /* fun showMyBooks(userId: Int?): MutableList<Libros> {
         var myBooks = mutableListOf<Libros>()
         myBooks.clear()
         var book = Libros()
@@ -82,5 +82,5 @@ class dbBooks(var context: Context?) : DbHelper(context) {
         }
 
         return myBooks
-    }
+    }*/
 }

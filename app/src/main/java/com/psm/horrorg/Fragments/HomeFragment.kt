@@ -104,7 +104,8 @@ class HomeFragment: Fragment(){
                     //
                     libro.intIdImage = cursorUser.getInt(4)
                     libro.imgArray = dbimg.getImage(libro.intIdImage)
-                    libro.genre =  DataManager.genres[cursorUser.getInt(5)]
+                    var catId = cursorUser.getInt(5)
+                    libro.genre =  dbimg.getCat(catId)
     
                     libros.add(libro)
                 }

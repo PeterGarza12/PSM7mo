@@ -15,19 +15,19 @@ object DataManager {
     }
 
     private fun initializeGenres(){
-        var genre =  Genre(1,"Mas Populares")
+        var genre =  Genre(0,"Mas Populares")
         genres.add(genre)
 
-        genre = Genre(2,"Cuentos Cortos")
+        genre = Genre(1,"Cuentos Cortos")
         genres.add(genre)
 
-        genre = Genre(3,"Suspenso")
+        genre = Genre(2,"Suspenso")
         genres.add(genre)
 
-        genre = Genre(4,"Criminologia")
+        genre = Genre(3,"Criminologia")
         genres.add(genre)
 
-        genre = Genre(5,"Horror")
+        genre = Genre(4,"Horror")
         genres.add(genre)
 
     }

@@ -29,9 +29,15 @@ open class DbHelper(context: Context?):SQLiteOpenHelper(context,DATABASE_NAME,nu
         val COL_BOOKS_TITLEGENRE = "TitleGenre"
         val COL_BOOKS_IMGARRAY = "ImgArray"
 
+        //Img table
         val TABLE_IMG_NAME = "Images"
         val COL_IMG_ID = "Id"
-        val COL_IMG_IMG = "IMAGEN"
+        val COL_IMG_IMG = "Imagen"
+
+        //Genre Table
+        val TABLE_CAT_NAME = "Categories"
+        val COL_CAT_ID = "Id"
+        val COL_CAT_CAT = "Category"
 
     }
 
@@ -55,6 +61,21 @@ open class DbHelper(context: Context?):SQLiteOpenHelper(context,DATABASE_NAME,nu
 
         val CREATE_IMAGES_TABLE_QUERY:String = ("CREATE TABLE IF NOT EXISTS  $TABLE_IMG_NAME ( $COL_IMG_ID INTEGER PRIMARY KEY, $COL_IMG_IMG BLOB)")
         db!!.execSQL(CREATE_IMAGES_TABLE_QUERY)
+
+        val CREATE_CAT_TABLE_QUERY:String = ("CREATE TABLE IF NOT EXISTS  $TABLE_CAT_NAME ( $COL_CAT_ID INTEGER PRIMARY KEY, $COL_CAT_CAT BLOB)")
+        db!!.execSQL(CREATE_CAT_TABLE_QUERY)
+
+        var values = ContentValues()
+        values.put(COL_CAT_CAT, "Suspenso")
+        db.insert(TABLE_CAT_NAME, null, values)
+
+        values = ContentValues()
+        values.put(COL_CAT_CAT, "Criminología")
+        db.insert(TABLE_CAT_NAME, null, values)
+
+        values = ContentValues()
+        values.put(COL_CAT_CAT, "Creepypastas")
+        db.insert(TABLE_CAT_NAME, null, values)
 
     }
 
