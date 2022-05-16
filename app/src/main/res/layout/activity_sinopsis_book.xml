@@ -8,145 +8,173 @@
     android:fillViewport="true">
 
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/portada3"
-    tools:context=".SinopsisBookActivity">
-
-
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/id_appBarLayout"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_sinopsis_background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#000000"
-        android:theme="@style/Theme.Horrorg"
-        app:layout_constraintTop_toTopOf="parent">
+        tools:context=".SinopsisBookActivity">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+
+        <ImageView
+            android:id="@+id/iv_sinopsis_background"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/black"
-            app:logo="@drawable/ic_logo"
-            app:popupTheme="@style/Theme.Horrorg" />
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toTopOf="@+id/id_appBarLayout"
+            app:srcCompat="@drawable/portada3" />
 
-    </com.google.android.material.appbar.AppBarLayout>
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/id_appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#000000"
+            android:theme="@style/Theme.Horrorg"
+            app:layout_constraintTop_toTopOf="parent">
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navegator"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        app:itemBackground="@color/black"
-        app:itemIconTint="@drawable/selector"
-        app:itemTextColor="@drawable/selector"
-        app:menu="@menu/bottom_menu"
-        app:layout_constraintBottom_toBottomOf="parent">
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/black"
+                app:logo="@drawable/ic_logo"
+                app:popupTheme="@style/Theme.Horrorg" />
 
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
+        </com.google.android.material.appbar.AppBarLayout>
 
-    <Button
-        android:id="@+id/btn_Read"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/black"
-        android:fontFamily="@font/reggae_one"
-        android:text="Leer Capitulos"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintHorizontal_bias="0.528"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.877" />
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navegator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            app:itemBackground="@color/black"
+            app:itemIconTint="@drawable/selector"
+            app:itemTextColor="@drawable/selector"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:menu="@menu/bottom_menu">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="80dp"
+        </com.google.android.material.bottomnavigation.BottomNavigationView>
 
-        android:background="#D0535252"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
+        <Button
+            android:id="@+id/btn_Read"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/black"
+            android:fontFamily="@font/reggae_one"
+            android:text="Leer Capitulos"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintEnd_toEndOf="@+id/imageView"
+            app:layout_constraintHorizontal_bias="0.528"
+            app:layout_constraintStart_toStartOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="@+id/imageView"
+            app:layout_constraintVertical_bias="0.877" />
 
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        <Button
+            android:id="@+id/btn_add_chapter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/black"
+            android:fontFamily="@font/reggae_one"
+            android:text="Agregar capitulo"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintEnd_toEndOf="@+id/imageView"
+            app:layout_constraintHorizontal_bias="0.528"
+            app:layout_constraintStart_toStartOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="@+id/imageView"
+            app:layout_constraintVertical_bias="0.877" />
 
-    <TextView
-        android:id="@+id/txt_Download"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:gravity="center"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        android:text="Descargar Documento"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/btn_Read"
-        app:layout_constraintTop_toBottomOf="@+id/btn_Read"
-        app:layout_constraintVertical_bias="0.638" />
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="80dp"
 
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/txt_Download"
-        app:layout_constraintStart_toEndOf="@+id/txt_Download"
-        app:layout_constraintTop_toTopOf="@+id/txt_Download"
-        app:srcCompat="@drawable/ic_download_24" />
+            android:background="#D0535252"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
 
-    <TextView
-        android:id="@+id/txt_titulo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="Al Final del Pasillo"
-        android:textColor="@color/white"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/imageView" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/txt_Categoria"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="104dp"
-        android:text="Cuento corto"
-        android:textColor="@color/white"
-        android:textSize="15dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/txt_titulo"
-        app:layout_constraintStart_toStartOf="@+id/txt_titulo"
-        app:layout_constraintTop_toTopOf="@+id/imageView" />
+        <TextView
+            android:id="@+id/txt_Download"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            android:text="Descargar Documento"
+            android:textColor="#9E9E9E"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintEnd_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toStartOf="@+id/imageView"
+            app:layout_constraintVertical_bias="0.638"
+            android:layout_marginBottom="20dp"
+            tools:ignore="TextContrastCheck" />
 
-    <TextView
-        android:id="@+id/txt_Descripcion"
-        android:layout_width="222dp"
-        android:layout_height="171dp"
-        android:layout_marginStart="38dp"
-        android:layout_marginTop="180dp"
-        android:layout_marginEnd="24dp"
-        android:text="Una noche Mientras Regresaba de la casa de mis padres despues de una dura pelea mi proposito era descansar, no me esperaba que al pasar por la puerta mi vida correria peligro"
-        android:textColor="@color/white"
-        android:textSize="18dp"
-        android:textStyle="italic"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/imageView" />
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_Download"
+            app:layout_constraintStart_toEndOf="@+id/txt_Download"
+            app:layout_constraintTop_toTopOf="@+id/txt_Download"
+            app:srcCompat="@drawable/ic_download_24"
+            tools:ignore="ImageContrastCheck" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/txt_titulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="Al Final del Pasillo"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toStartOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+        <TextView
+            android:id="@+id/txt_Categoria"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="104dp"
+            android:text="Cuento corto"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/txt_titulo"
+            app:layout_constraintStart_toStartOf="@+id/txt_titulo"
+            app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+        <TextView
+            android:id="@+id/txt_Descripcion"
+            android:layout_width="222dp"
+            android:layout_height="171dp"
+            android:layout_marginStart="38dp"
+            android:layout_marginTop="180dp"
+            android:layout_marginEnd="24dp"
+            android:text="Una noche Mientras Regresaba de la casa de mis padres despues de una dura pelea mi proposito era descansar, no me esperaba que al pasar por la puerta mi vida correria peligro"
+            android:textColor="@color/white"
+            android:textSize="18dp"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toStartOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

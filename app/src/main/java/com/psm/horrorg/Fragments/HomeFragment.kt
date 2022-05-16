@@ -99,12 +99,14 @@ class HomeFragment: Fragment(){
                 do{
     
                     libro = Libros()
+                    libro.userId = cursorUser.getInt(1)
                     libro.strTitle =  cursorUser.getString(2)
                     libro.strDescription = cursorUser.getString(3)
                     //
                     libro.intIdImage = cursorUser.getInt(4)
                     libro.imgArray = dbimg.getImage(libro.intIdImage)
-                    libro.genre =  DataManager.genres[cursorUser.getInt(5)]
+                    var catId = cursorUser.getInt(5)
+                    libro.genre =  dbimg.getCat(catId)
     
                     libros.add(libro)
                 }

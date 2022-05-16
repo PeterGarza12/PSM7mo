@@ -74,9 +74,31 @@ class dbImages (var context: Context?) : DbHelper(context) {
         catch (ex: Exception){
 
         }
-
         return bitmap
+    }
+    fun getCat(catId: Int): String{
+        val dbHelper = DbHelper(context)
+        val db = dbHelper.readableDatabase
+        var categoria = "Holi"
 
+        try {
+            val cursorUser: Cursor
+            cursorUser = db.rawQuery(
+                "select $COL_CAT_CAT from $TABLE_CAT_NAME where $COL_CAT_ID = ?",
+                arrayOf(catId.toString())
+            )
+            if (cursorUser.moveToFirst()) {
+
+                categoria = cursorUser.getString(0)
+                cursorUser.close()
+
+            }
+
+        }
+        catch (ex: Exception){
+
+        }
+        return categoria
     }
 
 }
