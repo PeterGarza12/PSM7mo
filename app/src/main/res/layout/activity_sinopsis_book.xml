@@ -70,6 +70,24 @@
             app:layout_constraintTop_toTopOf="@+id/imageView"
             app:layout_constraintVertical_bias="0.877" />
 
+        <Button
+            android:id="@+id/btn_add_chapter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/black"
+            android:fontFamily="@font/reggae_one"
+            android:text="Agregar capitulo"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintEnd_toEndOf="@+id/imageView"
+            app:layout_constraintHorizontal_bias="0.528"
+            app:layout_constraintStart_toStartOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="@+id/imageView"
+            app:layout_constraintVertical_bias="0.877" />
+
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="0dp"
@@ -100,9 +118,10 @@
             android:textColor="#9E9E9E"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/imageView"
-            app:layout_constraintStart_toStartOf="@+id/btn_Read"
-            app:layout_constraintTop_toBottomOf="@+id/btn_Read"
+            app:layout_constraintEnd_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toStartOf="@+id/imageView"
             app:layout_constraintVertical_bias="0.638"
+            android:layout_marginBottom="20dp"
             tools:ignore="TextContrastCheck" />
 
         <ImageView
