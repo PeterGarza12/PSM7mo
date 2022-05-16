@@ -11,7 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.psm.horrorg.DatePicker.DatePickerFragment
+import com.psm.horrorg.DatePicker.DatePickerEdit
 import com.psm.horrorg.Db.dbUsers
 import com.psm.horrorg.Fragments.ProfileUser
 import com.psm.horrorg.Model.User
@@ -37,7 +37,7 @@ class EditProfileUser: AppCompatActivity(),View.OnClickListener {
         val txtPassword = findViewById<EditText>(R.id.id_password)
         val txtConfirmPassword = findViewById<EditText>(R.id.id_confirmPassword)
 
-        val btnCancelar = findViewById<Button>(R.id.btn_edit_cancel)
+
         val btnUpdate = findViewById<Button>(R.id.btn_edit_update)
 
         val DbUsers= dbUsers(this)
@@ -45,15 +45,15 @@ class EditProfileUser: AppCompatActivity(),View.OnClickListener {
         user=DbUsers.verUser(Usuario.getUsername())
 
         if(user!=null){
-            txtUsername.text = user!!.username.toString()
-            txtDate.text= user!!.dateBirth.toString()
-            txtPassword.setText(user!!.password.toString())
-            txtConfirmPassword.setText(user!!.password.toString())
+            txtUsername.text = Usuario.getUsername()
+            txtDate.text= Usuario.getDateBirth()
+            txtPassword.setText(Usuario.getPassword())
+            txtConfirmPassword.setText(Usuario.getPassword())
         }
 
-        txtDate.setOnClickListener{showDatePickerDialog()}
-        btnCancelar.setOnClickListener {
-            val intent = Intent(this, ProfileUser::class.java)
+        editDate.setOnClickListener{showDatePickerDialog()}
+        btn_edit_cancel.setOnClickListener {
+            val intent=Intent(this,DrawerActivity::class.java)
             startActivity(intent)
 
         }
@@ -63,12 +63,12 @@ class EditProfileUser: AppCompatActivity(),View.OnClickListener {
     private fun showDatePickerDialog() {
         // Creamos un  objeto
         // Hay que mencionar las variables que queremos utilizar para que las agarre
-        val datePicker= DatePickerFragment{day, month, year-> onDateSelected(day, month, year)}
+        val datePicker= DatePickerEdit{ day, month, year-> onDateSelected(day, month, year)}
         datePicker.show(supportFragmentManager,"datePicker")
     }
 
     private fun onDateSelected(day:Int, month:Int, year:Int){
-        editTextDate.setText("$day/$month/$year")
+        editDate.setText("$day/$month/$year")
 
     }
 

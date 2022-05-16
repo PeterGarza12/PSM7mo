@@ -25,7 +25,6 @@ class MainActivity : AppCompatActivity() {
         var txtbtnCrear = findViewById<View>(R.id.btnCrear)
 
         txtbtnCrear.setOnClickListener{
-
             val dbHelper = DbHelper(this)
             val db = dbHelper.writableDatabase
             if(db !=null){
