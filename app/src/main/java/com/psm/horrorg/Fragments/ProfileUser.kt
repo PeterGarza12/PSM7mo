@@ -29,7 +29,6 @@ class ProfileUser : Fragment(R.layout.profile_user) {
 
         val txtUsername=view.findViewById<TextView>(R.id.txtUsername)
 
-        val txtUsername2=view.findViewById<TextView>(R.id.txtUsername2)
         val txtPassword = view.findViewById<TextView>(R.id.txtPassword)
         val txtDate = view.findViewById<TextView>(R.id.txtDate)
 
@@ -37,7 +36,6 @@ class ProfileUser : Fragment(R.layout.profile_user) {
 
         if(user!=null){
             txtUsername.text = user.username.toString()
-            txtUsername2.text= user.username.toString()
             txtPassword.text=user.password.toString()
             txtDate.text=user.dateBirth.toString()
         }

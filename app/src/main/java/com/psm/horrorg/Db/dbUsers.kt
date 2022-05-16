@@ -32,6 +32,7 @@ class dbUsers(var context: Context?) : DbHelper(context) {
         val db = dbHelper.writableDatabase
 
         val user = User()
+
         val cursorUser: Cursor
         cursorUser = db.rawQuery(
             "select * from User where UserName = ? LIMIT 1",
@@ -45,5 +46,23 @@ class dbUsers(var context: Context?) : DbHelper(context) {
         }
         cursorUser.close()
         return user
+    }
+    fun modificarUser(username: String?,password: String?,date: String?): Boolean {
+
+        var correcto:Boolean = false
+        val dbHelper = DbHelper(context!!)
+
+        val db = dbHelper.writableDatabase
+        try {
+            correcto=true
+            db.execSQL("UPDATE User SET Password='"+password+"',DateBirth = '"+date+"' WHERE UserName ='"+username+"'")
+        } catch (ex: Exception) {
+            ex.toString()
+            correcto=false
+        }finally {
+            db.close()
+        }
+        return correcto
+
     }
 }
