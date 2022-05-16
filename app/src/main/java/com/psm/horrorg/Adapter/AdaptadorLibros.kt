@@ -33,15 +33,16 @@ class AdaptadorLibros(private val listaLibros: MutableList<Libros>, val context:
             val tvDescriptionBook = itemView.findViewById<TextView>(R.id.tv_descripcion_libro)
             val contenedorLibros = itemView.findViewById<LinearLayout>(R.id.contenedor_libros)
 
-            if (libros.imgArray == null) {
+            /*if (libros.imgArray == null) {
                 //ivBook.setImageResource(libros.intIdImage!!)
                 Toast.makeText(context, "No hay imagen", Toast.LENGTH_SHORT).show()
             } else {
                 ivBook.setImageBitmap(ImageUtilities.getBitMapFromByteArray(libros.imgArray!!))
-            }
+            }*/
 
-            var imageBitmap: Bitmap? = dbImg.getImage(libros.intIdImage)
-            ivBook.setImageBitmap(imageBitmap);
+            //var imageBitmap: Bitmap? = dbImg.getImage(libros.intIdImage)
+            //ivBook.setImageBitmap(imageBitmap);
+            ivBook.setImageBitmap(libros.imgArray);
             tvBookName.text = libros.strTitle
             tvCategoryBook.text = libros.genre.toString()
             tvDescriptionBook.text = libros.strDescription

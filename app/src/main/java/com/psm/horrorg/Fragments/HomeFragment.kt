@@ -23,6 +23,7 @@ import com.psm.horrorg.Data.DataManager
 import com.psm.horrorg.Data.LOREMIPSUM
 import com.psm.horrorg.Db.DbHelper
 import com.psm.horrorg.Db.dbBooks
+import com.psm.horrorg.Db.dbImages
 import com.psm.horrorg.DrawerActivity
 import com.psm.horrorg.Model.Libros
 import com.psm.horrorg.Model.Usuario
@@ -44,6 +45,8 @@ class HomeFragment: Fragment(){
     private var libros = mutableListOf<Libros>()
     private var librosAdaptador: AdaptadorLibros? = null
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -52,10 +55,11 @@ class HomeFragment: Fragment(){
 
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
-        var DBBooks = DbHelper(this.context2!!)
+        var dbhelper = DbHelper(this.context2!!)
+        var dbImg = dbImages(this.context2!!)
 
         this.librosAdaptador = AdaptadorLibros(libros, this.context2!!)
-        getLibros(view, DBBooks)
+        getLibros(view, dbhelper, dbImg)
 
         view.findViewById<FloatingActionButton>(R.id.fab_CreateBook).setOnClickListener { view ->
 
@@ -69,7 +73,7 @@ class HomeFragment: Fragment(){
         return view
     }
 
-    private fun getLibros(view: View, dbHelper: DbHelper) {
+    private fun getLibros(view: View, dbHelper: DbHelper, dbimg: dbImages) {
         Toast.makeText(context, "Sí entraaaaa", Toast.LENGTH_SHORT).show()
 
         val rv_grupos = view.findViewById<RecyclerView>(R.id.rv_libros)
@@ -97,8 +101,9 @@ class HomeFragment: Fragment(){
                     libro = Libros()
                     libro.strTitle =  cursorUser.getString(2)
                     libro.strDescription = cursorUser.getString(3)
-                    //album.imgArray =  ImageUtilities.getByteArrayFromResourse(R.drawable.beatles01,content!!)
+                    //
                     libro.intIdImage = cursorUser.getInt(4)
+                    libro.imgArray = dbimg.getImage(libro.intIdImage)
                     libro.genre =  DataManager.genres[cursorUser.getInt(5)]
     
                     libros.add(libro)
