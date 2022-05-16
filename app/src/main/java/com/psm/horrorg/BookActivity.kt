@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.psm.horrorg.Db.dbBooks
+import com.psm.horrorg.Db.dbChapters
 import com.psm.horrorg.Db.dbImages
 import com.psm.horrorg.Model.Usuario
 import kotlinx.android.synthetic.main.activity_createbook.*

@@ -2,21 +2,17 @@ package com.psm.horrorg.Adapter
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
-import com.psm.horrorg.Data.ALBUM_POSITION
-import com.psm.horrorg.Db.dbBooks
 import com.psm.horrorg.Db.dbImages
+import com.psm.horrorg.Model.Libro
 import com.psm.horrorg.Model.Libros
 import com.psm.horrorg.R
 import com.psm.horrorg.SinopsisBookActivity
-import com.psm.horrorg.Utilities.ImageUtilities
-import kotlinx.android.synthetic.main.activity_main.view.*
 
 class AdaptadorLibros(private val listaLibros: MutableList<Libros>, val context: Context):
     RecyclerView.Adapter<AdaptadorLibros.GroupViewholder>(){
@@ -59,9 +55,12 @@ class AdaptadorLibros(private val listaLibros: MutableList<Libros>, val context:
             when(v!!.id){
                 R.id.framegroup->{
                     //TODO("Lanzar el activity del libro")
-                    val gson = Gson()
+                    Libro.setLibro(listaLibros[libroPosition].libroId, listaLibros[libroPosition].userId, listaLibros[libroPosition].strTitle.toString(),
+                        listaLibros[libroPosition].strDescription.toString(), listaLibros[libroPosition].intIdImage, listaLibros[libroPosition].genre.toString(),
+                        listaLibros[libroPosition].imgArray)
+                    //val gson = Gson()
                     val activityIntent = Intent(context, SinopsisBookActivity::class.java)
-                    activityIntent.putExtra("Libro", gson.toJson(listaLibros[libroPosition]))
+                    //activityIntent.putExtra("Libro", gson.toJson(listaLibros[libroPosition]))
                     context.startActivity(activityIntent)
                 }
             }

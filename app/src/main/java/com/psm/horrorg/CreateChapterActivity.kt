@@ -6,11 +6,11 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
-import android.widget.ImageView
-import android.widget.RadioButton
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.psm.horrorg.Db.dbChapters
 import com.psm.horrorg.Db.dbImages
+import com.psm.horrorg.Model.Libro
 import com.psm.horrorg.Model.Usuario
 import com.psm.horrorg.R
 import kotlinx.android.synthetic.main.activity_addchapter.*
@@ -29,7 +29,7 @@ class CreateChapterActivity: AppCompatActivity(), View.OnClickListener {
     lateinit var bytes: ByteArrayOutputStream
     lateinit var byteImage: ByteArray
 
-    var dbimg = dbImages(this@CreateChapterActivity)
+    var dbchapter = dbChapters(this@CreateChapterActivity)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,26 +56,28 @@ class CreateChapterActivity: AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(v: View){
-        if(v!!.id == R.id.btn_create_upload){
-            //TODO: Crear función para insertar el capítulo
+        if(v!!.id == R.id.btn_addchapter_upload){
+            insertChapter(v)
         }
     }
 
     private fun insertChapter(v: View){
         var canInsert = true
-        if(this.et_create_title.text.toString()=="" || this.et_create_sinopsis.text.toString()==""){
+        if(this.et_addchapter_title.text.toString() == "" || this.et_addchapter_body.text.toString()==""){
             Toast.makeText(this,"Favor de llenar los campos", Toast.LENGTH_LONG).show()
             canInsert = false
         }
 
-        imgid = idDeLaImagen()
-        if(imgid==0){
+        var isImage = createImage()
+        if(!isImage){
             canInsert = false;
             Toast.makeText(this,"Favor de seleccionar una imagen", Toast.LENGTH_LONG).show()
         }
 
-        /*if(canInsert){
-            var id:Long = DBBooks.insertBook(Usuario.getId(), this.et_create_title.text.toString(), this.et_create_sinopsis.text.toString(), imgid, idGenre, "Hola", "Prueba")
+        var idlibro = Libro.getId()
+
+        if(canInsert){
+            var id:Long = dbchapter.insertChapter(this.et_addchapter_title.text.toString(), this.et_addchapter_body.text.toString(), byteImage, Libro.getId())
             if(id>0){
                 Toast.makeText(this, "Libro creado con éxito", Toast.LENGTH_LONG).show()
                 val intent = Intent(this,DrawerActivity::class.java)
@@ -84,12 +86,13 @@ class CreateChapterActivity: AppCompatActivity(), View.OnClickListener {
         }
         else{
             Toast.makeText(this,"Favor de llenar los campos", Toast.LENGTH_LONG).show()
-        }*/
+        }
 
     }
 
-    private fun idDeLaImagen(): Int{
-        var id = 0
+    private fun createImage(): Boolean{
+
+        var result = false
 
         if(imageUri!=null){
             bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, imageUri)
@@ -99,11 +102,11 @@ class CreateChapterActivity: AppCompatActivity(), View.OnClickListener {
 
             byteImage = bytes.toByteArray()
 
-            //id = dbimg.insertImage(byteImage)
+            result = true
 
         }
 
-        return id
+        return result
     }
 
 

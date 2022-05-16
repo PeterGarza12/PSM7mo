@@ -7,28 +7,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SearchView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.psm.horrorg.Adapter.AdaptadorLibros
 import com.psm.horrorg.BookActivity
-import com.psm.horrorg.BookRecycleAdapter
 import com.psm.horrorg.Data.ALBUM_POSITION
 import com.psm.horrorg.Data.DEFAULT_ALBUM_POSITION
-import com.psm.horrorg.Data.DataManager
-import com.psm.horrorg.Data.LOREMIPSUM
 import com.psm.horrorg.Db.DbHelper
-import com.psm.horrorg.Db.dbBooks
 import com.psm.horrorg.Db.dbImages
-import com.psm.horrorg.DrawerActivity
 import com.psm.horrorg.Model.Libros
 import com.psm.horrorg.Model.Usuario
 import com.psm.horrorg.R
-import kotlinx.android.synthetic.main.content_list.*
 
 class HomeFragment: Fragment(){
 
@@ -99,6 +90,7 @@ class HomeFragment: Fragment(){
                 do{
     
                     libro = Libros()
+                    libro.libroId = cursorUser.getInt(0)
                     libro.userId = cursorUser.getInt(1)
                     libro.strTitle =  cursorUser.getString(2)
                     libro.strDescription = cursorUser.getString(3)

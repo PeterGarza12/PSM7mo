@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
+import com.psm.horrorg.Model.Libro
 import com.psm.horrorg.Model.Libros
 import com.psm.horrorg.Model.Usuario
 
@@ -17,8 +18,8 @@ class SinopsisBookActivity : AppCompatActivity() {
         setContentView(R.layout.activity_sinopsis_book)
 
 
-        val gson = Gson()
-        val miLibro = gson.fromJson(intent.getStringExtra("Libro"), Libros::class.java)
+        //val gson = Gson()
+        //val miLibro = gson.fromJson(intent.getStringExtra("Libro"), Libros::class.java)
 
 
         val tvTitle = findViewById<TextView>(R.id.txt_titulo)
@@ -26,17 +27,23 @@ class SinopsisBookActivity : AppCompatActivity() {
         val tvDescription = findViewById<TextView>(R.id.txt_Descripcion)
         val background = findViewById<ImageView>(R.id.iv_sinopsis_background)
 
-        tvTitle.text = miLibro.strTitle
+        /*tvTitle.text = miLibro.strTitle
         tvCategory.text = miLibro.genre.toString()
         tvDescription.text = miLibro.strDescription
-        background.setImageBitmap(miLibro.imgArray)
+        background.setImageBitmap(miLibro.imgArray)*/
+
+        tvTitle.text = Libro.getTitle()
+        tvCategory.text = Libro.getGenre()
+        tvDescription.text = Libro.getDescription()
+        background.setImageBitmap(Libro.getimgArray())
 
 
 
         val btnRead = findViewById<Button>(R.id.btn_Read)
         val btnCreate = findViewById<Button>(R.id.btn_add_chapter)
 
-        if(miLibro.userId == Usuario.getId()){
+        //if(miLibro.userId == Usuario.getId()){
+        if(Libro.getUserId() == Usuario.getId()){
             btnRead.visibility = View.GONE
             btnCreate.visibility = View.VISIBLE
         }

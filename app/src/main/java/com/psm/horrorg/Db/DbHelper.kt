@@ -39,6 +39,13 @@ open class DbHelper(context: Context?):SQLiteOpenHelper(context,DATABASE_NAME,nu
         val COL_CAT_ID = "Id"
         val COL_CAT_CAT = "Category"
 
+        //Chapters Table
+        val TABLE_CH_NAME = "Chapters"
+        val COL_CH_ID = "Id"
+        val COL_CH_TITLE = "Titulo"
+        val COL_CH_BODY = "Cuerpo"
+        val COL_CH_IMAGE = "Imagen"
+        val COL_CH_BOOKID = "BookId"
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
@@ -76,6 +83,16 @@ open class DbHelper(context: Context?):SQLiteOpenHelper(context,DATABASE_NAME,nu
         values = ContentValues()
         values.put(COL_CAT_CAT, "Creepypastas")
         db.insert(TABLE_CAT_NAME, null, values)
+
+        val CREATE_CHAPTERS_TABLE_QUERY:String = ("CREATE TABLE IF NOT EXISTS  $TABLE_CH_NAME ( " +
+                "$COL_CH_ID INTEGER PRIMARY KEY, " +
+                "$COL_CH_TITLE TEXT, " +
+                "$COL_CH_BODY TEXT, " +
+                "$COL_CH_IMAGE BLOB, " +
+                "$COL_CH_BOOKID INTEGER, " +
+                "FOREIGN KEY($COL_CH_BOOKID) REFERENCES $TABLE_BOOKS_NAME($COL_BOOKS_ID)" +
+                ")")
+        db!!.execSQL(CREATE_CHAPTERS_TABLE_QUERY)
 
     }
 

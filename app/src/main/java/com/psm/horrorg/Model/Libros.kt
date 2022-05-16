@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import com.psm.horrorg.Data.Genre
 
 class Libros  (
+    var libroId: Int = 0,
     var userId: Int = 0,
     var strTitle:String? = null,
     var strDescription:String? =  null,
