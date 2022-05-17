@@ -9,8 +9,13 @@ import android.widget.Toast
 import com.psm.horrorg.Db.DbHelper
 import com.psm.horrorg.Db.dbUsers
 import com.psm.horrorg.Model.User
+import com.psm.horrorg.Model.User2
 import com.psm.horrorg.Model.Usuario
 import kotlinx.android.synthetic.main.activity_main.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -52,15 +57,16 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "Ingresar información de usuario", Toast.LENGTH_SHORT).show()
         }
         else{
-            val checkuserpass:Boolean = DB.onCheckUserNameAndPassword(this.input_username.text.toString(),this.input_password.text.toString())
+            //val checkuserpass:Boolean = DB.onCheckUserNameAndPassword(this.input_username.text.toString(),this.input_password.text.toString())
+            val checkuserpass = true
             if(checkuserpass){
                 Toast.makeText(this, "Ingreso correctamente", Toast.LENGTH_SHORT).show()
-                //Cambié el homeactivity por el drawer
 
-                user = DbUsers.verUser(this.input_username.text.toString())
+                retrieveUser()
+                /*user = DbUsers.verUser(this.input_username.text.toString())
                 if(user!=null){
                     Usuario.setUsuario(user.id, user.username.toString(), user.password.toString(), user.dateBirth.toString())
-                }
+                }*/
 
                 val intent = Intent(this, DrawerActivity::class.java)
                 intent.putExtra("user", this.input_username.text.toString())
@@ -71,5 +77,45 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
+    }
+
+    private fun retrieveUser(){
+        //val intId:Int =  txtId!!.text.toString().toInt()
+        val username:String = this.input_username.text.toString()
+        val service: Service =  RestEngine.getRestEngine().create(Service::class.java)
+        val result: Call<List<User2>> = service.getUser(username)
+
+        result.enqueue(object: Callback<List<User2>> {
+            override fun onFailure(call: Call<List<User2>>, t: Throwable) {
+                Toast.makeText(this@MainActivity,"Error",Toast.LENGTH_LONG).show()
+            }
+
+            override fun onResponse(call: Call<List<User2>>, response: Response<List<User2>>) {
+                //var strMessage:String =  ""
+                //var byteArray:ByteArray? = null
+                val item =  response.body()
+                if (item != null){
+
+
+                    //strMessage =   item[0].intID.toString() +  " - " + item[0].strTitle + "\n"
+                    Usuario.setUsuario(item[0].userId!!.toInt(), item[0].username.toString(), item[0].pass.toString(), item[0].birthday.toString())
+
+
+                    //val strImage:String =  item[0].imgArray!!.replace("data:image/png;base64,","")
+                    //byteArray =  Base64.getDecoder().decode(strImage)
+
+
+
+                }
+
+                /*if(byteArray != null){
+                    imageUI!!.setImageBitmap(ImageUtilities.getBitMapFromByteArray(byteArray))
+                }
+                txtMessage!!.setText(strMessage)*/
+                Toast.makeText(this@MainActivity,"OK",Toast.LENGTH_LONG).show()
+            }
+
+        })
+
     }
 }

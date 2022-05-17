@@ -9,11 +9,11 @@ interface Service {
     /*@GET("Album/Albums")
     fun getAlbums(): Call<List<Album>>*/
 
-    @GET("User/Users/{username}")
+    @GET("User.php/Users/{username}")
     fun getUser(@Path("username") username: String): Call<List<User2>>
 
     @Headers("Content-Type: application/json")
-    @POST("User/Save")
+    @POST("User.php/SaveUser")
     fun saveUser(@Body userData: User2): Call<Int>
 
 }

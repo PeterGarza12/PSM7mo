@@ -14,7 +14,12 @@ import androidx.core.util.PatternsCompat
 import com.psm.horrorg.DatePicker.DatePickerFragment
 import com.psm.horrorg.Db.DbHelper
 import com.psm.horrorg.Db.dbUsers
+import com.psm.horrorg.Model.User2
 import kotlinx.android.synthetic.main.activity_register.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.util.*
 import java.util.regex.Pattern
 
 class RegisterActivity : AppCompatActivity(),View.OnClickListener {
@@ -56,7 +61,7 @@ class RegisterActivity : AppCompatActivity(),View.OnClickListener {
                     ".{8,}" +               //al menos 4 caracteres
                     "$"
         )
-        if(this.input_username.text.toString() =="" && this.input_password.text.toString()=="" && this.input_password2.text.toString()==""&&this.input_password2.text.toString()=="" &&this.editTextDate.text.toString()==""){
+        if(this.input_username.text.toString() =="" || this.input_password.text.toString()=="" || this.input_password2.text.toString()=="" || this.input_password2.text.toString()=="" || this.editTextDate.text.toString()==""){
             Toast.makeText(this,"Favor de llenar los campos",Toast.LENGTH_LONG).show();
         }else if(this.input_password.text.toString()!=this.input_password2.text.toString()){
             Toast.makeText(this,"Las contraseñas tienen que ser iguales",Toast.LENGTH_LONG).show();
@@ -68,10 +73,12 @@ class RegisterActivity : AppCompatActivity(),View.OnClickListener {
             Toast.makeText(this,"El formato de la contraseña es invalido",Toast.LENGTH_LONG).show();
         }else{
 
-            var Dbusers = dbUsers(this@RegisterActivity)
-            var id:Long =Dbusers.insertarUsuario(this.input_username.text.toString(),this.input_password.text.toString(),this.editTextDate.text.toString())
+            //var Dbusers = dbUsers(this@RegisterActivity)
+            //var id:Long =Dbusers.insertarUsuario(this.input_username.text.toString(),this.input_password.text.toString(),this.editTextDate.text.toString())
 
-            if(id>0){
+            //if(id>0)
+
+            if(registerUser()){
 
                 Toast.makeText(this,"Usuario creado",Toast.LENGTH_LONG).show();
                 val intent=Intent(this,MainActivity::class.java)
@@ -87,6 +94,36 @@ class RegisterActivity : AppCompatActivity(),View.OnClickListener {
             }
 
         }
+    }
+
+    private fun registerUser(): Boolean{
+
+        var success = false
+
+        //SE CONSTRUYE EL OBJECTO A ENVIAR,  ESTO DEPENDE DE COMO CONSTRUYAS EL SERVICIO
+        // SI TU SERVICIO POST REQUIERE DOS PARAMETROS HACER UN OBJECTO CON ESOS DOS PARAMETROS
+        val user =  User2(0,
+                    this.input_username.text.toString(),
+                    this.input_password.text.toString(),
+                    this.editTextDate.text.toString(),
+                    null
+                    )
+
+        val service: Service =  RestEngine.getRestEngine().create(Service::class.java)
+        val result: Call<Int> = service.saveUser(user)
+
+        result.enqueue(object: Callback<Int> {
+            override fun onFailure(call: Call<Int>, t: Throwable) {
+                Toast.makeText(this@RegisterActivity,"Error",Toast.LENGTH_LONG).show()
+                success = true
+            }
+
+            override fun onResponse(call: Call<Int>, response: Response<Int>) {
+                Toast.makeText(this@RegisterActivity,"OK",Toast.LENGTH_LONG).show()
+            }
+        })
+
+        return success
     }
 
 
