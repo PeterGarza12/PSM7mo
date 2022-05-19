@@ -1,5 +1,6 @@
 package com.psm.horrorg
 
+import android.Manifest
 import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.content.Intent
@@ -10,6 +11,7 @@ import android.graphics.Paint
 import android.graphics.Typeface
 import android.graphics.pdf.PdfDocument
 import android.media.Image
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.text.TextPaint
@@ -31,6 +33,7 @@ import java.io.FileOutputStream
 class SinopsisBookActivity : AppCompatActivity() {
 
     lateinit var background: ImageView
+    private val STORAGE_CODE: Int = 100;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,7 +89,30 @@ class SinopsisBookActivity : AppCompatActivity() {
             startActivity(intent)
         }
         txt_Download.setOnClickListener(View.OnClickListener {
-            generarPdf()
+
+           
+            //we need to handle runtime permission for devices with marshmallow and above
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M){
+                //system OS >= Marshmallow(6.0), check permission is enabled or not
+                if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_DENIED){
+                    //permission was not granted, request it
+                    val permissions = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+
+                    requestPermissions(permissions, STORAGE_CODE)
+                }
+                else{
+                    //permission already granted, call savePdf() method
+                    generarPdf()
+                }
+            }
+            else{
+                //system OS < marshmallow, call savePdf() method
+                generarPdf()
+            }
+            
+            
+           
         })
     }
     fun generarPdf(){
@@ -127,7 +153,8 @@ class SinopsisBookActivity : AppCompatActivity() {
         val holi = Environment.getExternalStorageState()
         Toast.makeText(this,holi, Toast.LENGTH_LONG).show()
 
-        val file =File(Environment.getStorageDirectory(),Libro.getDescription()+".pdf")
+        val file =File(Environment.getExternalStorageDirectory().toString(),"Archivo.pdf")
+
         try{
             pdfDocument.writeTo(FileOutputStream(file))
             Toast.makeText(this,"Se descargo el pdf", Toast.LENGTH_LONG).show()
