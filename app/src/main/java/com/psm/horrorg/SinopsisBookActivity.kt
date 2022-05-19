@@ -141,11 +141,18 @@ class SinopsisBookActivity : AppCompatActivity() {
     private fun requestPermissions(){
         ActivityCompat.requestPermissions(this, arrayOf(WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE ),200)
     }
-    override fun onRequestPermisionResult(requestCode: Int,permissions:Array<String>,grantResul:IntArray){
+
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if(requestCode==200){
-            if(grantResul.size>0){
-                val writeStorage = grantResul[0]== PackageManager.PERMISSION_GRANTED
-                val readStorage = grantResul[1]== PackageManager.PERMISSION_GRANTED
+            if(grantResults.size>0){
+                val writeStorage = grantResults[0]== PackageManager.PERMISSION_GRANTED
+                val readStorage = grantResults[1]== PackageManager.PERMISSION_GRANTED
 
                 if(writeStorage && readStorage){
                     Toast.makeText(this, "Permiso concedido", Toast.LENGTH_LONG)
