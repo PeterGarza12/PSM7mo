@@ -57,8 +57,8 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "Ingresar información de usuario", Toast.LENGTH_SHORT).show()
         }
         else{
-            //val checkuserpass:Boolean = DB.onCheckUserNameAndPassword(this.input_username.text.toString(),this.input_password.text.toString())
-            val checkuserpass = true
+            val checkuserpass:Boolean = DB.onCheckUserNameAndPassword(this.input_username.text.toString(),this.input_password.text.toString())
+
             if(checkuserpass){
                 Toast.makeText(this, "Ingreso correctamente", Toast.LENGTH_SHORT).show()
 

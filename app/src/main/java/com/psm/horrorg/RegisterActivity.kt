@@ -37,7 +37,7 @@ class RegisterActivity : AppCompatActivity(),View.OnClickListener {
     private fun showDatePickerDialog() {
         // Creamos un  objeto
         // Hay que mencionar las variables que queremos utilizar para que las agarre
-        val datePicker= DatePickerFragment{day, month, year-> onDateSelected(day, month, year)}
+        val datePicker= DatePickerFragment{day, month, year-> onDateSelected(day, month+1, year)}
         datePicker.show(supportFragmentManager,"datePicker")
     }
 
