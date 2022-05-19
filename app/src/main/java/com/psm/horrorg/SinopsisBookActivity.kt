@@ -1,5 +1,6 @@
 package com.psm.horrorg
 
+import android.Manifest
 import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.content.Intent
@@ -9,6 +10,8 @@ import android.graphics.BitmapFactory
 import android.graphics.Paint
 import android.graphics.Typeface
 import android.graphics.pdf.PdfDocument
+import android.media.Image
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.text.TextPaint
@@ -28,7 +31,10 @@ import java.io.FileOutputStream
 
 
 class SinopsisBookActivity : AppCompatActivity() {
-    val background = findViewById<ImageView>(R.id.iv_sinopsis_background)
+
+    lateinit var background: ImageView
+    private val STORAGE_CODE: Int = 100;
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sinopsis_book)
@@ -41,7 +47,7 @@ class SinopsisBookActivity : AppCompatActivity() {
         val tvTitle = findViewById<TextView>(R.id.txt_titulo)
         val tvCategory = findViewById<TextView>(R.id.txt_Categoria)
         val tvDescription = findViewById<TextView>(R.id.txt_Descripcion)
-
+        background = findViewById(R.id.iv_sinopsis_background)
 
         /*tvTitle.text = miLibro.strTitle
         tvCategory.text = miLibro.genre.toString()
@@ -52,7 +58,7 @@ class SinopsisBookActivity : AppCompatActivity() {
         tvCategory.text = Libro.getGenre()
         tvDescription.text = Libro.getDescription()
         background.setImageBitmap(Libro.getimgArray())
-        background.setTag(Libro.getimgArray())
+        background.tag = Libro.getimgArray().toString()
 
 
         val btnRead = findViewById<Button>(R.id.btn_Read)
@@ -83,7 +89,30 @@ class SinopsisBookActivity : AppCompatActivity() {
             startActivity(intent)
         }
         txt_Download.setOnClickListener(View.OnClickListener {
-            generarPdf()
+
+           
+            //we need to handle runtime permission for devices with marshmallow and above
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M){
+                //system OS >= Marshmallow(6.0), check permission is enabled or not
+                if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_DENIED){
+                    //permission was not granted, request it
+                    val permissions = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+
+                    requestPermissions(permissions, STORAGE_CODE)
+                }
+                else{
+                    //permission already granted, call savePdf() method
+                    generarPdf()
+                }
+            }
+            else{
+                //system OS < marshmallow, call savePdf() method
+                generarPdf()
+            }
+            
+            
+           
         })
     }
     fun generarPdf(){
@@ -100,12 +129,12 @@ class SinopsisBookActivity : AppCompatActivity() {
         var pagina1 = pdfDocument.startPage(paginaInfo)
         var canvas = pagina1.canvas
 
-        val drawableId: Int = background.getTag().toString().toInt()
+        //val drawableId: Int = background.tag.toString().toInt()
 
 
-        var bitmap= BitmapFactory.decodeResource(resources,drawableId)
-        var bitmapEscala= Bitmap.createScaledBitmap(bitmap,80,80,false)
-        canvas.drawBitmap(bitmapEscala,368f,20f,paint)
+        //var bitmap= BitmapFactory.decodeResource(resources,drawableId)
+        //var bitmapEscala= Bitmap.createScaledBitmap(bitmap,80,80,false)
+        //canvas.drawBitmap(bitmapEscala,368f,20f,paint)
 
         titulo.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD)) //titulo en negritas
         titulo.textSize=20f
@@ -121,8 +150,11 @@ class SinopsisBookActivity : AppCompatActivity() {
             y+= 15
         }
         pdfDocument.finishPage(pagina1)
+        val holi = Environment.getExternalStorageState()
+        Toast.makeText(this,holi, Toast.LENGTH_LONG).show()
 
-        val file =File(Environment.getExternalStorageDirectory(),Libro.getDescription()+".pdf")
+        val file =File(Environment.getExternalStorageDirectory().toString(),"Archivo.pdf")
+
         try{
             pdfDocument.writeTo(FileOutputStream(file))
             Toast.makeText(this,"Se descargo el pdf", Toast.LENGTH_LONG).show()
@@ -163,5 +195,6 @@ class SinopsisBookActivity : AppCompatActivity() {
 
             }
         }
+
     }
 }
