@@ -96,26 +96,21 @@ class MainActivity : AppCompatActivity() {
                 val item =  response.body()
                 if (item != null){
 
+                    val hola = item[0].USERID.toString()
 
-                    //strMessage =   item[0].intID.toString() +  " - " + item[0].strTitle + "\n"
-                    Usuario.setUsuario(item[0].userId!!.toInt(), item[0].username.toString(), item[0].pass.toString(), item[0].birthday.toString())
-
+                    Usuario.setUsuario(item[0].USERID!!.toInt(), item[0].USERNAME.toString(), item[0].PASS.toString(), item[0].BIRTHDAY.toString())
+                    Toast.makeText(this@MainActivity,"OK",Toast.LENGTH_LONG).show()
 
                     //val strImage:String =  item[0].imgArray!!.replace("data:image/png;base64,","")
                     //byteArray =  Base64.getDecoder().decode(strImage)
 
-
-
                 }
-
                 /*if(byteArray != null){
                     imageUI!!.setImageBitmap(ImageUtilities.getBitMapFromByteArray(byteArray))
                 }
                 txtMessage!!.setText(strMessage)*/
                 Toast.makeText(this@MainActivity,"OK",Toast.LENGTH_LONG).show()
             }
-
         })
-
     }
 }

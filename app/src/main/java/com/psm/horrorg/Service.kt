@@ -9,8 +9,8 @@ interface Service {
     /*@GET("Album/Albums")
     fun getAlbums(): Call<List<Album>>*/
 
-    @GET("App/User.php/Users/{username}")
-    fun getUser(@Path("username") username: String): Call<List<User2>>
+    @GET("User/Users/{USERNAME}")
+    fun getUser(@Path("USERNAME") username: String): Call<List<User2>>
 
     @Headers("Content-Type: application/json")
     @POST("App/User.php/SaveUser")
