@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory
 import android.graphics.Paint
 import android.graphics.Typeface
 import android.graphics.pdf.PdfDocument
+import android.media.Image
 import android.os.Bundle
 import android.os.Environment
 import android.text.TextPaint
@@ -28,7 +29,9 @@ import java.io.FileOutputStream
 
 
 class SinopsisBookActivity : AppCompatActivity() {
-    val background = findViewById<ImageView>(R.id.iv_sinopsis_background)
+
+    lateinit var background: ImageView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sinopsis_book)
@@ -41,7 +44,7 @@ class SinopsisBookActivity : AppCompatActivity() {
         val tvTitle = findViewById<TextView>(R.id.txt_titulo)
         val tvCategory = findViewById<TextView>(R.id.txt_Categoria)
         val tvDescription = findViewById<TextView>(R.id.txt_Descripcion)
-
+        background = findViewById(R.id.iv_sinopsis_background)
 
         /*tvTitle.text = miLibro.strTitle
         tvCategory.text = miLibro.genre.toString()
@@ -52,7 +55,7 @@ class SinopsisBookActivity : AppCompatActivity() {
         tvCategory.text = Libro.getGenre()
         tvDescription.text = Libro.getDescription()
         background.setImageBitmap(Libro.getimgArray())
-        background.setTag(Libro.getimgArray())
+        background.tag = Libro.getimgArray().toString()
 
 
         val btnRead = findViewById<Button>(R.id.btn_Read)
@@ -100,12 +103,12 @@ class SinopsisBookActivity : AppCompatActivity() {
         var pagina1 = pdfDocument.startPage(paginaInfo)
         var canvas = pagina1.canvas
 
-        val drawableId: Int = background.getTag().toString().toInt()
+        //val drawableId: Int = background.tag.toString().toInt()
 
 
-        var bitmap= BitmapFactory.decodeResource(resources,drawableId)
-        var bitmapEscala= Bitmap.createScaledBitmap(bitmap,80,80,false)
-        canvas.drawBitmap(bitmapEscala,368f,20f,paint)
+        //var bitmap= BitmapFactory.decodeResource(resources,drawableId)
+        //var bitmapEscala= Bitmap.createScaledBitmap(bitmap,80,80,false)
+        //canvas.drawBitmap(bitmapEscala,368f,20f,paint)
 
         titulo.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD)) //titulo en negritas
         titulo.textSize=20f
@@ -121,8 +124,10 @@ class SinopsisBookActivity : AppCompatActivity() {
             y+= 15
         }
         pdfDocument.finishPage(pagina1)
+        val holi = Environment.getExternalStorageState()
+        Toast.makeText(this,holi, Toast.LENGTH_LONG).show()
 
-        val file =File(Environment.getExternalStorageDirectory(),Libro.getDescription()+".pdf")
+        val file =File(Environment.getStorageDirectory(),Libro.getDescription()+".pdf")
         try{
             pdfDocument.writeTo(FileOutputStream(file))
             Toast.makeText(this,"Se descargo el pdf", Toast.LENGTH_LONG).show()
@@ -141,11 +146,17 @@ class SinopsisBookActivity : AppCompatActivity() {
     private fun requestPermissions(){
         ActivityCompat.requestPermissions(this, arrayOf(WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE ),200)
     }
-    override fun onRequestPermisionResult(requestCode: Int,permissions:Array<String>,grantResul:IntArray){
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if(requestCode==200){
-            if(grantResul.size>0){
-                val writeStorage = grantResul[0]== PackageManager.PERMISSION_GRANTED
-                val readStorage = grantResul[1]== PackageManager.PERMISSION_GRANTED
+            if(grantResults.size>0){
+                val writeStorage = grantResults[0]== PackageManager.PERMISSION_GRANTED
+                val readStorage = grantResults[1]== PackageManager.PERMISSION_GRANTED
 
                 if(writeStorage && readStorage){
                     Toast.makeText(this, "Permiso concedido", Toast.LENGTH_LONG)
@@ -156,5 +167,6 @@ class SinopsisBookActivity : AppCompatActivity() {
 
             }
         }
+
     }
 }

@@ -59,6 +59,7 @@ class AdaptadorLibros(private val listaLibros: MutableList<Libros>, val context:
                         listaLibros[libroPosition].strDescription.toString(), listaLibros[libroPosition].intIdImage, listaLibros[libroPosition].genre.toString(),
                         listaLibros[libroPosition].imgArray)
                     //val gson = Gson()
+                    Toast.makeText(context,Libro.getDescription(),Toast.LENGTH_LONG).show();
                     val activityIntent = Intent(context, SinopsisBookActivity::class.java)
                     //activityIntent.putExtra("Libro", gson.toJson(listaLibros[libroPosition]))
                     context.startActivity(activityIntent)

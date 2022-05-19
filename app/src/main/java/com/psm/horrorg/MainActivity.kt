@@ -62,11 +62,11 @@ class MainActivity : AppCompatActivity() {
             if(checkuserpass){
                 Toast.makeText(this, "Ingreso correctamente", Toast.LENGTH_SHORT).show()
 
-                retrieveUser()
-                /*user = DbUsers.verUser(this.input_username.text.toString())
+                //retrieveUser()
+                user = DbUsers.verUser(this.input_username.text.toString())
                 if(user!=null){
                     Usuario.setUsuario(user.id, user.username.toString(), user.password.toString(), user.dateBirth.toString())
-                }*/
+                }
 
                 val intent = Intent(this, DrawerActivity::class.java)
                 intent.putExtra("user", this.input_username.text.toString())

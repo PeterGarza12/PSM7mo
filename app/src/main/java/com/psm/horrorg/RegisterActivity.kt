@@ -73,12 +73,12 @@ class RegisterActivity : AppCompatActivity(),View.OnClickListener {
             Toast.makeText(this,"El formato de la contraseña es invalido",Toast.LENGTH_LONG).show();
         }else{
 
-            //var Dbusers = dbUsers(this@RegisterActivity)
-            //var id:Long =Dbusers.insertarUsuario(this.input_username.text.toString(),this.input_password.text.toString(),this.editTextDate.text.toString())
+            var Dbusers = dbUsers(this@RegisterActivity)
+            var id:Long =Dbusers.insertarUsuario(this.input_username.text.toString(),this.input_password.text.toString(),this.editTextDate.text.toString())
 
-            //if(id>0)
+            if(id>0){
 
-            if(registerUser()){
+            //if(registerUser()){
 
                 Toast.makeText(this,"Usuario creado",Toast.LENGTH_LONG).show();
                 val intent=Intent(this,MainActivity::class.java)
