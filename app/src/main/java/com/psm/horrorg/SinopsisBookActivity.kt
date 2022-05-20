@@ -47,6 +47,7 @@ class SinopsisBookActivity : AppCompatActivity() {
         val tvTitle = findViewById<TextView>(R.id.txt_titulo)
         val tvCategory = findViewById<TextView>(R.id.txt_Categoria)
         val tvDescription = findViewById<TextView>(R.id.txt_Descripcion)
+        val tvLeerCapitulos = findViewById<Button>(R.id.btn_Read)
         background = findViewById(R.id.iv_sinopsis_background)
 
         /*tvTitle.text = miLibro.strTitle
@@ -59,6 +60,8 @@ class SinopsisBookActivity : AppCompatActivity() {
         tvDescription.text = Libro.getDescription()
         background.setImageBitmap(Libro.getimgArray())
         background.tag = Libro.getimgArray().toString()
+
+
 
 
         val btnRead = findViewById<Button>(R.id.btn_Read)
@@ -86,6 +89,11 @@ class SinopsisBookActivity : AppCompatActivity() {
         btnCreate.setOnClickListener{
             val intent = Intent(this, CreateChapterActivity::class.java)
             startActivity(intent)
+        }
+        tvLeerCapitulos.setOnClickListener{
+            val intent = Intent(this, ListadoCapitulosActivity::class.java)
+            intent.putExtra("IDBook", Libro.getId())
+
         }
         txt_Download.setOnClickListener(View.OnClickListener {
 
