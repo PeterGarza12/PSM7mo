@@ -174,6 +174,7 @@ class SinopsisBookActivity : AppCompatActivity() {
         ActivityCompat.requestPermissions(this, arrayOf(WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE ),200)
     }
 
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
