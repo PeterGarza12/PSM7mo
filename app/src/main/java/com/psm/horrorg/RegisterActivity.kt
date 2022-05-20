@@ -1,22 +1,16 @@
 package com.psm.horrorg
 
 import android.content.Intent
-import android.database.sqlite.SQLiteDatabase
 import android.graphics.Bitmap
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
-import android.util.Patterns
 import android.view.View
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.core.text.set
 import androidx.core.util.PatternsCompat
 import com.psm.horrorg.DatePicker.DatePickerFragment
-import com.psm.horrorg.Db.DbHelper
 import com.psm.horrorg.Db.dbUsers
 import com.psm.horrorg.Model.User2
 import kotlinx.android.synthetic.main.activity_register.*
@@ -24,7 +18,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.ByteArrayOutputStream
-import java.util.*
 import java.util.regex.Pattern
 
 class RegisterActivity : AppCompatActivity(),View.OnClickListener {
@@ -110,7 +103,7 @@ class RegisterActivity : AppCompatActivity(),View.OnClickListener {
         {
             Toast.makeText(this,"Favor de seleccionar una imagen", Toast.LENGTH_LONG).show()
         }
-        else if(this.input_username.text.toString() =="" || this.input_password.text.toString()=="" || this.input_password2.text.toString()==""
+        else if(this.input_main_mail.text.toString() =="" || this.input_password.text.toString()=="" || this.input_password2.text.toString()==""
             || this.input_password2.text.toString()=="" || this.editTextDate.text.toString()=="" || this.input_nombrecompleto.text.toString() == ""){
 
             Toast.makeText(this,"Favor de llenar los campos",Toast.LENGTH_LONG).show();
@@ -144,7 +137,7 @@ class RegisterActivity : AppCompatActivity(),View.OnClickListener {
 
             if(unique){
 
-                inserted = Dbusers.insertarUsuario( this.input_username.text.toString(),
+                inserted = Dbusers.insertarUsuario( this.input_main_mail.text.toString(),
                                                     this.input_password.text.toString(),
                                                     this.editTextDate.text.toString(),
                                                     byteImage,
@@ -205,7 +198,7 @@ class RegisterActivity : AppCompatActivity(),View.OnClickListener {
         //SE CONSTRUYE EL OBJECTO A ENVIAR,  ESTO DEPENDE DE COMO CONSTRUYAS EL SERVICIO
         // SI TU SERVICIO POST REQUIERE DOS PARAMETROS HACER UN OBJECTO CON ESOS DOS PARAMETROS
         val user =  User2(0,
-                    this.input_username.text.toString(),
+                    this.input_main_mail.text.toString(),
                     this.input_password.text.toString(),
                     this.editTextDate.text.toString(),
                     null

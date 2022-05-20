@@ -15,7 +15,9 @@ import com.psm.horrorg.Model.Usuario
 import com.psm.horrorg.R
 
 class ProfileUser : Fragment(R.layout.profile_user) {
-    var user = User()
+
+    private  lateinit var user: User
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

@@ -21,7 +21,23 @@ class ListUserAdapter(internal var activity: Activity,
     init{
         inflater=activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
     }
+
     override fun getCount(): Int {
+        TODO("Not yet implemented")
+    }
+
+    override fun getItem(position: Int): Any {
+        TODO("Not yet implemented")
+    }
+
+    override fun getItemId(position: Int): Long {
+        TODO("Not yet implemented")
+    }
+
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
+        TODO("Not yet implemented")
+    }
+    /*override fun getCount(): Int {
        return  lstPerson.size
     }
 
@@ -36,5 +52,5 @@ class ListUserAdapter(internal var activity: Activity,
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View? {
         //TODO
       return null
-    }
+    }*/
 }

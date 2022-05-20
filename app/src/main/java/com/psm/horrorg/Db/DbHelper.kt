@@ -111,7 +111,7 @@ open class DbHelper(context: Context?):SQLiteOpenHelper(context,DATABASE_NAME,nu
         onCreate(db!!)
     }
 
-    fun onCheckUserName(username: String): Boolean {
+    /*fun onCheckUserName(username: String): Boolean {
         val db = writableDatabase
         val cursor = db.rawQuery("select * from User where UserName = ?", arrayOf(username))
         var flag = false
@@ -119,19 +119,8 @@ open class DbHelper(context: Context?):SQLiteOpenHelper(context,DATABASE_NAME,nu
             flag = true
         }
         return flag
-    }
+    }*/
 
-    fun onCheckUserNameAndPassword(username: String, password: String): Boolean {
-        val db = writableDatabase
-        val cursor = db.rawQuery(
-            "select * from User where UserName = ? And Password = ?",
-            arrayOf(username, password)
-        )
-        var flag = false
-        if (cursor.count > 0) {
-            flag = true
-        }
-        return flag
-    }
+
 
 }

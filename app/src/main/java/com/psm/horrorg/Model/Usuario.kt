@@ -1,31 +1,51 @@
 package com.psm.horrorg.Model
 
-object Usuario {
-    private var id:Int=0
-    private var username:String = ""
-    private var password:String = ""
-    private var dateBirth:String = ""
+import android.graphics.Bitmap
 
-    fun setUsuario(id: Int, username: String, password: String, dateBirth: String){
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.dateBirth = dateBirth;
+object Usuario {
+    private var USERID  :Int    =0
+    private var USERNAME:String = ""
+    private var PASS    :String = ""
+    private var BIRTHDAY:String = ""
+    private var IMAGE   :Bitmap? = null
+    private var NAME    :String = ""
+    private var EMAIL   :String = ""
+
+    fun setUsuario(id: Int, username: String, password: String, dateBirth: String, image: Bitmap, name: String, email: String){
+        this.USERID     = id;
+        this.USERNAME   = username;
+        this.PASS       = password;
+        this.BIRTHDAY   = dateBirth;
+        this.IMAGE      = image;
+        this.NAME       = name;
+        this.EMAIL      = email;
     }
 
     fun getId(): Int{
-        return this.id
+        return this.USERID
     }
 
     fun getUsername(): String{
-        return this.username
+        return this.USERNAME
     }
 
     fun getPassword(): String{
-        return this.password
+        return this.PASS
     }
 
     fun getDateBirth(): String{
-        return this.dateBirth
+        return this.BIRTHDAY
+    }
+
+    fun getImage(): Bitmap?{
+        return this.IMAGE
+    }
+
+    fun getName(): String{
+        return this.NAME
+    }
+
+    fun getEmail(): String{
+        return this.EMAIL
     }
 }

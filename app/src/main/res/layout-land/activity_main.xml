@@ -26,19 +26,19 @@
             app:srcCompat="@drawable/ic_logo" />
 
         <EditText
-            android:id="@+id/input_username"
+            android:id="@+id/input_main_mail"
             android:layout_width="284dp"
             android:layout_height="52dp"
             android:layout_marginStart="4dp"
             android:layout_marginTop="68dp"
             android:ems="10"
-            android:hint="@string/userinput"
+            android:hint="@string/correoinput"
             android:inputType="textPersonName"
             android:textColor="@color/black"
             android:textColorHint="#837A7A"
             android:textSize="18sp"
             app:backgroundTint="@color/black"
-            app:layout_constraintStart_toStartOf="@+id/lbl_Username"
+            app:layout_constraintStart_toStartOf="@+id/lbl_main_email"
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
         <EditText
@@ -54,18 +54,18 @@
             android:textColorHint="#837A7A"
             android:textSize="18sp"
             app:backgroundTint="@color/black"
-            app:layout_constraintStart_toStartOf="@+id/input_username"
-            app:layout_constraintTop_toBottomOf="@+id/input_username" />
+            app:layout_constraintStart_toStartOf="@+id/input_main_mail"
+            app:layout_constraintTop_toBottomOf="@+id/input_main_mail" />
 
         <TextView
-            android:id="@+id/lbl_Username"
+            android:id="@+id/lbl_main_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/reggae_one"
-            android:text="@string/user"
+            android:text="@string/emaillogin"
             android:textColor="@color/black"
             android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@+id/input_username"
+            app:layout_constraintBottom_toTopOf="@+id/input_main_mail"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/lbl_Password"
@@ -85,7 +85,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.389"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/input_username"
+            app:layout_constraintTop_toBottomOf="@+id/input_main_mail"
             app:layout_constraintVertical_bias="0.535" />
 
         <Button

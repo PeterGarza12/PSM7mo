@@ -23,7 +23,8 @@ import kotlinx.android.synthetic.main.activity_register.*
 import kotlinx.android.synthetic.main.profile_user_edit.*
 
 class EditProfileUser: AppCompatActivity(),View.OnClickListener {
-    var user = User()
+
+    private lateinit var user: User
 
     var sUser:String =""
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -89,13 +90,15 @@ class EditProfileUser: AppCompatActivity(),View.OnClickListener {
             var resultado: Boolean =Dbusers.modificarUser(Usuario.getUsername(),this.id_password.text.toString(),this.editDate.text.toString())
 
             if(resultado){
-                user = Dbusers.verUser(Usuario.getUsername())
+
+                Toast.makeText(this,"Ahorita vengo",Toast.LENGTH_LONG).show();
+                /*user = Dbusers.verUser(Usuario.getUsername())
                 if(user!=null){
-                    Usuario.setUsuario(user.id, user.username.toString(), user.password.toString(), user.dateBirth.toString())
+                    Usuario.setUsuario(user.USERID, user.USERNAME, user.PASS, user.BIRTHDAY)
                     Toast.makeText(this,"Usuario modificado",Toast.LENGTH_LONG).show();
                     val intent=Intent(this,DrawerActivity::class.java)
                     startActivity(intent)
-                }
+                }*/
 
 
                 //val intent=Intent(this,DrawerActivity::class.java)

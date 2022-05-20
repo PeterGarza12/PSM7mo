@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
 import android.widget.Toast
 import com.psm.horrorg.Db.DbHelper
 import com.psm.horrorg.Db.dbUsers
@@ -15,13 +14,12 @@ import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
     val DB = DbHelper(this)
     val DbUsers= dbUsers(this)
-    var user = User()
+    lateinit var user: User
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,23 +51,26 @@ class MainActivity : AppCompatActivity() {
 
     private fun showInfo(){
 
-        if(this.input_username.text.toString() =="" && this.input_password.text.toString()=="" ){
+        if(this.input_main_mail.text.toString() =="" || this.input_password.text.toString()=="" ){
             Toast.makeText(this, "Ingresar información de usuario", Toast.LENGTH_SHORT).show()
         }
         else{
-            val checkuserpass:Boolean = DB.onCheckUserNameAndPassword(this.input_username.text.toString(),this.input_password.text.toString())
+            val checkuserpass:Boolean = DbUsers.onCheckEmailAndPassword(this.input_main_mail.text.toString(),this.input_password.text.toString())
 
             if(checkuserpass){
                 Toast.makeText(this, "Ingreso correctamente", Toast.LENGTH_SHORT).show()
 
                 //retrieveUser()
-                user = DbUsers.verUser(this.input_username.text.toString())
+                user = DbUsers.verUser(this.input_main_mail.text.toString())
+
                 if(user!=null){
-                    Usuario.setUsuario(user.id, user.username.toString(), user.password.toString(), user.dateBirth.toString())
+
+                    Usuario.setUsuario(user.USERID, user.USERNAME, user.PASS, user.BIRTHDAY,user.IMAGE, user.NAME, user.EMAIL)
+
                 }
 
                 val intent = Intent(this, DrawerActivity::class.java)
-                intent.putExtra("user", this.input_username.text.toString())
+                intent.putExtra("user", this.input_main_mail.text.toString())
                 startActivity(intent)
             }
             else{
@@ -81,7 +82,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun retrieveUser(){
         //val intId:Int =  txtId!!.text.toString().toInt()
-        val username:String = this.input_username.text.toString()
+        val username:String = this.input_main_mail.text.toString()
         val service: Service =  RestEngine.getRestEngine().create(Service::class.java)
         val result: Call<List<User2>> = service.getUser(username)
 
@@ -98,7 +99,7 @@ class MainActivity : AppCompatActivity() {
 
                     val hola = item[0].USERID.toString()
 
-                    Usuario.setUsuario(item[0].USERID!!.toInt(), item[0].USERNAME.toString(), item[0].PASS.toString(), item[0].BIRTHDAY.toString())
+                    //Usuario.setUsuario(item[0].USERID!!.toInt(), item[0].USERNAME.toString(), item[0].PASS.toString(), item[0].BIRTHDAY.toString())
                     Toast.makeText(this@MainActivity,"OK",Toast.LENGTH_LONG).show()
 
                     //val strImage:String =  item[0].imgArray!!.replace("data:image/png;base64,","")
