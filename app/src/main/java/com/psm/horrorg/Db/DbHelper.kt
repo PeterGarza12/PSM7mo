@@ -14,10 +14,12 @@ open class DbHelper(context: Context?):SQLiteOpenHelper(context,DATABASE_NAME,nu
         //Table
         val TABLE_NAME = "USER"
         val COL_ID = "USERID"
-        val COL_NAME = "USERNAME"
+        val COL_USERNAME = "USERNAME"
         val COL_PASSWORD = "PASSWORD"
-        val COL_DATE = "DATEBIRTH"
+        val COL_DATE = "BIRTHDAY"
+        val COL_IMAGE = "IMAGE"
         val COL_EMAIL = "EMAIL"
+        val COL_NAME = "NAME"
 
         //Books Table
         val TABLE_BOOKS_NAME = "BOOKS"
@@ -51,7 +53,14 @@ open class DbHelper(context: Context?):SQLiteOpenHelper(context,DATABASE_NAME,nu
 
     override fun onCreate(db: SQLiteDatabase?) {
 
-        val CREATE_TABLE_QUERY:String = ("CREATE TABLE IF NOT EXISTS  $TABLE_NAME ( $COL_ID INTEGER PRIMARY KEY, $COL_NAME TEXT, $COL_PASSWORD TEXT, $COL_DATE TEXT)")
+        val CREATE_TABLE_QUERY:String = ("CREATE TABLE IF NOT EXISTS  $TABLE_NAME ( " +
+                "$COL_ID INTEGER PRIMARY KEY, " +
+                "$COL_USERNAME TEXT, " +
+                "$COL_PASSWORD TEXT, " +
+                "$COL_DATE TEXT, " +
+                "$COL_IMAGE BLOB, " +
+                "$COL_NAME TEXT, " +
+                "$COL_EMAIL TEXT)")
         db!!.execSQL(CREATE_TABLE_QUERY)
 
         val CREATE_BOOKS_TABLE_QUERY:String = ("CREATE TABLE IF NOT EXISTS  $TABLE_BOOKS_NAME ( " +
