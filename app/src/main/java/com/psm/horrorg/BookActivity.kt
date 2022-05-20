@@ -72,11 +72,11 @@ class BookActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
 
     override fun onClick(v: View){
         if(v!!.id == R.id.btn_create_upload){
-            insertBook(v)
+            createBook(v)
         }
     }
 
-    private fun insertBook(v: View){
+    private fun createBook(v: View){
         var canInsert = true
         if(this.et_create_title.text.toString()=="" || this.et_create_sinopsis.text.toString()==""){
             Toast.makeText(this,"Favor de llenar los campos", Toast.LENGTH_LONG).show()
@@ -104,6 +104,7 @@ class BookActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
         }
 
         imgid = idDeLaImagen()
+
         if(imgid==0){
             canInsert = false;
             Toast.makeText(this,"Favor de seleccionar una imagen", Toast.LENGTH_LONG).show()

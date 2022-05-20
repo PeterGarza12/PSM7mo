@@ -76,6 +76,7 @@ class dbImages (var context: Context?) : DbHelper(context) {
         }
         return bitmap
     }
+
     fun getCat(catId: Int): String{
         val dbHelper = DbHelper(context)
         val db = dbHelper.readableDatabase
