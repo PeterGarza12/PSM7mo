@@ -47,6 +47,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_capitulos"
-        tools:listitem="@layout/item_Charapter" />
+        tools:listitem="@layout/item_charapter" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

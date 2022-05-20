@@ -62,6 +62,8 @@ class SinopsisBookActivity : AppCompatActivity() {
         background.tag = Libro.getimgArray().toString()
 
 
+
+
         val btnRead = findViewById<Button>(R.id.btn_Read)
         val btnCreate = findViewById<Button>(R.id.btn_add_chapter)
 
