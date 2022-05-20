@@ -47,6 +47,7 @@ class SinopsisBookActivity : AppCompatActivity() {
         val tvTitle = findViewById<TextView>(R.id.txt_titulo)
         val tvCategory = findViewById<TextView>(R.id.txt_Categoria)
         val tvDescription = findViewById<TextView>(R.id.txt_Descripcion)
+        val tvLeerCapitulos = findViewById<Button>(R.id.btn_Read)
         background = findViewById(R.id.iv_sinopsis_background)
 
         /*tvTitle.text = miLibro.strTitle
