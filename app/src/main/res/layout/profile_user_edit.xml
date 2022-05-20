@@ -14,8 +14,8 @@
         android:background="@color/white">
 
         <EditText
-            android:id="@+id/editDate5"
-            android:layout_width="wrap_content"
+            android:id="@+id/et_edit_username"
+            android:layout_width="275dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:ems="10"
@@ -34,13 +34,13 @@
             android:text="Nombre de usuario"
             android:textColor="@color/black"
             android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="@+id/editDate3"
-            app:layout_constraintTop_toBottomOf="@+id/editDate3" />
+            app:layout_constraintStart_toStartOf="@+id/et_edit_name"
+            app:layout_constraintTop_toBottomOf="@+id/et_edit_name" />
 
         <EditText
-            android:id="@+id/editDate3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/et_edit_name"
+            android:layout_width="275dp"
+            android:layout_height="45dp"
             android:layout_marginTop="12dp"
             android:ems="10"
             android:inputType="textEmailAddress"
@@ -54,36 +54,12 @@
             android:id="@+id/textView12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Apellidos"
+            android:text="Nombre completo"
             android:textColor="@color/black"
             android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="@+id/editDate2"
-            app:layout_constraintTop_toBottomOf="@+id/editDate2" />
-
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Correo"
-            android:textColor="@color/black"
-            android:textSize="20sp"
+            android:layout_marginTop="12dp"
             app:layout_constraintStart_toStartOf="@+id/textView13"
             app:layout_constraintTop_toBottomOf="@+id/textView13" />
-
-        <EditText
-            android:id="@+id/editDate2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:ems="10"
-            android:inputType="textEmailAddress"
-            android:minHeight="48dp"
-            android:text="ejemplo@gmail.com"
-            android:textColor="@color/black"
-            app:layout_constraintStart_toStartOf="@+id/textView9"
-            app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
         <LinearLayout
             android:id="@+id/linearLayout3"
@@ -96,16 +72,25 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/imageView7"
+                android:id="@+id/iv_edit_profile"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="36dp"
-                app:srcCompat="@drawable/ic_person_24"
-                app:tint="@color/white" />
+                android:layout_marginTop="36dp" />
+
+
+            <ImageButton
+                android:id="@+id/ib_edit_photo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:minHeight="48dp"
+                app:srcCompat="@drawable/ic_add_photo_24"
+                tools:ignore="SpeakableTextPresentCheck" />
+
 
             <TextView
-                android:id="@+id/id_username"
+                android:id="@+id/txt_edit_username"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -127,8 +112,8 @@
             android:text="Fecha de Nacimiento"
             android:textColor="@color/black"
             android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="@+id/editDate5"
-            app:layout_constraintTop_toBottomOf="@+id/editDate5" />
+            app:layout_constraintStart_toStartOf="@+id/et_edit_username"
+            app:layout_constraintTop_toBottomOf="@+id/et_edit_username" />
 
         <TextView
             android:id="@+id/textView13"
@@ -151,8 +136,8 @@
             android:text="Contraseña"
             android:textColor="@color/black"
             android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="@+id/editDate"
-            app:layout_constraintTop_toBottomOf="@+id/editDate" />
+            app:layout_constraintStart_toStartOf="@+id/dt_edit_picker"
+            app:layout_constraintTop_toBottomOf="@+id/dt_edit_picker" />
 
         <TextView
             android:id="@+id/textView16"
@@ -162,11 +147,11 @@
             android:text="Confirmar contraseña"
             android:textColor="@color/black"
             android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="@+id/id_password"
-            app:layout_constraintTop_toBottomOf="@+id/id_password" />
+            app:layout_constraintStart_toStartOf="@+id/et_edit_pass"
+            app:layout_constraintTop_toBottomOf="@+id/et_edit_pass" />
 
         <EditText
-            android:id="@+id/editDate"
+            android:id="@+id/dt_edit_picker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="52dp"
@@ -174,14 +159,13 @@
             android:ems="10"
             android:inputType="textEmailAddress"
             android:minHeight="48dp"
-            android:text="ejemplo@gmail.com"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
         <EditText
-            android:id="@+id/id_password"
-            android:layout_width="wrap_content"
+            android:id="@+id/et_edit_pass"
+            android:layout_width="275dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:ems="10"
@@ -193,8 +177,8 @@
             app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
         <EditText
-            android:id="@+id/id_confirmPassword"
-            android:layout_width="wrap_content"
+            android:id="@+id/et_edit_passconfirm"
+            android:layout_width="275dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:ems="10"
@@ -215,7 +199,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/id_confirmPassword">
+            app:layout_constraintTop_toBottomOf="@+id/et_edit_passconfirm">
 
             <Button
                 android:id="@+id/btn_edit_cancel"

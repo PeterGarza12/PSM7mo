@@ -95,23 +95,41 @@ class dbUsers(var context: Context?) : DbHelper(context) {
     }
 
 
+    fun actualizarUsuario(username: String?, password: String?, dateBirth: String?, image: ByteArray?, name: String?, id: Int, isimage: Boolean): Boolean {
 
-    fun modificarUser(username: String?,password: String?,date: String?): Boolean {
-
-        var correcto:Boolean = false
+        var correcto = true
         val dbHelper = DbHelper(context!!)
 
         val db = dbHelper.writableDatabase
-        try {
-            correcto=true
-            db.execSQL("UPDATE User SET Password='"+password+"',DateBirth = '"+date+"' WHERE UserName ='"+username+"'")
-        } catch (ex: Exception) {
-            ex.toString()
-            correcto=false
-        }finally {
-            db.close()
+
+        if(isimage){
+            try {
+
+                val values = ContentValues()
+                values.put("$COL_USERNAME", username)
+                values.put("$COL_PASSWORD", password)
+                values.put("$COL_DATE", dateBirth)
+                values.put("$COL_IMAGE", image)
+                values.put("$COL_NAME", name)
+
+                db.update(TABLE_NAME, values, "$COL_ID =?", arrayOf(id.toString()))
+
+            } catch (ex: Exception) {
+                ex.toString()
+            }
         }
+        else{
+            db.execSQL("UPDATE $TABLE_NAME SET $COL_USERNAME='"+username+"',$COL_PASSWORD='"+password+"',$COL_DATE='"+dateBirth+"', $COL_NAME = '"+name+"' WHERE $COL_ID = "+id+" ;")
+        }
+
+
+
         return correcto
+    }
+
+    fun modificarUser(username: String?,password: String?,date: String?) {
+
+
 
     }
 }
