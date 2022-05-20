@@ -12,40 +12,41 @@ open class DbHelper(context: Context?):SQLiteOpenHelper(context,DATABASE_NAME,nu
         private val DATABASE_VER= 1
         private val DATABASE_NAME = "Horrorg.db"
         //Table
-        val TABLE_NAME = "User"
-        val COL_ID = "Id"
-        val COL_NAME = "UserName"
-        val COL_PASSWORD = "Password"
-        val COL_DATE = "DateBirth"
+        val TABLE_NAME = "USER"
+        val COL_ID = "USERID"
+        val COL_NAME = "USERNAME"
+        val COL_PASSWORD = "PASSWORD"
+        val COL_DATE = "DATEBIRTH"
+        val COL_EMAIL = "EMAIL"
 
         //Books Table
-        val TABLE_BOOKS_NAME = "Books"
-        val COL_BOOKS_ID = "Id"
-        val COL_BOOKS_USER = "UserId"
-        val COL_BOOKS_TITLE = "Title"
-        val COL_BOOKS_DESCRIPTION = "Description"
-        val COL_BOOKS_IDIMAGE = "IdImage"
-        val COL_BOOKS_IDGENRE = "IdGenre"
-        val COL_BOOKS_TITLEGENRE = "TitleGenre"
-        val COL_BOOKS_IMGARRAY = "ImgArray"
+        val TABLE_BOOKS_NAME = "BOOKS"
+        val COL_BOOKS_ID = "BOOKID"
+        val COL_BOOKS_USER = "USERID"
+        val COL_BOOKS_TITLE = "TITLE"
+        val COL_BOOKS_DESCRIPTION = "DESCRIPTION"
+        val COL_BOOKS_IDIMAGE = "IMAGEID"
+        val COL_BOOKS_IDGENRE = "GENREID"
+        val COL_BOOKS_TITLEGENRE = "GENRETITLE"
+        val COL_BOOKS_IMGARRAY = "IMGARRAY"
 
         //Img table
-        val TABLE_IMG_NAME = "Images"
-        val COL_IMG_ID = "Id"
-        val COL_IMG_IMG = "Imagen"
+        val TABLE_IMG_NAME = "IMAGES"
+        val COL_IMG_ID = "IDIMAGE"
+        val COL_IMG_IMG = "IMAGE"
 
         //Genre Table
-        val TABLE_CAT_NAME = "Categories"
-        val COL_CAT_ID = "Id"
-        val COL_CAT_CAT = "Category"
+        val TABLE_CAT_NAME = "CATEGORIES"
+        val COL_CAT_ID = "CATEGORYID"
+        val COL_CAT_CAT = "CATEGORY"
 
         //Chapters Table
-        val TABLE_CH_NAME = "Chapters"
-        val COL_CH_ID = "Id"
-        val COL_CH_TITLE = "Titulo"
-        val COL_CH_BODY = "Cuerpo"
-        val COL_CH_IMAGE = "Imagen"
-        val COL_CH_BOOKID = "BookId"
+        val TABLE_CH_NAME = "CHAPTERS"
+        val COL_CH_ID = "CHAPTERSID"
+        val COL_CH_TITLE = "CHAPTERSTITLE"
+        val COL_CH_BODY = "BODY"
+        val COL_CH_IMAGE = "IMAGE"
+        val COL_CH_BOOKID = "BOOKID"
     }
 
     override fun onCreate(db: SQLiteDatabase?) {

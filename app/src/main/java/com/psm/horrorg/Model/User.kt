@@ -5,6 +5,8 @@ class User {
     var username:String?=null
     var password:String?=null
     var dateBirth:String?=null
+    var lastname:String?=null
+    var email:String?=null
 
     constructor(){}
 

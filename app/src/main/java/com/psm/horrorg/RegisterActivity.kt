@@ -62,23 +62,38 @@ class RegisterActivity : AppCompatActivity(),View.OnClickListener {
                     "$"
         )
         if(this.input_username.text.toString() =="" || this.input_password.text.toString()=="" || this.input_password2.text.toString()=="" || this.input_password2.text.toString()=="" || this.editTextDate.text.toString()==""){
+
             Toast.makeText(this,"Favor de llenar los campos",Toast.LENGTH_LONG).show();
-        }else if(this.input_password.text.toString()!=this.input_password2.text.toString()){
+
+        }
+        else if(this.input_password.text.toString()!=this.input_password2.text.toString()){
+
             Toast.makeText(this,"Las contraseñas tienen que ser iguales",Toast.LENGTH_LONG).show();
+
+
         }else if(!PatternsCompat.EMAIL_ADDRESS.matcher(this.input_correo.text.toString()).matches()){
+
             Toast.makeText(this,"El Formato del correo electronico es invalido",Toast.LENGTH_LONG).show();
 
-        }else if (!passwordRegex.matcher(this.input_password.text.toString()).matches()){
+        }
+        else if (!passwordRegex.matcher(this.input_password.text.toString()).matches()){
 
             Toast.makeText(this,"El formato de la contraseña es invalido",Toast.LENGTH_LONG).show();
-        }else{
+        }
+        else{
 
             var Dbusers = dbUsers(this@RegisterActivity)
-            var id:Long =Dbusers.insertarUsuario(this.input_username.text.toString(),this.input_password.text.toString(),this.editTextDate.text.toString())
+            var unique:Boolean = Dbusers.validarCorreoUnico(this.input_correo.text.toString())
+            var inserted:Long = 0
 
-            if(id>0){
+            if(unique){
 
-            //if(registerUser()){
+                 inserted = Dbusers.insertarUsuario(this.input_username.text.toString(),this.input_password.text.toString(),this.editTextDate.text.toString())
+            }
+
+            if(inserted>0){
+
+            //if(registerUser()){ TODO: Mandar también a la api, o mejor al revés, primero validar con la api y luego mandamos a la local
 
                 Toast.makeText(this,"Usuario creado",Toast.LENGTH_LONG).show();
                 val intent=Intent(this,MainActivity::class.java)

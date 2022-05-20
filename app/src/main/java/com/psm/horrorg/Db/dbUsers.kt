@@ -10,6 +10,24 @@ import java.util.ArrayList
 
 class dbUsers(var context: Context?) : DbHelper(context) {
 
+    fun validarCorreoUnico(email: String?): Boolean {
+        val dbHelper = DbHelper(context)
+        val db = dbHelper.writableDatabase
+
+        var unique = false
+
+        val cursorUser: Cursor
+        cursorUser = db.rawQuery(
+            "select * from User where $COL_EMAIL = ? LIMIT 1",
+            arrayOf(email)
+        )
+        if (cursorUser.moveToFirst()) {
+            unique = true
+        }
+        cursorUser.close()
+        return unique
+    }
+
     fun insertarUsuario(username: String?, password: String?, dateBirth: String?): Long {
         var id: Long = 0
         try {
@@ -26,6 +44,7 @@ class dbUsers(var context: Context?) : DbHelper(context) {
         }
         return id
     }
+
 
     fun verUser(username: String?): User {
         val dbHelper = DbHelper(context)
@@ -47,6 +66,7 @@ class dbUsers(var context: Context?) : DbHelper(context) {
         cursorUser.close()
         return user
     }
+
     fun modificarUser(username: String?,password: String?,date: String?): Boolean {
 
         var correcto:Boolean = false
