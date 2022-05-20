@@ -9,7 +9,7 @@
     android:padding="8dp">
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/iv_drawer_perfil"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_gravity="center_horizontal"
@@ -17,7 +17,7 @@
         app:srcCompat="@drawable/ic_person_24" />
 
     <TextView
-        android:id="@+id/tv_Username"
+        android:id="@+id/tv_drawer_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
