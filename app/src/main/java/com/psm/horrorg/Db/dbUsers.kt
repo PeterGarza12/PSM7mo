@@ -10,22 +10,46 @@ import java.util.ArrayList
 
 class dbUsers(var context: Context?) : DbHelper(context) {
 
-    fun insertarUsuario(username: String?, password: String?, dateBirth: String?): Long {
+    fun validarCorreoUnico(email: String?): Boolean {
+        val dbHelper = DbHelper(context)
+        val db = dbHelper.writableDatabase
+
+        var unique = true
+
+        val cursorUser: Cursor
+        cursorUser = db.rawQuery(
+            "select * from User where $COL_EMAIL = ? LIMIT 1",
+            arrayOf(email)
+        )
+        if (cursorUser.moveToFirst()) {
+            unique = false
+        }
+        cursorUser.close()
+        return unique
+    }
+
+    fun insertarUsuario(username: String?, password: String?, dateBirth: String?, image: ByteArray?, name: String?, email: String?): Long {
         var id: Long = 0
         try {
             val dbHelper = DbHelper(context!!)
 
             val db = dbHelper.writableDatabase
             val values = ContentValues()
-            values.put("UserName", username)
-            values.put("Password", password)
-            values.put("DateBirth", dateBirth)
+            values.put("$COL_USERNAME", username)
+            values.put("$COL_PASSWORD", password)
+            values.put("$COL_DATE", dateBirth)
+            values.put("$COL_IMAGE", image)
+            values.put("$COL_NAME", name)
+            values.put("$COL_EMAIL", email)
+
             id = db.insert(TABLE_NAME, null, values)
+
         } catch (ex: Exception) {
             ex.toString()
         }
         return id
     }
+
 
     fun verUser(username: String?): User {
         val dbHelper = DbHelper(context)
@@ -47,6 +71,7 @@ class dbUsers(var context: Context?) : DbHelper(context) {
         cursorUser.close()
         return user
     }
+
     fun modificarUser(username: String?,password: String?,date: String?): Boolean {
 
         var correcto:Boolean = false

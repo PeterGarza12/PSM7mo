@@ -43,7 +43,7 @@
             android:ems="10"
             android:inputType="textEmailAddress"
             android:minHeight="48dp"
-            android:text="@string/apellidosinput"
+            android:text="@string/inputnombre"
             android:textColor="@color/black"
             tools:layout_editor_absoluteX="52dp"
             tools:layout_editor_absoluteY="477dp" />
