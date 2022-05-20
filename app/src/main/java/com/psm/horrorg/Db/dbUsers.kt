@@ -14,7 +14,7 @@ class dbUsers(var context: Context?) : DbHelper(context) {
         val dbHelper = DbHelper(context)
         val db = dbHelper.writableDatabase
 
-        var unique = false
+        var unique = true
 
         val cursorUser: Cursor
         cursorUser = db.rawQuery(
@@ -22,23 +22,28 @@ class dbUsers(var context: Context?) : DbHelper(context) {
             arrayOf(email)
         )
         if (cursorUser.moveToFirst()) {
-            unique = true
+            unique = false
         }
         cursorUser.close()
         return unique
     }
 
-    fun insertarUsuario(username: String?, password: String?, dateBirth: String?): Long {
+    fun insertarUsuario(username: String?, password: String?, dateBirth: String?, image: ByteArray?, name: String?, email: String?): Long {
         var id: Long = 0
         try {
             val dbHelper = DbHelper(context!!)
 
             val db = dbHelper.writableDatabase
             val values = ContentValues()
-            values.put("UserName", username)
-            values.put("Password", password)
-            values.put("DateBirth", dateBirth)
+            values.put("$COL_USERNAME", username)
+            values.put("$COL_PASSWORD", password)
+            values.put("$COL_DATE", dateBirth)
+            values.put("$COL_IMAGE", image)
+            values.put("$COL_NAME", name)
+            values.put("$COL_EMAIL", email)
+
             id = db.insert(TABLE_NAME, null, values)
+
         } catch (ex: Exception) {
             ex.toString()
         }

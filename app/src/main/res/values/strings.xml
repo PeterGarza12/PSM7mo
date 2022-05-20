@@ -2,11 +2,11 @@
     <string name="app_name">Horrorg</string>
     <string name="user">Usuario</string>
     <string name="userinput">Ingresa tu nombre de usuario</string>
-    <string name="apellidosinput">Ingresa tu/s apellido/s</string>
+    <string name="inputnombre">Escribe tu nombre completo</string>
     <string name="correoinput">ejemplo@gmail.com</string>
     <string name="password">Contraseña</string>
     <string name="passwordinput">Ingresa tu contraseña</string>
-    <string name="passwordconfirm">Confirmar contraseña</string>
+    <string name="passwordconfirm">Confirma tu contraseña</string>
     <string name="PermissionDenied">No tiene permiso</string>
     
     

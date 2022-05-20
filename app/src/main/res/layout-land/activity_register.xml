@@ -44,7 +44,7 @@
             app:layout_constraintTop_toTopOf="@+id/imageView3" />
 
         <ImageView
-            android:id="@+id/imageView4"
+            android:id="@+id/iv_register_profilepic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
@@ -65,7 +65,7 @@
             android:textColor="@color/black"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/imageView3"
-            app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_register_profilepic" />
 
         <Button
             android:id="@+id/button"
