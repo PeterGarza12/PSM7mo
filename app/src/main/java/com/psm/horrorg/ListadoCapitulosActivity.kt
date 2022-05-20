@@ -39,6 +39,7 @@ class ListadoCapitulosActivity : AppCompatActivity() {
         // rv_grupos.layoutManager = LinearLayoutManager(this.context2!!, LinearLayoutManager.HORIZONTAL, false)
 
         rv_gruposCapitulos.adapter = capitulosAdaptador
+        var idBook = intent.getStringExtra("IDBook") ?: "sin_id"
 
         capitulos.clear()
         var capitulo: Chapters
@@ -50,7 +51,7 @@ class ListadoCapitulosActivity : AppCompatActivity() {
             val cursorUser: Cursor
             cursorUser = db.rawQuery(
                 "select * from CHAPTERS where BOOKID = ?",
-                arrayOf(.toString())
+                arrayOf(idBook.toString())
             )
 
             if (cursorUser.moveToFirst()) {

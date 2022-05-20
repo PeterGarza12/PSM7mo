@@ -90,6 +90,11 @@ class SinopsisBookActivity : AppCompatActivity() {
             val intent = Intent(this, CreateChapterActivity::class.java)
             startActivity(intent)
         }
+        tvLeerCapitulos.setOnClickListener{
+            val intent = Intent(this, ListadoCapitulosActivity::class.java)
+            intent.putExtra("IDBook", Libro.getId())
+
+        }
         txt_Download.setOnClickListener(View.OnClickListener {
 
            
