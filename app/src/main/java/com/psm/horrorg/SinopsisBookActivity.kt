@@ -66,12 +66,11 @@ class SinopsisBookActivity : AppCompatActivity() {
 
         //if(miLibro.userId == Usuario.getId()){
         if(Libro.getUserId() == Usuario.getId()){
-            btnRead.visibility = View.GONE
+
             btnCreate.visibility = View.VISIBLE
         }
         else{
             btnCreate.visibility = View.GONE
-            btnRead.visibility = View.VISIBLE
         }
 
         if(sheckPermission()){
