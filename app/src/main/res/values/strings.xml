@@ -8,13 +8,12 @@
     <string name="passwordinput">Ingresa tu contraseña</string>
     <string name="passwordconfirm">Confirmar contraseña</string>
     <string name="PermissionDenied">No tiene permiso</string>
-    
-    
-    
+
+
     <string-array name="array_categories">
         <item>Suspenso</item>
         <item>Criminología</item>
         <item>Creepypastas</item>
     </string-array>
-    
+
 </resources>
