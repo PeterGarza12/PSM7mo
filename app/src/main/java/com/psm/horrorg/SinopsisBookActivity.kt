@@ -82,10 +82,10 @@ class SinopsisBookActivity : AppCompatActivity() {
             requestPermissions()
         }
 
-        btnRead.setOnClickListener {
+        /*btnRead.setOnClickListener {
             val intent = Intent(this, ReadActivity::class.java)
             startActivity(intent)
-        }
+        }*/
         btnCreate.setOnClickListener{
             val intent = Intent(this, CreateChapterActivity::class.java)
             startActivity(intent)
@@ -93,6 +93,7 @@ class SinopsisBookActivity : AppCompatActivity() {
         tvLeerCapitulos.setOnClickListener{
             val intent = Intent(this, ListadoCapitulosActivity::class.java)
             intent.putExtra("IDBook", Libro.getId())
+            startActivity(intent)
 
         }
         txt_Download.setOnClickListener(View.OnClickListener {

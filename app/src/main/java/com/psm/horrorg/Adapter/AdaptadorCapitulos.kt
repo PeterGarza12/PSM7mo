@@ -47,9 +47,8 @@ class AdaptadorCapitulos(private val listaCapitulos: MutableList<Chapters>, val 
         override fun onClick(v: View?) {
             when(v!!.id){
                 R.id.frame->{
-                    chapter.setCapitulo(listaCapitulos[capituloPosition].id, listaCapitulos[capituloPosition].bookId, listaCapitulos[capituloPosition].strTitle.toString(),
-                        listaCapitulos[capituloPosition].strBody.toString(), listaCapitulos[capituloPosition].intIdImage,
-                        listaCapitulos[capituloPosition].imgArray)
+                    chapter.setCapitulo(listaCapitulos[capituloPosition].id, listaCapitulos[capituloPosition].bookId, listaCapitulos[capituloPosition].strTitle,
+                        listaCapitulos[capituloPosition].strBody, listaCapitulos[capituloPosition].imgArray)
 
                     Toast.makeText(context, Libro.getDescription(), Toast.LENGTH_LONG).show();
                     val activityIntent = Intent(context, ReadActivity::class.java)

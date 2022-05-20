@@ -7,15 +7,13 @@ object chapter {
     private var strTitle:String = ""
     private var strBody:String = ""
     private var imgArray: Bitmap? = null
-    private var intIdImage:Int = 0
     private var bookId:Int=0
 
-    fun setCapitulo(id: Int, bookId: Int, strTitle: String, strBody: String, intIdImage: Int, imgArray: Bitmap?){
+    fun setCapitulo(id: Int, bookId: Int, strTitle: String, strBody: String, imgArray: Bitmap?){
         this.id = id;
         this.bookId = bookId;
         this.strTitle = strTitle;
         this.strBody = strBody;
-        this.intIdImage = intIdImage;
         this.imgArray = imgArray;
     }
 

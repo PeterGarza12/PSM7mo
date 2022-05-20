@@ -1,6 +1,7 @@
 package com.psm.horrorg
 
 import android.database.Cursor
+import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -9,17 +10,17 @@ import com.psm.horrorg.Adapter.AdaptadorCapitulos
 import com.psm.horrorg.Adapter.AdaptadorLibros
 import com.psm.horrorg.Db.DbHelper
 import com.psm.horrorg.Db.dbImages
-import com.psm.horrorg.Model.Chapters
-import com.psm.horrorg.Model.Libros
-import com.psm.horrorg.Model.Usuario
-import com.psm.horrorg.Model.chapter
+import com.psm.horrorg.Model.*
 import kotlinx.android.synthetic.main.content_list.*
 
 class ListadoCapitulosActivity : AppCompatActivity() {
+
     private var capitulos = mutableListOf<Chapters>()
     private var capitulosAdaptador: AdaptadorCapitulos? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_listado_capitulos)
         setSupportActionBar(findViewById(R.id.toolbar))
 
@@ -51,21 +52,20 @@ class ListadoCapitulosActivity : AppCompatActivity() {
             val cursorUser: Cursor
             cursorUser = db.rawQuery(
                 "select * from CHAPTERS where BOOKID = ?",
-                arrayOf(idBook.toString())
+                arrayOf(Libro.getId().toString())
             )
 
             if (cursorUser.moveToFirst()) {
                 do{
 
                     capitulo = Chapters()
-                    capitulo.bookId = cursorUser.getInt(0)
-                    capitulo.id = cursorUser.getInt(1)
-                    capitulo.strTitle =  cursorUser.getString(2)
-                    capitulo.strBody = cursorUser.getString(3)
+                    capitulo.id = cursorUser.getInt(0)
+                    capitulo.strTitle = cursorUser.getString(1)
+                    capitulo.strBody =  cursorUser.getString(2)
+                    val image: ByteArray = cursorUser.getBlob(3)
+                    capitulo.imgArray = BitmapFactory.decodeByteArray(image, 0, image.size)
                     //
-                    capitulo.intIdImage = cursorUser.getInt(4)
-                    capitulo.imgArray = dbimg.getImage(capitulo.intIdImage)
-                    var catId = cursorUser.getInt(5)
+                    capitulo.bookId = cursorUser.getInt(4)
 
 
                     capitulos.add(capitulo)
