@@ -13,6 +13,7 @@ import androidx.core.util.PatternsCompat
 import com.psm.horrorg.DatePicker.DatePickerFragment
 import com.psm.horrorg.Db.dbUsers
 import com.psm.horrorg.Model.User2
+import com.psm.horrorg.Model.Usuario
 import kotlinx.android.synthetic.main.activity_register.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -134,13 +135,16 @@ class RegisterActivity : AppCompatActivity(),View.OnClickListener {
 
             //var existing:Boolean = Dbusers.validarCorreoUnico(this.input_correo.text.toString())
 
-            var existing:Boolean = getUserByEmail(this.input_correo.text.toString())
+            getUserByEmail(this.input_correo.text.toString())
 
-            if(!existing){
+            if(Usuario.getId()==0){
 
                 registerUser()
 
-                val inserted = Dbusers.insertarUsuario( this.input_register_username.text.toString(),
+
+
+                val inserted = Dbusers.insertarUsuario(
+                                                this.input_register_username.text.toString(),
                                                 this.input_password.text.toString(),
                                                 this.editTextDate.text.toString(),
                                                 byteImage,
@@ -209,8 +213,9 @@ class RegisterActivity : AppCompatActivity(),View.OnClickListener {
             override fun onResponse(call: Call<List<User2>>, response: Response<List<User2>>) {
 
                 val item =  response.body()
-                if (item != null){
+                if (item!!.isNotEmpty()){
                     Toast.makeText(this@RegisterActivity,"Ya existe un usuario con ese correo",Toast.LENGTH_LONG).show()
+                    Usuario.setUsuarioId(1);
                     exists = true
                 }
             }
@@ -251,6 +256,34 @@ class RegisterActivity : AppCompatActivity(),View.OnClickListener {
         })
 
         return success
+    }
+
+    private fun retrieveUser(email: String){
+
+        val service: Service =  RestEngine.getRestEngine().create(Service::class.java)
+        val result: Call<List<User2>> = service.getUser(email)
+
+        result.enqueue(object: Callback<List<User2>> {
+            override fun onFailure(call: Call<List<User2>>, t: Throwable) {
+
+                Toast.makeText(this@RegisterActivity,"Ingresando de manera local",Toast.LENGTH_LONG).show()
+
+            }//Aquí termina el onfailure
+
+            override fun onResponse(call: Call<List<User2>>, response: Response<List<User2>>) {
+
+                val item =  response.body()
+                //Si sí trajo el objeto
+                if (item != null){
+                    Usuario.setUsuarioId(item[0].USERID!!.toInt())
+                }
+                //Si no encontró el objeto seguro se equivoco en el correo
+                else{
+                    Toast.makeText(this@RegisterActivity,"No se encontró al usuario",Toast.LENGTH_LONG).show()
+                }
+            } //Acá termina el onresponse
+        }) //Aqui termina el resut
+
     }
 
 

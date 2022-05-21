@@ -11,6 +11,10 @@ object Usuario {
     private var NAME    :String = ""
     private var EMAIL   :String = ""
 
+    fun setUsuarioId(id: Int){
+        this.USERID     = id;
+    }
+
     fun setUsuario(id: Int, username: String, password: String, dateBirth: String, image: Bitmap, name: String, email: String){
         this.USERID     = id;
         this.USERNAME   = username;
