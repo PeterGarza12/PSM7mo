@@ -6,7 +6,7 @@ import android.content.ContentValues
 import android.database.Cursor
 import android.graphics.BitmapFactory
 import com.psm.horrorg.Model.User
-import com.psm.horrorg.Model.User2
+import com.psm.horrorg.Model.Usuario
 import java.lang.Exception
 import java.util.ArrayList
 
@@ -89,8 +89,9 @@ class dbUsers(var context: Context?) : DbHelper(context) {
             val bitmap = BitmapFactory.decodeByteArray(image, 0, image.size)
 
             user = User(id, username, password, dateBirth, bitmap, name, email)
+            Usuario.setUsuario(Usuario.getId(), user.USERNAME, user.PASS, user.BIRTHDAY,user.IMAGE, user.NAME, user.EMAIL)
         }
-        cursorUser.close()
+
         return user
     }
 
@@ -112,16 +113,26 @@ class dbUsers(var context: Context?) : DbHelper(context) {
                 values.put("$COL_IMAGE", image)
                 values.put("$COL_NAME", name)
 
-                db.update(TABLE_NAME, values, "$COL_ID =?", arrayOf(id.toString()))
+                db.update(TABLE_NAME, values, "$COL_EMAIL =?", arrayOf(Usuario.getEmail()))
 
             } catch (ex: Exception) {
                 ex.toString()
             }
         }
         else{
-            db.execSQL("UPDATE $TABLE_NAME SET $COL_USERNAME='"+username+"',$COL_PASSWORD='"+password+"',$COL_DATE='"+dateBirth+"', $COL_NAME = '"+name+"' WHERE $COL_ID = "+id+" ;")
+
+            val values = ContentValues()
+            values.put("$COL_USERNAME", username)
+            values.put("$COL_PASSWORD", password)
+            values.put("$COL_DATE", dateBirth)
+            values.put("$COL_NAME", name)
+
+            db.update(TABLE_NAME, values, "$COL_EMAIL =?", arrayOf(Usuario.getEmail()))
+
+            //db.execSQL("UPDATE $TABLE_NAME SET $COL_USERNAME='"+username+"',$COL_PASSWORD='"+password+"',$COL_DATE='"+dateBirth+"', $COL_NAME = '"+name+"' WHERE $COL_EMAIL = "+Usuario.getEmail()+" ;")
         }
 
+        db.close()
 
 
         return correcto

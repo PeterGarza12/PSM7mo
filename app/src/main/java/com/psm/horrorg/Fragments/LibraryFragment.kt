@@ -2,6 +2,7 @@ package com.psm.horrorg.Fragments
 
 import android.content.Context
 import android.content.Intent
+import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
@@ -21,16 +22,19 @@ import com.psm.horrorg.Db.DbHelper
 import com.psm.horrorg.Db.dbImages
 import com.psm.horrorg.Model.DataBook
 import com.psm.horrorg.Model.Libros
+import com.psm.horrorg.Model.User2
 import com.psm.horrorg.Model.Usuario
 import com.psm.horrorg.R
 import com.psm.horrorg.RestEngine
 import com.psm.horrorg.Service
+import okio.ByteString.Companion.decodeBase64
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.ByteArrayInputStream
 import java.util.*
 
-class HomeFragment: Fragment(), SearchView.OnQueryTextListener{
+class LibraryFragment: Fragment(), SearchView.OnQueryTextListener{
 
     private var context2: Context? = null
 
@@ -53,27 +57,16 @@ class HomeFragment: Fragment(), SearchView.OnQueryTextListener{
         savedInstanceState: Bundle?
     ): View? {
 
-        val view = inflater.inflate(R.layout.fragment_home, container, false)
+        val view = inflater.inflate(R.layout.fragment_biblioteca, container, false)
 
         var dbhelper = DbHelper(this.context2!!)
         var dbImg = dbImages(this.context2!!)
-
-
+        txtBuscar=view.findViewById(R.id.sv_library)
+        txtBuscar.setOnQueryTextListener(this)
 
         this.librosAdaptador = AdaptadorLibros(libros, this.context2!!)
         getLibros(view, dbhelper, dbImg)
 
-        val searchview :SearchView = view.findViewById(R.id.sv_buscador)
-        searchview.setOnQueryTextListener(this)
-
-        view.findViewById<FloatingActionButton>(R.id.fab_CreateBook).setOnClickListener { view ->
-
-            val  activityIntent =  Intent(this.context2!!,BookActivity::class.java)
-            activityIntent.putExtra(ALBUM_POSITION,DEFAULT_ALBUM_POSITION)
-            startActivity(activityIntent)
-
-
-        }
 
         return view
     }
@@ -81,7 +74,7 @@ class HomeFragment: Fragment(), SearchView.OnQueryTextListener{
     private fun getLibros(view: View, dbHelper: DbHelper, dbimg: dbImages) {
         Toast.makeText(context, "Sí entraaaaa", Toast.LENGTH_SHORT).show()
 
-        val rv_libros = view.findViewById<RecyclerView>(R.id.rv_libros)
+        val rv_libros = view.findViewById<RecyclerView>(R.id.rv_library)
         // Linea para hacer el recycler horizontal
         // rv_grupos.layoutManager = LinearLayoutManager(this.context2!!, LinearLayoutManager.HORIZONTAL, false)
 
@@ -107,27 +100,23 @@ class HomeFragment: Fragment(), SearchView.OnQueryTextListener{
                 if (itemArray!!.isNotEmpty()){
 
                     for(item in itemArray){
-                        if(item.USERID!!.toInt() == Usuario.getId())
-                        {
-                            libro = Libros()
-                            libro.libroId = item.BOOKID!!.toInt()
-                            libro.userId = item.USERID!!.toInt()
-                            libro.strTitle =  item.TITLE
-                            libro.strDescription = item.DESCRIPTION
-                            //
-                            val strImage:String =  item.IMAGE!!.replace("data:image/png;base64,","")
-                            val byteArray =  Base64.getDecoder().decode(strImage)
-                            val bitmap : Bitmap? = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+                        libro = Libros()
+                        libro.libroId = item.BOOKID!!.toInt()
+                        libro.userId = item.USERID!!.toInt()
+                        libro.strTitle =  item.TITLE
+                        libro.strDescription = item.DESCRIPTION
+                        //
+                        val strImage:String =  item.IMAGE!!.replace("data:image/png;base64,","")
+                        val byteArray =  Base64.getDecoder().decode(strImage)
+                        val bitmap : Bitmap? = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
 
+                        libro.imgArray = bitmap
+                        libro.genre =  item.GENRETITLE
 
-                            libro.imgArray = bitmap
-                            libro.genre =  item.GENRETITLE
-
-                            libros.add(libro)
-                        }
-
+                        libros.add(libro)
                     }
                     rv_libros.adapter?.notifyDataSetChanged()
+
 
                 }
                 //Si no encontró el objeto seguro se equivoco en el correo
@@ -135,19 +124,19 @@ class HomeFragment: Fragment(), SearchView.OnQueryTextListener{
                     Toast.makeText(context2!!,"No se encontró al usuario",Toast.LENGTH_LONG).show()
                 }
             } //Acá termina el onresponse
-        })
+        }) //Aqui termina el resut
+
         /*try {
             val db = dbHelper.readableDatabase
-    
+
             val cursorUser: Cursor
             cursorUser = db.rawQuery(
-                "select * from Books where UserId = ?",
-                arrayOf(Usuario.getId().toString())
+                "select * from BOOKS", null
             )
-    
+
             if (cursorUser.moveToFirst()) {
                 do{
-    
+
                     libro = Libros()
                     libro.libroId = cursorUser.getInt(0)
                     libro.userId = cursorUser.getInt(1)
@@ -158,21 +147,22 @@ class HomeFragment: Fragment(), SearchView.OnQueryTextListener{
                     libro.imgArray = dbimg.getImage(libro.intIdImage)
                     var catId = cursorUser.getInt(5)
                     libro.genre =  dbimg.getCat(catId)
-    
+
                     libros.add(libro)
                 }
                 while (cursorUser.moveToNext())
             }
             cursorUser.close()
-    
+
         } catch (ex: Exception) {
             ex.toString()
             Toast.makeText(this.context2!!, ex.toString(), Toast.LENGTH_SHORT).show()
         }*/
-
         rv_libros.smoothScrollToPosition(0)
-
     }
+
+
+
 
     override fun onQueryTextSubmit(query: String?): Boolean {
         return false
@@ -187,7 +177,6 @@ class HomeFragment: Fragment(), SearchView.OnQueryTextListener{
         return false
 
     }
-
 
 }
 

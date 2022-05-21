@@ -1,10 +1,7 @@
 package com.psm.horrorg
 
-import android.app.Notification
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -17,11 +14,11 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
 import com.psm.horrorg.Fragments.CategoriaFragment
 import com.psm.horrorg.Fragments.HomeFragment
+import com.psm.horrorg.Fragments.LibraryFragment
 import com.psm.horrorg.Fragments.ProfileUser
 import com.psm.horrorg.Model.Categorias
+import com.psm.horrorg.Model.Libro
 import com.psm.horrorg.Model.Usuario
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.drawer_header.*
 
 class DrawerActivity : AppCompatActivity() {
 
@@ -93,6 +90,17 @@ class DrawerActivity : AppCompatActivity() {
                 R.id.opc_suspenso->{
                     Categorias.setCategoria("Suspenso")
                     cambiarFragmento(CategoriaFragment(), "CategoriaFragment")
+
+                }
+
+                R.id.opc_biblioteca->{
+                    cambiarFragmento(LibraryFragment(), "LibraryFragment")
+                }
+
+                R.id.opc_Logout->{
+                    Usuario.setUsuario(0, "", "", "", null, "", "")
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
 
                 }
 

@@ -1,6 +1,8 @@
 package com.psm.horrorg
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -14,6 +16,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -106,18 +109,23 @@ class MainActivity : AppCompatActivity() {
 
                 val item =  response.body()
                 //Si sí trajo el objeto
-                if (item != null){
+                if (item!!.isNotEmpty()){
 
                     //Si la contraseña del objeto coincide con la ingresada setea al usuario
                     if(item[0].PASS.toString() == password){
 
-                        user = DbUsers.verUser(email)
+                        val strImage:String =  item[0].IMAGE!!.replace("data:image/png;base64,","")
+                        val byteArray =  Base64.getDecoder().decode(strImage)
+                        val bitmap: Bitmap? = BitmapFactory.decodeByteArray(byteArray, 0, byteArray!!.size)
 
-                        if(user!=null){
+                        //user = DbUsers.verUser(email)
+                        Usuario.setUsuario(item[0].USERID!!.toInt(), item[0].USERNAME.toString(), item[0].PASS.toString(), item[0].BIRTHDAY.toString(), bitmap, item[0].NAME.toString(), item[0].EMAIL.toString())
+                        Toast.makeText(this@MainActivity,"Login con éxito",Toast.LENGTH_LONG).show()
 
-                            Usuario.setUsuario(item[0].USERID!!.toInt(), user.USERNAME, user.PASS, user.BIRTHDAY,user.IMAGE, user.NAME, user.EMAIL)
-                            Toast.makeText(this@MainActivity,"Login con éxito",Toast.LENGTH_LONG).show()
-                        }
+                        /*if(user!=null){
+
+
+                        }*/
                     }
                     //Si no coincide le avisa
                     else{

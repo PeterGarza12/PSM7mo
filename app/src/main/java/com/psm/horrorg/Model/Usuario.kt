@@ -15,7 +15,7 @@ object Usuario {
         this.USERID     = id;
     }
 
-    fun setUsuario(id: Int, username: String, password: String, dateBirth: String, image: Bitmap, name: String, email: String){
+    fun setUsuario(id: Int, username: String, password: String, dateBirth: String, image: Bitmap?, name: String, email: String){
         this.USERID     = id;
         this.USERNAME   = username;
         this.PASS       = password;

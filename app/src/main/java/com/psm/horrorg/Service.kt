@@ -11,6 +11,9 @@ interface Service {
     @GET("Book/Books")
     fun getBooks(): Call<List<DataBook>>
 
+    @GET("Chapter/Chapters")
+    fun getChapters(): Call<List<DataChapter>>
+
     @Headers("Content-Type: application/json")
     @POST("Book/Save")
     fun saveBooks(@Body bookData: DataBook): Call<Int>
