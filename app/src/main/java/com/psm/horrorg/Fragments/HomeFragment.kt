@@ -83,7 +83,7 @@ class HomeFragment: Fragment(), SearchView.OnQueryTextListener{
         var libro: Libros
 
 
-        try {
+        /*try {
             val db = dbHelper.readableDatabase
     
             val cursorUser: Cursor
@@ -115,7 +115,7 @@ class HomeFragment: Fragment(), SearchView.OnQueryTextListener{
         } catch (ex: Exception) {
             ex.toString()
             Toast.makeText(this.context2!!, ex.toString(), Toast.LENGTH_SHORT).show()
-        }
+        }*/
 
         rv_grupos.smoothScrollToPosition(0)
 
