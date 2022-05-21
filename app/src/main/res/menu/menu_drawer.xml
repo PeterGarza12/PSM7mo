@@ -33,4 +33,8 @@
         android:id="@+id/opc_Perfil"
         android:icon="@drawable/ic_person_24"
         android:title="Perfil" />
+    <item
+        android:id="@+id/opc_Logout"
+        android:icon="@drawable/ic_baseline_power_settings_new_24"
+        android:title="Cerrar sesión" />
 </menu>

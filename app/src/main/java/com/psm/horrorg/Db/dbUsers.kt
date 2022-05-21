@@ -6,7 +6,6 @@ import android.content.ContentValues
 import android.database.Cursor
 import android.graphics.BitmapFactory
 import com.psm.horrorg.Model.User
-import com.psm.horrorg.Model.User2
 import com.psm.horrorg.Model.Usuario
 import java.lang.Exception
 import java.util.ArrayList
