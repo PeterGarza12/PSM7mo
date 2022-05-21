@@ -82,43 +82,38 @@ class LibraryFragment: Fragment(), SearchView.OnQueryTextListener{
         libros.clear()
         var libro: Libros
 
-        val service: Service =  RestEngine.getRestEngine().create(Service::class.java)
-        val result: Call<List<DataBook>> = service.getBooks()
+        try {
+            val db = dbHelper.readableDatabase
 
-        result.enqueue(object: Callback<List<DataBook>> {
-            override fun onFailure(call: Call<List<DataBook>>, t: Throwable) {
+            val cursorUser: Cursor
+            cursorUser = db.rawQuery(
+                "select * from BOOKS", null
+            )
 
-            }//Aquí termina el onfailure
+            if (cursorUser.moveToFirst()) {
+                do{
 
-            override fun onResponse(call: Call<List<DataBook>>, response: Response<List<DataBook>>) {
+                    libro = Libros()
+                    libro.libroId = cursorUser.getInt(0)
+                    libro.userId = cursorUser.getInt(1)
+                    libro.strTitle =  cursorUser.getString(2)
+                    libro.strDescription = cursorUser.getString(3)
+                    //
+                    libro.intIdImage = cursorUser.getInt(4)
+                    libro.imgArray = dbimg.getImage(libro.intIdImage)
+                    var catId = cursorUser.getInt(5)
+                    libro.genre =  dbimg.getCat(catId)
 
-                val arrayItems =  response.body()
-                //Si sí trajo el objeto
-                if (arrayItems!!.isNotEmpty()){
-                    for (item in arrayItems!!){
-                        libro = Libros()
-                        libro.libroId = item.BOOKID!!.toInt()
-                        libro.userId = item.USERID!!.toInt()
-                        libro.strTitle =  item.TITLE
-                        libro.strDescription = item.DESCRIPTION
-                        //
-                        var byteArray:ByteArray? = null
-                        val strImage:String =  item.IMAGE!!.replace("data:image/png;base64,","")
-                        byteArray =  Base64.getDecoder().decode(strImage)
-
-                        val array = ByteArrayInputStream(byteArray)
-                        val bitmap = BitmapFactory.decodeStream(array)
-
-                        libro.imgArray = bitmap
-
-                        var catId = item.GENREID!!.toInt()
-                        libro.genre =  dbimg.getCat(catId)
-
-                        libros.add(libro)
-                    }
+                    libros.add(libro)
                 }
-            } //Acá termina el onresponse
-        }) //Aqui termina el resut
+                while (cursorUser.moveToNext())
+            }
+            cursorUser.close()
+
+        } catch (ex: Exception) {
+            ex.toString()
+            Toast.makeText(this.context2!!, ex.toString(), Toast.LENGTH_SHORT).show()
+        }
         rv_grupos.smoothScrollToPosition(0)
     }
 
