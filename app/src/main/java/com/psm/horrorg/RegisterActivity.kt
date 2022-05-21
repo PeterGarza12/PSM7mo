@@ -18,6 +18,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.ByteArrayOutputStream
+import java.util.*
 import java.util.regex.Pattern
 
 class RegisterActivity : AppCompatActivity(),View.OnClickListener {
@@ -129,23 +130,26 @@ class RegisterActivity : AppCompatActivity(),View.OnClickListener {
         }
         else{
 
-            var inserted:Long = 0
+            var inserted:Boolean = false
 
             var Dbusers = dbUsers(this@RegisterActivity)
 
-            var unique:Boolean = Dbusers.validarCorreoUnico(this.input_correo.text.toString())
+            //var unique:Boolean = Dbusers.validarCorreoUnico(this.input_correo.text.toString())
+
+            var unique:Boolean = getUserByEmail(this.input_correo.text.toString())
 
             if(unique){
 
-                inserted = Dbusers.insertarUsuario( this.input_main_mail.text.toString(),
-                                                    this.input_password.text.toString(),
-                                                    this.editTextDate.text.toString(),
-                                                    byteImage,
-                                                    this.input_nombrecompleto.text.toString(),
-                                                    this.input_correo.text.toString())
-                if(inserted>0){
+                inserted = registerUser()
 
-                    //if(registerUser()){ TODO: Mandar también a la api, o mejor al revés, primero validar con la api y luego mandamos a la local
+                Dbusers.insertarUsuario( this.input_main_mail.text.toString(),
+                                                this.input_password.text.toString(),
+                                                this.editTextDate.text.toString(),
+                                                byteImage,
+                                                this.input_nombrecompleto.text.toString(),
+                                                this.input_correo.text.toString())
+
+                if(inserted){
 
                     Toast.makeText(this,"Usuario creado",Toast.LENGTH_LONG).show();
                     val intent=Intent(this,MainActivity::class.java)
@@ -169,6 +173,8 @@ class RegisterActivity : AppCompatActivity(),View.OnClickListener {
         }
     }
 
+
+
     private fun createImage(): Boolean{
 
         var result = false
@@ -191,6 +197,31 @@ class RegisterActivity : AppCompatActivity(),View.OnClickListener {
         return result
     }
 
+    private fun getUserByEmail(email: String):Boolean {
+        var exists = false
+
+        val service: Service =  RestEngine.getRestEngine().create(Service::class.java)
+        val result: Call<List<User2>> = service.getUser(email)
+
+        result.enqueue(object: Callback<List<User2>>{
+            override fun onFailure(call: Call<List<User2>>, t: Throwable) {
+                Toast.makeText(this@RegisterActivity,"Error",Toast.LENGTH_LONG).show()
+            }
+
+            override fun onResponse(call: Call<List<User2>>, response: Response<List<User2>>) {
+
+                val item =  response.body()
+                if (item != null){
+                    Toast.makeText(this@RegisterActivity,"Ya existe un usuario con ese correo",Toast.LENGTH_LONG).show()
+                    exists = true
+                }
+
+            }
+
+        })
+        return exists
+    }
+
     private fun registerUser(): Boolean{
 
         var success = false
@@ -198,11 +229,13 @@ class RegisterActivity : AppCompatActivity(),View.OnClickListener {
         //SE CONSTRUYE EL OBJECTO A ENVIAR,  ESTO DEPENDE DE COMO CONSTRUYAS EL SERVICIO
         // SI TU SERVICIO POST REQUIERE DOS PARAMETROS HACER UN OBJECTO CON ESOS DOS PARAMETROS
         val user =  User2(0,
-                    this.input_main_mail.text.toString(),
-                    this.input_password.text.toString(),
-                    this.editTextDate.text.toString(),
-                    null
-                    )
+                            this.input_main_mail.text.toString(),
+                            this.input_password.text.toString(),
+                            this.editTextDate.text.toString(),
+                            byteImage,
+                            this.input_nombrecompleto.text.toString(),
+                            this.input_correo.text.toString()
+                            )
 
         val service: Service =  RestEngine.getRestEngine().create(Service::class.java)
         val result: Call<Int> = service.saveUser(user)
