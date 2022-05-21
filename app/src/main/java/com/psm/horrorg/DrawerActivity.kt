@@ -15,6 +15,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
+import com.psm.horrorg.Fragments.CategoriaFragment
 import com.psm.horrorg.Fragments.HomeFragment
 import com.psm.horrorg.Fragments.ProfileUser
 import com.psm.horrorg.Model.Usuario
@@ -74,9 +75,24 @@ class DrawerActivity : AppCompatActivity() {
                 }
 
                 R.id.opc_mislibros -> {
-                    val intent = Intent(this, HomeActivity::class.java)
-                    startActivity(intent)
-                    //cambiarFragmento(HomeFragment(), "HomeFragment")
+
+                    cambiarFragmento(HomeFragment(), "HomeFragment")
+                }
+                R.id.opc_creepypastas->{
+                    Categorias.setCategoria("Creepypastas")
+                    cambiarFragmento(CategoriaFragment(), "CategoriaFragment")
+
+
+                }
+                R.id.opc_criminología->{
+                    Categorias.setCategoria("Criminología")
+                    cambiarFragmento(CategoriaFragment(), "CategoriaFragment")
+
+                }
+                R.id.opc_suspenso->{
+                    Categorias.setCategoria("Suspenso")
+                    cambiarFragmento(CategoriaFragment(), "CategoriaFragment")
+
                 }
 
                 else -> {

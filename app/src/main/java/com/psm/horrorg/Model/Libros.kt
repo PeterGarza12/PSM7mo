@@ -12,4 +12,7 @@ class Libros  (
     var genre: String? = null,
     var imgArray:Bitmap? =  null
         ){
+    fun getTitle(): String? {
+        return this.strTitle
+    }
 }

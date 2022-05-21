@@ -10,9 +10,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.psm.horrorg.Db.dbImages
 import com.psm.horrorg.Model.Libro
+import com.psm.horrorg.Model.Libro.getTitle
 import com.psm.horrorg.Model.Libros
+import com.psm.horrorg.Model.chapter.getTitle
 import com.psm.horrorg.R
 import com.psm.horrorg.SinopsisBookActivity
+import java.util.stream.Stream
 
 class AdaptadorLibros(private val listaLibros: MutableList<Libros>, val context: Context):
     RecyclerView.Adapter<AdaptadorLibros.GroupViewholder>(){
@@ -59,6 +62,7 @@ class AdaptadorLibros(private val listaLibros: MutableList<Libros>, val context:
                         listaLibros[libroPosition].strDescription.toString(), listaLibros[libroPosition].intIdImage, listaLibros[libroPosition].genre.toString(),
                         listaLibros[libroPosition].imgArray)
                     //val gson = Gson()
+
                     Toast.makeText(context,Libro.getDescription(),Toast.LENGTH_LONG).show();
                     val activityIntent = Intent(context, SinopsisBookActivity::class.java)
                     //activityIntent.putExtra("Libro", gson.toJson(listaLibros[libroPosition]))
@@ -82,4 +86,7 @@ class AdaptadorLibros(private val listaLibros: MutableList<Libros>, val context:
     override fun getItemCount(): Int = listaLibros.size
 
 
+
+
 }
+
