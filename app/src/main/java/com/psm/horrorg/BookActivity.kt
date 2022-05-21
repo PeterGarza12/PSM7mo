@@ -113,6 +113,7 @@ class BookActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
             }
         }
 
+
         imgid = idDeLaImagen()
 
         if(imgid==0){
