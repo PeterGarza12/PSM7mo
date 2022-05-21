@@ -185,7 +185,7 @@ class EditProfileUser: AppCompatActivity(),View.OnClickListener {
 
                 if(user!=null){
 
-                    Usuario.setUsuario(user.USERID, user.USERNAME, user.PASS, user.BIRTHDAY,user.IMAGE, user.NAME, user.EMAIL)
+                    Usuario.setUsuario(Usuario.getId(), user.USERNAME, user.PASS, user.BIRTHDAY,user.IMAGE, user.NAME, user.EMAIL)
 
                 }
 
