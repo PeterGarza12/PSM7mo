@@ -2,7 +2,8 @@ package com.psm.horrorg.Fragments
 
 import android.content.Context
 import android.content.Intent
-import android.database.Cursor
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,9 +19,16 @@ import com.psm.horrorg.Data.ALBUM_POSITION
 import com.psm.horrorg.Data.DEFAULT_ALBUM_POSITION
 import com.psm.horrorg.Db.DbHelper
 import com.psm.horrorg.Db.dbImages
+import com.psm.horrorg.Model.DataBook
 import com.psm.horrorg.Model.Libros
 import com.psm.horrorg.Model.Usuario
 import com.psm.horrorg.R
+import com.psm.horrorg.RestEngine
+import com.psm.horrorg.Service
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.util.*
 
 class HomeFragment: Fragment(), SearchView.OnQueryTextListener{
 
@@ -73,16 +81,61 @@ class HomeFragment: Fragment(), SearchView.OnQueryTextListener{
     private fun getLibros(view: View, dbHelper: DbHelper, dbimg: dbImages) {
         Toast.makeText(context, "Sí entraaaaa", Toast.LENGTH_SHORT).show()
 
-        val rv_grupos = view.findViewById<RecyclerView>(R.id.rv_libros)
+        val rv_libros = view.findViewById<RecyclerView>(R.id.rv_libros)
         // Linea para hacer el recycler horizontal
         // rv_grupos.layoutManager = LinearLayoutManager(this.context2!!, LinearLayoutManager.HORIZONTAL, false)
 
-        rv_grupos.adapter = librosAdaptador
+        rv_libros.adapter = librosAdaptador
 
         libros.clear()
         var libro: Libros
 
+        val service: Service =  RestEngine.getRestEngine().create(Service::class.java)
+        val result: Call<List<DataBook>> = service.getBooks()
 
+        result.enqueue(object: Callback<List<DataBook>> {
+            override fun onFailure(call: Call<List<DataBook>>, t: Throwable) {
+
+                Toast.makeText(context2!!,"Ingresando de manera local",Toast.LENGTH_LONG).show()
+
+            }//Aquí termina el onfailure
+
+            override fun onResponse(call: Call<List<DataBook>>, response: Response<List<DataBook>>) {
+
+                val itemArray =  response.body()
+                //Si sí trajo el objeto
+                if (itemArray!!.isNotEmpty()){
+
+                    for(item in itemArray){
+                        if(item.USERID!!.toInt() == Usuario.getId())
+                        {
+                            libro = Libros()
+                            libro.libroId = item.BOOKID!!.toInt()
+                            libro.userId = item.USERID!!.toInt()
+                            libro.strTitle =  item.TITLE
+                            libro.strDescription = item.DESCRIPTION
+                            //
+                            val strImage:String =  item.IMAGE!!.replace("data:image/png;base64,","")
+                            val byteArray =  Base64.getDecoder().decode(strImage)
+                            val bitmap : Bitmap? = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+
+
+                            libro.imgArray = bitmap
+                            libro.genre =  item.GENRETITLE
+
+                            libros.add(libro)
+                        }
+
+                    }
+                    rv_libros.adapter?.notifyDataSetChanged()
+
+                }
+                //Si no encontró el objeto seguro se equivoco en el correo
+                else{
+                    Toast.makeText(context2!!,"No se encontró al usuario",Toast.LENGTH_LONG).show()
+                }
+            } //Acá termina el onresponse
+        })
         /*try {
             val db = dbHelper.readableDatabase
     
@@ -117,7 +170,7 @@ class HomeFragment: Fragment(), SearchView.OnQueryTextListener{
             Toast.makeText(this.context2!!, ex.toString(), Toast.LENGTH_SHORT).show()
         }*/
 
-        rv_grupos.smoothScrollToPosition(0)
+        rv_libros.smoothScrollToPosition(0)
 
     }
 
