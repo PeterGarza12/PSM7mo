@@ -166,7 +166,7 @@ class EditProfileUser: AppCompatActivity(),View.OnClickListener {
 
             var Dbusers = dbUsers(this@EditProfileUser)
 
-            updateUser()
+            //updateUser()
             inserted = Dbusers.actualizarUsuario(this.et_edit_username.text.toString(),
                                                 this.et_edit_pass.text.toString(),
                                                 this.dt_edit_picker.text.toString(),
@@ -177,15 +177,15 @@ class EditProfileUser: AppCompatActivity(),View.OnClickListener {
                                                 )
             if(inserted){
 
-                //if(registerUser()){ TODO: Mandar también a la api, o mejor al revés, primero validar con la api y luego mandamos a la local
+                //if(registerUser()){
 
+                    //var iduser = Usuario.getId()
 
-                    var iduser = Usuario.getId()
                 user = Dbusers.verUser(Usuario.getEmail())
 
                 if(user!=null){
 
-                    Usuario.setUsuario(iduser, user.USERNAME, user.PASS, user.BIRTHDAY,user.IMAGE, user.NAME, user.EMAIL)
+                    Usuario.setUsuario(user.USERID, user.USERNAME, user.PASS, user.BIRTHDAY,user.IMAGE, user.NAME, user.EMAIL)
 
                 }
 
@@ -228,14 +228,6 @@ class EditProfileUser: AppCompatActivity(),View.OnClickListener {
 
         }
         else{
-            val bitdraw = ivProfile.drawable
-            val bm = bitdraw.toBitmap()
-
-            bytes = ByteArrayOutputStream()
-
-            bm.compress(Bitmap.CompressFormat.PNG, 0, bytes)
-
-            byteImage = bytes.toByteArray()
 
             result = false
         }

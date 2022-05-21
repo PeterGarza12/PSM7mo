@@ -7,6 +7,7 @@ import android.database.Cursor
 import android.graphics.BitmapFactory
 import com.psm.horrorg.Model.User
 import com.psm.horrorg.Model.User2
+import com.psm.horrorg.Model.Usuario
 import java.lang.Exception
 import java.util.ArrayList
 
@@ -89,8 +90,9 @@ class dbUsers(var context: Context?) : DbHelper(context) {
             val bitmap = BitmapFactory.decodeByteArray(image, 0, image.size)
 
             user = User(id, username, password, dateBirth, bitmap, name, email)
+            Usuario.setUsuario(Usuario.getId(), user.USERNAME, user.PASS, user.BIRTHDAY,user.IMAGE, user.NAME, user.EMAIL)
         }
-        cursorUser.close()
+
         return user
     }
 
@@ -122,6 +124,7 @@ class dbUsers(var context: Context?) : DbHelper(context) {
             db.execSQL("UPDATE $TABLE_NAME SET $COL_USERNAME='"+username+"',$COL_PASSWORD='"+password+"',$COL_DATE='"+dateBirth+"', $COL_NAME = '"+name+"' WHERE $COL_ID = "+id+" ;")
         }
 
+        db.close()
 
 
         return correcto

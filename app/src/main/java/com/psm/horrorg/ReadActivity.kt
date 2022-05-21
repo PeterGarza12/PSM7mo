@@ -96,7 +96,7 @@ class ReadActivity: AppCompatActivity() {
         descripcion.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL))
         descripcion.textSize=14f
 
-        var arrayDescripcion = chapter.getBody().split(".")
+        var arrayDescripcion = chapter.getBody().split(",")
         var y = 200f // la alttura por la que deseamos [intar para no sobreescribir nuestro texto
 
         for(item in arrayDescripcion){
@@ -107,7 +107,7 @@ class ReadActivity: AppCompatActivity() {
         val holi = Environment.getExternalStorageState()
         Toast.makeText(this,holi, Toast.LENGTH_LONG).show()
 
-        val file = File(Environment.getExternalStorageDirectory().toString(),"Archivo.pdf")
+        val file = File(Environment.getExternalStorageDirectory().toString(), Libro.getTitle() + " Capítulo: "+ chapter.getTitle()+".pdf")
 
         try{
             pdfDocument.writeTo(FileOutputStream(file))

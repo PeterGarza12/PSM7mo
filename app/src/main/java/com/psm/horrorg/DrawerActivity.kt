@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
 import com.psm.horrorg.Fragments.CategoriaFragment
 import com.psm.horrorg.Fragments.HomeFragment
+import com.psm.horrorg.Fragments.LibraryFragment
 import com.psm.horrorg.Fragments.ProfileUser
 import com.psm.horrorg.Model.Categorias
 import com.psm.horrorg.Model.Usuario
@@ -94,6 +95,10 @@ class DrawerActivity : AppCompatActivity() {
                     Categorias.setCategoria("Suspenso")
                     cambiarFragmento(CategoriaFragment(), "CategoriaFragment")
 
+                }
+
+                R.id.opc_biblioteca->{
+                    cambiarFragmento(LibraryFragment(), "LibraryFragment")
                 }
 
                 else -> {

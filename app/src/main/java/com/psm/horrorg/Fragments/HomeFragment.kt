@@ -49,11 +49,14 @@ class HomeFragment: Fragment(), SearchView.OnQueryTextListener{
 
         var dbhelper = DbHelper(this.context2!!)
         var dbImg = dbImages(this.context2!!)
-        txtBuscar=view.findViewById(R.id.sv_buscador)
-        txtBuscar.setOnQueryTextListener(this)
+
+
 
         this.librosAdaptador = AdaptadorLibros(libros, this.context2!!)
         getLibros(view, dbhelper, dbImg)
+
+        val searchview :SearchView = view.findViewById(R.id.sv_buscador)
+        searchview.setOnQueryTextListener(this)
 
         view.findViewById<FloatingActionButton>(R.id.fab_CreateBook).setOnClickListener { view ->
 
@@ -119,11 +122,17 @@ class HomeFragment: Fragment(), SearchView.OnQueryTextListener{
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
-        TODO("Not yet implemented")
+        return false
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
-        TODO("Not yet implemented")
+        if (newText != null){
+            if(librosAdaptador != null) this.librosAdaptador?.filter?.filter(newText)//evaluas con el filtrado del adapter
+        }else{
+
+        }
+        return false
+
     }
 
 
