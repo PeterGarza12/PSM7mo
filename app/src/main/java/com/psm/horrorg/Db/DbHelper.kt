@@ -124,7 +124,7 @@ open class DbHelper(context: Context?):SQLiteOpenHelper(context,DATABASE_NAME,nu
     fun onCheckUserNameAndPassword(username: String, password: String): Boolean {
         val db = writableDatabase
         val cursor = db.rawQuery(
-            "select * from User where UserName = ? And Password = ?",
+            "select * from USER where USERNAME = ? And PASSWORD = ?",
             arrayOf(username, password)
         )
         var flag = false

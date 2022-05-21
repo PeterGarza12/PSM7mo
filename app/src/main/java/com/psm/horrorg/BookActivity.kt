@@ -87,15 +87,20 @@ class BookActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
 
 
         var idGenre = 1;
+        var nameGenero:String =""
 
         when(spinnerSelected){
-            "Suspenso" ->  idGenre = 1
-            "Criminología" -> idGenre = 2
-            "Creepypastas" -> idGenre = 3
+            "Suspenso" ->  {idGenre = 1
+                            nameGenero=  "Suspenso"}
+            "Criminología" -> {idGenre = 2
+                nameGenero=  "Criminología"}
+            "Creepypastas" -> {idGenre = 3
+                nameGenero=  "Creepypastas"}
             else -> {
                 idGenre = 4
             }
         }
+
 
         imgid = idDeLaImagen()
 
@@ -105,7 +110,7 @@ class BookActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
         }
 
         if(canInsert ){
-            var id:Long = DBBooks.insertBook(Usuario.getId(), this.et_create_title.text.toString(), this.et_create_sinopsis.text.toString(), imgid, idGenre, "Hola", "Prueba")
+            var id:Long = DBBooks.insertBook(Usuario.getId(), this.et_create_title.text.toString(), this.et_create_sinopsis.text.toString(), imgid, idGenre,nameGenero , "Prueba")
             if(id>0){
                 Toast.makeText(this, "Libro creado con éxito", Toast.LENGTH_LONG).show()
                 val intent = Intent(this,DrawerActivity::class.java)
