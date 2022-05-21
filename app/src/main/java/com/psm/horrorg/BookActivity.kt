@@ -11,9 +11,16 @@ import androidx.appcompat.app.AppCompatActivity
 import com.psm.horrorg.Db.dbBooks
 import com.psm.horrorg.Db.dbChapters
 import com.psm.horrorg.Db.dbImages
+import com.psm.horrorg.Model.DataBook
+import com.psm.horrorg.Model.User2
 import com.psm.horrorg.Model.Usuario
 import kotlinx.android.synthetic.main.activity_createbook.*
+import kotlinx.android.synthetic.main.activity_register.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.ByteArrayOutputStream
+import java.util.*
 
 
 class BookActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnItemSelectedListener {
@@ -23,6 +30,9 @@ class BookActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
     var spinner: Spinner? = null
     var radioGroup: RadioGroup? = null
     var imgid: Int = 0
+
+    var idGenre = 1
+    var categoria = ""
 
     var DBBooks = dbBooks(this@BookActivity)
     var dbimg = dbImages(this@BookActivity)
@@ -86,8 +96,7 @@ class BookActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
 
 
 
-        var idGenre = 1
-        var categoria = ""
+
 
         when(spinnerSelected){
             "Suspenso" -> { idGenre = 1
@@ -113,6 +122,9 @@ class BookActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
 
         if(canInsert){
             var id:Long = DBBooks.insertBook(Usuario.getId(), this.et_create_title.text.toString(), this.et_create_sinopsis.text.toString(), imgid, idGenre, categoria, "Prueba")
+
+            bookInsert()
+
             if(id>0){
                 Toast.makeText(this, "Libro creado con éxito", Toast.LENGTH_LONG).show()
                 val intent = Intent(this,DrawerActivity::class.java)
@@ -147,6 +159,35 @@ class BookActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
         if (parent != null) {
             spinnerSelected = parent.getItemAtPosition(position).toString()
         }
+    }
+
+    private fun bookInsert() {
+        val encodedString:String =  Base64.getEncoder().encodeToString(byteImage)
+        val strEncodeImage:String = "data:image/png;base64," + encodedString
+
+        //SE CONSTRUYE EL OBJECTO A ENVIAR,  ESTO DEPENDE DE COMO CONSTRUYAS EL SERVICIO
+        // SI TU SERVICIO POST REQUIERE DOS PARAMETROS HACER UN OBJECTO CON ESOS DOS PARAMETROS
+        val bookd =  DataBook(0,
+            Usuario.getId(),
+            this.et_create_title.text.toString(),
+            this.et_create_sinopsis.text.toString(),
+            strEncodeImage,
+            idGenre,
+            categoria
+        )
+
+        val service: Service =  RestEngine.getRestEngine().create(Service::class.java)
+        val result: Call<Int> = service.saveBooks(bookd)
+
+        result.enqueue(object: Callback<Int> {
+            override fun onFailure(call: Call<Int>, t: Throwable) {
+                Toast.makeText(this@BookActivity,"Error",Toast.LENGTH_LONG).show()
+            }
+
+            override fun onResponse(call: Call<Int>, response: Response<Int>) {
+                Toast.makeText(this@BookActivity,"OK",Toast.LENGTH_LONG).show()
+            }
+        })
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {

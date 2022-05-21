@@ -37,10 +37,6 @@ open class DbHelper(context: Context?):SQLiteOpenHelper(context,DATABASE_NAME,nu
         val COL_IMG_ID = "IDIMAGE"
         val COL_IMG_IMG = "IMAGE"
 
-        //Genre Table
-        val TABLE_CAT_NAME = "CATEGORIES"
-        val COL_CAT_ID = "CATEGORYID"
-        val COL_CAT_CAT = "CATEGORY"
 
         //Chapters Table
         val TABLE_CH_NAME = "CHAPTERS"
@@ -78,21 +74,6 @@ open class DbHelper(context: Context?):SQLiteOpenHelper(context,DATABASE_NAME,nu
 
         val CREATE_IMAGES_TABLE_QUERY:String = ("CREATE TABLE IF NOT EXISTS  $TABLE_IMG_NAME ( $COL_IMG_ID INTEGER PRIMARY KEY, $COL_IMG_IMG BLOB)")
         db!!.execSQL(CREATE_IMAGES_TABLE_QUERY)
-
-        val CREATE_CAT_TABLE_QUERY:String = ("CREATE TABLE IF NOT EXISTS  $TABLE_CAT_NAME ( $COL_CAT_ID INTEGER PRIMARY KEY, $COL_CAT_CAT BLOB)")
-        db!!.execSQL(CREATE_CAT_TABLE_QUERY)
-
-        var values = ContentValues()
-        values.put(COL_CAT_CAT, "Suspenso")
-        db.insert(TABLE_CAT_NAME, null, values)
-
-        values = ContentValues()
-        values.put(COL_CAT_CAT, "Criminología")
-        db.insert(TABLE_CAT_NAME, null, values)
-
-        values = ContentValues()
-        values.put(COL_CAT_CAT, "Creepypastas")
-        db.insert(TABLE_CAT_NAME, null, values)
 
         val CREATE_CHAPTERS_TABLE_QUERY:String = ("CREATE TABLE IF NOT EXISTS  $TABLE_CH_NAME ( " +
                 "$COL_CH_ID INTEGER PRIMARY KEY, " +

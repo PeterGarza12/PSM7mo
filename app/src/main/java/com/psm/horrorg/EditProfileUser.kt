@@ -8,13 +8,20 @@ import android.provider.MediaStore
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.drawable.toBitmap
 import com.psm.horrorg.DatePicker.DatePickerEdit
 import com.psm.horrorg.Db.dbUsers
 import com.psm.horrorg.Model.User
+import com.psm.horrorg.Model.User2
 
 import com.psm.horrorg.Model.Usuario
+import kotlinx.android.synthetic.main.activity_register.*
 import kotlinx.android.synthetic.main.profile_user_edit.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.ByteArrayOutputStream
+import java.util.*
 import java.util.regex.Pattern
 
 class EditProfileUser: AppCompatActivity(),View.OnClickListener {
@@ -47,13 +54,6 @@ class EditProfileUser: AppCompatActivity(),View.OnClickListener {
 
         val btnUpdate = findViewById<Button>(R.id.btn_edit_update)
 
-        /*val DbUsers= dbUsers(this)
-
-        user=DbUsers.verUser(Usuario.getUsername())
-
-        if(user!=null){
-
-        }*/
         txtUsername.text = Usuario.getUsername()
         txtDate.text    = Usuario.getDateBirth()
         txtPassword.setText(Usuario.getPassword())
@@ -166,6 +166,7 @@ class EditProfileUser: AppCompatActivity(),View.OnClickListener {
 
             var Dbusers = dbUsers(this@EditProfileUser)
 
+            updateUser()
             inserted = Dbusers.actualizarUsuario(this.et_edit_username.text.toString(),
                                                 this.et_edit_pass.text.toString(),
                                                 this.dt_edit_picker.text.toString(),
@@ -179,13 +180,12 @@ class EditProfileUser: AppCompatActivity(),View.OnClickListener {
                 //if(registerUser()){ TODO: Mandar también a la api, o mejor al revés, primero validar con la api y luego mandamos a la local
 
 
-
-
+                    var iduser = Usuario.getId()
                 user = Dbusers.verUser(Usuario.getEmail())
 
                 if(user!=null){
 
-                    Usuario.setUsuario(user.USERID, user.USERNAME, user.PASS, user.BIRTHDAY,user.IMAGE, user.NAME, user.EMAIL)
+                    Usuario.setUsuario(iduser, user.USERNAME, user.PASS, user.BIRTHDAY,user.IMAGE, user.NAME, user.EMAIL)
 
                 }
 
@@ -228,11 +228,55 @@ class EditProfileUser: AppCompatActivity(),View.OnClickListener {
 
         }
         else{
+            val bitdraw = ivProfile.drawable
+            val bm = bitdraw.toBitmap()
+
+            bytes = ByteArrayOutputStream()
+
+            bm.compress(Bitmap.CompressFormat.PNG, 0, bytes)
+
+            byteImage = bytes.toByteArray()
 
             result = false
         }
 
         return result
+    }
+
+    private fun updateUser(){
+
+        val encodedString:String =  Base64.getEncoder().encodeToString(byteImage)
+        val strEncodeImage:String = "data:image/png;base64," + encodedString
+
+        //SE CONSTRUYE EL OBJECTO A ENVIAR,  ESTO DEPENDE DE COMO CONSTRUYAS EL SERVICIO
+        // SI TU SERVICIO POST REQUIERE DOS PARAMETROS HACER UN OBJECTO CON ESOS DOS PARAMETROS
+        val user =  User2(Usuario.getId(),
+                    this.et_edit_username.text.toString(),
+                    this.et_edit_pass.text.toString(),
+                    this.dt_edit_picker.text.toString(),
+                    strEncodeImage,
+                    this.et_edit_name.text.toString(),
+                    Usuario.getEmail()
+                    )
+
+        val service: Service =  RestEngine.getRestEngine().create(Service::class.java)
+        val result: Call<Int> = service.saveUser(user)
+
+        result.enqueue(object: Callback<Int> {
+            override fun onFailure(call: Call<Int>, t: Throwable) {
+
+                Toast.makeText(this@EditProfileUser,"Error",Toast.LENGTH_LONG).show()
+
+            }
+
+            override fun onResponse(call: Call<Int>, response: Response<Int>) {
+
+                Toast.makeText(this@EditProfileUser,"OK",Toast.LENGTH_LONG).show()
+
+            }
+
+        })
+
     }
 
 }
