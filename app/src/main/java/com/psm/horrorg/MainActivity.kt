@@ -95,7 +95,7 @@ class MainActivity : AppCompatActivity() {
 
         var succeed = false
 
-        user = DbUsers.verUser(email)
+        /*user = DbUsers.verUser(email)
 
         if(user!=null){
 
@@ -104,9 +104,9 @@ class MainActivity : AppCompatActivity() {
         }
         else{
             Toast.makeText(this@MainActivity,"Usuario no encontrado",Toast.LENGTH_LONG).show()
-        }
+        }*/
 
-        /*val service: Service =  RestEngine.getRestEngine().create(Service::class.java)
+        val service: Service =  RestEngine.getRestEngine().create(Service::class.java)
         val result: Call<List<User2>> = service.getUser(email)
 
         result.enqueue(object: Callback<List<User2>> {
@@ -125,12 +125,14 @@ class MainActivity : AppCompatActivity() {
                     //Si la contraseña del objeto coincide con la ingresada setea al usuario
                     if(item[0].PASS.toString() == password){
 
-                        val image = item[0].IMAGE
-                        val bitmap = BitmapFactory.decodeByteArray(image, 0, image!!.size)
+                        user = DbUsers.verUser(email)
 
+                        if(user!=null){
 
-                        Usuario.setUsuario(item[0].USERID!!.toInt(), item[0].USERNAME!!.toString(), item[0].PASS!!.toString(),
-                            item[0].BIRTHDAY!!.toString(), bitmap, item[0].NAME!!.toString(), item[0].EMAIL!!.toString())
+                            Usuario.setUsuario(user.USERID, user.USERNAME, user.PASS, user.BIRTHDAY,user.IMAGE, user.NAME, user.EMAIL)
+                            succeed = true
+                        }
+
 
                         Toast.makeText(this@MainActivity,"Login con éxito",Toast.LENGTH_LONG).show()
 
@@ -146,7 +148,7 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(this@MainActivity,"No se encontró al usuario",Toast.LENGTH_LONG).show()
                 }
             } //Acá termina el onresponse
-        }) //Aqui termina el resut*/
+        }) //Aqui termina el resut
 
         return succeed
     }

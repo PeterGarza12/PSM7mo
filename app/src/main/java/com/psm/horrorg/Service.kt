@@ -13,7 +13,7 @@ interface Service {
     fun getUser(@Path("EMAIL") EMAIL: String): Call<List<User2>>
 
     @Headers("Content-Type: application/json")
-    @POST("App/User.php/SaveUser")
+    @POST("User/Save")
     fun saveUser(@Body userData: User2): Call<Int>
 
 }
