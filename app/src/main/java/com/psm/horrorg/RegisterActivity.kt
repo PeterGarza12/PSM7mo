@@ -134,22 +134,22 @@ class RegisterActivity : AppCompatActivity(),View.OnClickListener {
 
             var Dbusers = dbUsers(this@RegisterActivity)
 
-            //var unique:Boolean = Dbusers.validarCorreoUnico(this.input_correo.text.toString())
+            //var existing:Boolean = Dbusers.validarCorreoUnico(this.input_correo.text.toString())
 
-            var unique:Boolean = getUserByEmail(this.input_correo.text.toString())
+            var existing:Boolean = getUserByEmail(this.input_correo.text.toString())
 
-            if(unique){
+            if(!existing){
 
-                inserted = registerUser()
+                registerUser()
 
-                Dbusers.insertarUsuario( this.input_main_mail.text.toString(),
+                val inserted = Dbusers.insertarUsuario( this.input_main_mail.text.toString(),
                                                 this.input_password.text.toString(),
                                                 this.editTextDate.text.toString(),
                                                 byteImage,
                                                 this.input_nombrecompleto.text.toString(),
                                                 this.input_correo.text.toString())
 
-                if(inserted){
+                if(inserted>0){
 
                     Toast.makeText(this,"Usuario creado",Toast.LENGTH_LONG).show();
                     val intent=Intent(this,MainActivity::class.java)
@@ -215,9 +215,7 @@ class RegisterActivity : AppCompatActivity(),View.OnClickListener {
                     Toast.makeText(this@RegisterActivity,"Ya existe un usuario con ese correo",Toast.LENGTH_LONG).show()
                     exists = true
                 }
-
             }
-
         })
         return exists
     }
@@ -232,7 +230,6 @@ class RegisterActivity : AppCompatActivity(),View.OnClickListener {
                             this.input_main_mail.text.toString(),
                             this.input_password.text.toString(),
                             this.editTextDate.text.toString(),
-                            byteImage,
                             this.input_nombrecompleto.text.toString(),
                             this.input_correo.text.toString()
                             )

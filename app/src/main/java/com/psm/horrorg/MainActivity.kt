@@ -95,23 +95,25 @@ class MainActivity : AppCompatActivity() {
 
         var succeed = false
 
-        val service: Service =  RestEngine.getRestEngine().create(Service::class.java)
+        user = DbUsers.verUser(email)
+
+        if(user!=null){
+
+            Usuario.setUsuario(user.USERID, user.USERNAME, user.PASS, user.BIRTHDAY,user.IMAGE, user.NAME, user.EMAIL)
+            succeed = true
+        }
+        else{
+            Toast.makeText(this@MainActivity,"Usuario no encontrado",Toast.LENGTH_LONG).show()
+        }
+
+        /*val service: Service =  RestEngine.getRestEngine().create(Service::class.java)
         val result: Call<List<User2>> = service.getUser(email)
 
         result.enqueue(object: Callback<List<User2>> {
             override fun onFailure(call: Call<List<User2>>, t: Throwable) {
 
                 Toast.makeText(this@MainActivity,"Ingresando de manera local",Toast.LENGTH_LONG).show()
-                user = DbUsers.verUser(email)
 
-                if(user!=null){
-
-                    Usuario.setUsuario(user.USERID, user.USERNAME, user.PASS, user.BIRTHDAY,user.IMAGE, user.NAME, user.EMAIL)
-                    succeed = true
-                }
-                else{
-                    Toast.makeText(this@MainActivity,"Usuario no encontrado",Toast.LENGTH_LONG).show()
-                }
             }//Aquí termina el onfailure
 
             override fun onResponse(call: Call<List<User2>>, response: Response<List<User2>>) {
@@ -144,7 +146,7 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(this@MainActivity,"No se encontró al usuario",Toast.LENGTH_LONG).show()
                 }
             } //Acá termina el onresponse
-        }) //Aqui termina el resut
+        }) //Aqui termina el resut*/
 
         return succeed
     }
