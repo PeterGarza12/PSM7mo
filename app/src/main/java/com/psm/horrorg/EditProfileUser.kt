@@ -2,22 +2,17 @@ package com.psm.horrorg
 
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.util.PatternsCompat
 import com.psm.horrorg.DatePicker.DatePickerEdit
 import com.psm.horrorg.Db.dbUsers
 import com.psm.horrorg.Model.User
 
 import com.psm.horrorg.Model.Usuario
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_register.*
-import kotlinx.android.synthetic.main.activity_register.input_main_mail
 import kotlinx.android.synthetic.main.profile_user_edit.*
 import java.io.ByteArrayOutputStream
 import java.util.regex.Pattern

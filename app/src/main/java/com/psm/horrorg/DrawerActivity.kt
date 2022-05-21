@@ -18,6 +18,7 @@ import com.google.android.material.navigation.NavigationView
 import com.psm.horrorg.Fragments.CategoriaFragment
 import com.psm.horrorg.Fragments.HomeFragment
 import com.psm.horrorg.Fragments.ProfileUser
+import com.psm.horrorg.Model.Categorias
 import com.psm.horrorg.Model.Usuario
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.drawer_header.*

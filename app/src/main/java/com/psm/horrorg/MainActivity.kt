@@ -1,10 +1,8 @@
 package com.psm.horrorg
 
 import android.content.Intent
-import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.BoringLayout
 import android.view.View
 import android.widget.Toast
 import com.psm.horrorg.Db.DbHelper
@@ -16,13 +14,13 @@ import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.function.BinaryOperator
 
 class MainActivity : AppCompatActivity() {
 
     val DB = DbHelper(this)
     val DbUsers= dbUsers(this)
     lateinit var user: User
+    var succeed = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,14 +52,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun showInfo(){
 
-        if(this.input_main_mail.text.toString() =="" || this.input_password.text.toString()=="" ){
+        if(this.input_register_username.text.toString() =="" || this.input_password.text.toString()=="" ){
             Toast.makeText(this, "Ingresar información de usuario", Toast.LENGTH_SHORT).show()
         }
         else{
 
-            val islogged: Boolean = retrieveUser(this.input_main_mail.text.toString(), this.input_password.text.toString())
+            retrieveUser(this.input_register_username.text.toString(), this.input_password.text.toString())
 
-            if(islogged) {
+            Toast.makeText(this@MainActivity,Usuario.getName(),Toast.LENGTH_LONG).show()
+            if(Usuario.getId()!=0) {
                 val intent = Intent(this, DrawerActivity::class.java)
                 startActivity(intent)
             }
@@ -91,20 +90,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun retrieveUser(email: String, password: String): Boolean{
-
-        var succeed = false
-
-        /*user = DbUsers.verUser(email)
-
-        if(user!=null){
-
-            Usuario.setUsuario(user.USERID, user.USERNAME, user.PASS, user.BIRTHDAY,user.IMAGE, user.NAME, user.EMAIL)
-            succeed = true
-        }
-        else{
-            Toast.makeText(this@MainActivity,"Usuario no encontrado",Toast.LENGTH_LONG).show()
-        }*/
+    private fun retrieveUser(email: String, password: String){
 
         val service: Service =  RestEngine.getRestEngine().create(Service::class.java)
         val result: Call<List<User2>> = service.getUser(email)
@@ -129,14 +115,9 @@ class MainActivity : AppCompatActivity() {
 
                         if(user!=null){
 
-                            Usuario.setUsuario(user.USERID, user.USERNAME, user.PASS, user.BIRTHDAY,user.IMAGE, user.NAME, user.EMAIL)
-                            succeed = true
+                            Usuario.setUsuario(item[0].USERID!!.toInt(), user.USERNAME, user.PASS, user.BIRTHDAY,user.IMAGE, user.NAME, user.EMAIL)
+                            Toast.makeText(this@MainActivity,"Login con éxito",Toast.LENGTH_LONG).show()
                         }
-
-
-                        Toast.makeText(this@MainActivity,"Login con éxito",Toast.LENGTH_LONG).show()
-
-                        succeed = true
                     }
                     //Si no coincide le avisa
                     else{
@@ -150,6 +131,5 @@ class MainActivity : AppCompatActivity() {
             } //Acá termina el onresponse
         }) //Aqui termina el resut
 
-        return succeed
     }
 }

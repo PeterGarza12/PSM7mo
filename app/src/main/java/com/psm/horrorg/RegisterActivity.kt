@@ -104,7 +104,7 @@ class RegisterActivity : AppCompatActivity(),View.OnClickListener {
         {
             Toast.makeText(this,"Favor de seleccionar una imagen", Toast.LENGTH_LONG).show()
         }
-        else if(this.input_main_mail.text.toString() =="" || this.input_password.text.toString()=="" || this.input_password2.text.toString()==""
+        else if(this.input_register_username.text.toString() =="" || this.input_password.text.toString()=="" || this.input_password2.text.toString()==""
             || this.input_password2.text.toString()=="" || this.editTextDate.text.toString()=="" || this.input_nombrecompleto.text.toString() == ""){
 
             Toast.makeText(this,"Favor de llenar los campos",Toast.LENGTH_LONG).show();
@@ -140,7 +140,7 @@ class RegisterActivity : AppCompatActivity(),View.OnClickListener {
 
                 registerUser()
 
-                val inserted = Dbusers.insertarUsuario( this.input_main_mail.text.toString(),
+                val inserted = Dbusers.insertarUsuario( this.input_register_username.text.toString(),
                                                 this.input_password.text.toString(),
                                                 this.editTextDate.text.toString(),
                                                 byteImage,
@@ -222,12 +222,16 @@ class RegisterActivity : AppCompatActivity(),View.OnClickListener {
 
         var success = false
 
+        val encodedString:String =  Base64.getEncoder().encodeToString(byteImage)
+        val strEncodeImage:String = "data:image/png;base64," + encodedString
+
         //SE CONSTRUYE EL OBJECTO A ENVIAR,  ESTO DEPENDE DE COMO CONSTRUYAS EL SERVICIO
         // SI TU SERVICIO POST REQUIERE DOS PARAMETROS HACER UN OBJECTO CON ESOS DOS PARAMETROS
         val user =  User2(0,
-                            this.input_main_mail.text.toString(),
+                            this.input_register_username.text.toString(),
                             this.input_password.text.toString(),
                             this.editTextDate.text.toString(),
+                            strEncodeImage,
                             this.input_nombrecompleto.text.toString(),
                             this.input_correo.text.toString()
                             )
