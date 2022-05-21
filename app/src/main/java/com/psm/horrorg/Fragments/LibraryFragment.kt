@@ -119,14 +119,20 @@ class LibraryFragment: Fragment(), SearchView.OnQueryTextListener{
 
 
 
+
     override fun onQueryTextSubmit(query: String?): Boolean {
-        TODO("Not yet implemented")
+        return false
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
-        TODO("Not yet implemented")
-    }
+        if (newText != null){
+            if(librosAdaptador != null) this.librosAdaptador?.filter?.filter(newText)//evaluas con el filtrado del adapter
+        }else{
 
+        }
+        return false
+
+    }
 
 }
 

@@ -106,6 +106,7 @@ class AdaptadorLibros(private var listaLibros: MutableList<Libros>, val context:
                     listaLibros.filter { listaLibros ->
                         listaLibros.strTitle!!.toLowerCase()
                             .contains(queryString.toString()) || listaLibros.strDescription!!.toLowerCase()
+                            .contains(queryString.toString()) || listaLibros.libroId!!.toString().toLowerCase()
                             .contains(queryString.toString())
                     }
                 }
