@@ -22,7 +22,6 @@ class BookActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
 
     var spinner: Spinner? = null
     var radioGroup: RadioGroup? = null
-    var radioButton: RadioButton? = null
     var imgid: Int = 0
 
     var DBBooks = dbBooks(this@BookActivity)
@@ -85,12 +84,7 @@ class BookActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
 
 
 
-        val selectedId: Int = radioGroup!!.checkedRadioButtonId
 
-        if(selectedId!=-1){
-            radioButton = findViewById<View>(selectedId) as RadioButton
-            Toast.makeText(this, radioButton!!.text.toString(), Toast.LENGTH_LONG).show()
-        }
 
         var idGenre = 1;
 
@@ -110,7 +104,7 @@ class BookActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
             Toast.makeText(this,"Favor de seleccionar una imagen", Toast.LENGTH_LONG).show()
         }
 
-        if(canInsert && radioButton!=null){
+        if(canInsert ){
             var id:Long = DBBooks.insertBook(Usuario.getId(), this.et_create_title.text.toString(), this.et_create_sinopsis.text.toString(), imgid, idGenre, "Hola", "Prueba")
             if(id>0){
                 Toast.makeText(this, "Libro creado con éxito", Toast.LENGTH_LONG).show()

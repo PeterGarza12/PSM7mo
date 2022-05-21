@@ -4,12 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.database.Cursor
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SearchView
+import android.widget.TextView
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.psm.horrorg.Adapter.AdaptadorLibros
@@ -18,47 +18,41 @@ import com.psm.horrorg.Data.ALBUM_POSITION
 import com.psm.horrorg.Data.DEFAULT_ALBUM_POSITION
 import com.psm.horrorg.Db.DbHelper
 import com.psm.horrorg.Db.dbImages
+import com.psm.horrorg.Model.Categorias
 import com.psm.horrorg.Model.Libros
 import com.psm.horrorg.Model.Usuario
 import com.psm.horrorg.R
 
-class HomeFragment: Fragment(), SearchView.OnQueryTextListener{
-
+class CategoriaFragment : Fragment() {
     private var context2: Context? = null
-
-
     override fun onAttach(context: Context){
         super.onAttach(context)
         this.context2 = context
     }
 
 
-    lateinit var txtBuscar: SearchView
+
     private var libros = mutableListOf<Libros>()
     private var librosAdaptador: AdaptadorLibros? = null
 
-
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
-        val view = inflater.inflate(R.layout.fragment_home, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        // Inflate the layout for this fragment
+        val view = inflater.inflate(R.layout.fragment_categoria, container, false)
 
         var dbhelper = DbHelper(this.context2!!)
         var dbImg = dbImages(this.context2!!)
-        txtBuscar=view.findViewById(R.id.sv_buscador)
-        txtBuscar.setOnQueryTextListener(this)
+
+        var Categ = view.findViewById<TextView>(R.id.tv_mybooks)
+        Categ.setText(Categorias.getName())
 
         this.librosAdaptador = AdaptadorLibros(libros, this.context2!!)
         getLibros(view, dbhelper, dbImg)
 
         view.findViewById<FloatingActionButton>(R.id.fab_CreateBook).setOnClickListener { view ->
 
-            val  activityIntent =  Intent(this.context2!!,BookActivity::class.java)
-            activityIntent.putExtra(ALBUM_POSITION,DEFAULT_ALBUM_POSITION)
+            val  activityIntent =  Intent(this.context2!!, BookActivity::class.java)
+            activityIntent.putExtra(ALBUM_POSITION, DEFAULT_ALBUM_POSITION)
             startActivity(activityIntent)
 
 
@@ -82,16 +76,15 @@ class HomeFragment: Fragment(), SearchView.OnQueryTextListener{
 
         try {
             val db = dbHelper.readableDatabase
-    
             val cursorUser: Cursor
             cursorUser = db.rawQuery(
-                "select * from Books where UserId = ?",
-                arrayOf(Usuario.getId().toString())
+                "select * from Books where GENRETITLE = ?",
+                arrayOf(Categorias.getName())
             )
-    
+
             if (cursorUser.moveToFirst()) {
                 do{
-    
+
                     libro = Libros()
                     libro.libroId = cursorUser.getInt(0)
                     libro.userId = cursorUser.getInt(1)
@@ -102,13 +95,13 @@ class HomeFragment: Fragment(), SearchView.OnQueryTextListener{
                     libro.imgArray = dbimg.getImage(libro.intIdImage)
                     var catId = cursorUser.getInt(5)
                     libro.genre =  dbimg.getCat(catId)
-    
+
                     libros.add(libro)
                 }
                 while (cursorUser.moveToNext())
             }
             cursorUser.close()
-    
+
         } catch (ex: Exception) {
             ex.toString()
             Toast.makeText(this.context2!!, ex.toString(), Toast.LENGTH_SHORT).show()
@@ -117,15 +110,4 @@ class HomeFragment: Fragment(), SearchView.OnQueryTextListener{
         rv_grupos.smoothScrollToPosition(0)
 
     }
-
-    override fun onQueryTextSubmit(query: String?): Boolean {
-        TODO("Not yet implemented")
-    }
-
-    override fun onQueryTextChange(newText: String?): Boolean {
-        TODO("Not yet implemented")
-    }
-
-
 }
-

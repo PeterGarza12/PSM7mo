@@ -13,8 +13,10 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
+import com.psm.horrorg.Fragments.CategoriaFragment
 import com.psm.horrorg.Fragments.HomeFragment
 import com.psm.horrorg.Fragments.ProfileUser
+import com.psm.horrorg.Model.Categorias
 import kotlinx.android.synthetic.main.activity_main.*
 
 class DrawerActivity : AppCompatActivity() {
@@ -62,6 +64,21 @@ class DrawerActivity : AppCompatActivity() {
                     val intent = Intent(this, HomeActivity::class.java)
                     startActivity(intent)
                     //cambiarFragmento(HomeFragment(), "HomeFragment")
+                }
+                R.id.opc_creepypastas->{
+                    val intent = Intent(this, CategoriaFragment::class.java)
+                    Categorias.setCategoria("Creepypastas")
+                    startActivity(intent)
+                }
+                R.id.opc_criminología->{
+                    val intent = Intent(this, CategoriaFragment::class.java)
+                    Categorias.setCategoria("Criminología")
+                    startActivity(intent)
+                }
+                R.id.opc_suspenso->{
+                    val intent = Intent(this, CategoriaFragment::class.java)
+                    Categorias.setCategoria("Suspenso")
+                    startActivity(intent)
                 }
 
                 else -> {
