@@ -1,6 +1,7 @@
 package com.psm.horrorg
 
 import com.psm.horrorg.Model.DataBook
+import com.psm.horrorg.Model.DataChapter
 import com.psm.horrorg.Model.User2
 import retrofit2.Call
 import retrofit2.http.*
@@ -20,5 +21,9 @@ interface Service {
     @Headers("Content-Type: application/json")
     @POST("User/Save")
     fun saveUser(@Body userData: User2): Call<Int>
+
+    @Headers("Content-Type: application/json")
+    @POST("Chapter/Save")
+    fun saveChapters(@Body chapterData: DataChapter): Call<Int>
 
 }

@@ -77,9 +77,9 @@ class CreateChapterActivity: AppCompatActivity(), View.OnClickListener {
         var idlibro = Libro.getId()
 
         if(canInsert){
-            var id:Long = dbchapter.insertChapter(this.et_addchapter_title.text.toString(), this.et_addchapter_body.text.toString(), byteImage, Libro.getId())
+            var id:Long = dbchapter.insertChapter(this.et_addchapter_title.text.toString(), this.et_addchapter_body.text.toString(), byteImage, idlibro)
             if(id>0){
-                Toast.makeText(this, "Libro creado con éxito", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Capítulo creado con éxito", Toast.LENGTH_LONG).show()
                 val intent = Intent(this,DrawerActivity::class.java)
                 startActivity(intent)
             }

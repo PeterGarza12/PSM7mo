@@ -6,11 +6,15 @@ import android.content.ContentValues
 import android.database.Cursor
 import android.widget.Toast
 import com.psm.horrorg.Data.DataManager
-import com.psm.horrorg.Model.Libros
-import com.psm.horrorg.Model.User
-import com.psm.horrorg.Model.Usuario
+import com.psm.horrorg.Model.*
+import com.psm.horrorg.RestEngine
+import com.psm.horrorg.Service
+import kotlinx.android.synthetic.main.activity_register.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.lang.Exception
-import java.util.ArrayList
+import java.util.*
 
 class dbChapters(var context: Context?) : DbHelper(context) {
 
@@ -30,6 +34,8 @@ class dbChapters(var context: Context?) : DbHelper(context) {
 
             id = db.insert(TABLE_CH_NAME, null, values)
 
+            insertingChapter(Title, Body, Image, BookId)
+
         } catch (ex: Exception) {
             ex.toString()
             Toast.makeText(context!!, ex.toString(), Toast.LENGTH_SHORT).show()
@@ -38,6 +44,36 @@ class dbChapters(var context: Context?) : DbHelper(context) {
         return id
     }
 
+    fun insertingChapter(Title: String?, Body: String?, Image: ByteArray?, BookId: Int?){
+
+
+        val encodedString:String =  Base64.getEncoder().encodeToString(Image)
+        val strEncodeImage:String = "data:image/png;base64," + encodedString
+
+        //SE CONSTRUYE EL OBJECTO A ENVIAR,  ESTO DEPENDE DE COMO CONSTRUYAS EL SERVICIO
+        // SI TU SERVICIO POST REQUIERE DOS PARAMETROS HACER UN OBJECTO CON ESOS DOS PARAMETROS
+        val chapterd =  DataChapter(0,
+            Title,
+            Body,
+            strEncodeImage,
+            BookId
+        )
+
+        val service: Service =  RestEngine.getRestEngine().create(Service::class.java)
+        val result: Call<Int> = service.saveChapters(chapterd)
+
+        result.enqueue(object: Callback<Int> {
+            override fun onFailure(call: Call<Int>, t: Throwable) {
+                Toast.makeText(context!!,"Error",Toast.LENGTH_LONG).show()
+
+            }
+
+            override fun onResponse(call: Call<Int>, response: Response<Int>) {
+                Toast.makeText(context!!,"OK",Toast.LENGTH_LONG).show()
+            }
+        })
+
+    }
     /* fun showMyBooks(userId: Int?): MutableList<Libros> {
          var myBooks = mutableListOf<Libros>()
          myBooks.clear()
