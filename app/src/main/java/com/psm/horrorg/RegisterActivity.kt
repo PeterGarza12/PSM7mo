@@ -130,8 +130,6 @@ class RegisterActivity : AppCompatActivity(),View.OnClickListener {
         }
         else{
 
-            var inserted:Boolean = false
-
             var Dbusers = dbUsers(this@RegisterActivity)
 
             //var existing:Boolean = Dbusers.validarCorreoUnico(this.input_correo.text.toString())
