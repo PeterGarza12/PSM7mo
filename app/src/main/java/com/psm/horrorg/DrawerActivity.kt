@@ -61,24 +61,24 @@ class DrawerActivity : AppCompatActivity() {
                 }
 
                 R.id.opc_mislibros -> {
-                    val intent = Intent(this, HomeActivity::class.java)
-                    startActivity(intent)
-                    //cambiarFragmento(HomeFragment(), "HomeFragment")
+
+                    cambiarFragmento(HomeFragment(), "HomeFragment")
                 }
                 R.id.opc_creepypastas->{
-                    val intent = Intent(this, CategoriaFragment::class.java)
                     Categorias.setCategoria("Creepypastas")
-                    startActivity(intent)
+                    cambiarFragmento(CategoriaFragment(), "CategoriaFragment")
+
+
                 }
                 R.id.opc_criminología->{
-                    val intent = Intent(this, CategoriaFragment::class.java)
                     Categorias.setCategoria("Criminología")
-                    startActivity(intent)
+                    cambiarFragmento(CategoriaFragment(), "CategoriaFragment")
+
                 }
                 R.id.opc_suspenso->{
-                    val intent = Intent(this, CategoriaFragment::class.java)
                     Categorias.setCategoria("Suspenso")
-                    startActivity(intent)
+                    cambiarFragmento(CategoriaFragment(), "CategoriaFragment")
+
                 }
 
                 else -> {

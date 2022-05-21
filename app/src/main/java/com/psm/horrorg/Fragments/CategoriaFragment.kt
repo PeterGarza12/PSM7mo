@@ -78,7 +78,7 @@ class CategoriaFragment : Fragment() {
             val db = dbHelper.readableDatabase
             val cursorUser: Cursor
             cursorUser = db.rawQuery(
-                "select * from Books where GENRETITLE = ?",
+                "SELECT * FROM BOOKS WHERE GENRETITLE = ?",
                 arrayOf(Categorias.getName())
             )
 

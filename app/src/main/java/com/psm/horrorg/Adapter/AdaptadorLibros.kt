@@ -19,7 +19,7 @@ import java.util.stream.Stream
 
 class AdaptadorLibros(private val listaLibros: MutableList<Libros>, val context: Context):
     RecyclerView.Adapter<AdaptadorLibros.GroupViewholder>(){
-    var listaOriginal:ArrayList<Libros> = TODO()
+
     var dbImg = dbImages(this.context)
 
     inner class GroupViewholder(itemView: View): RecyclerView.ViewHolder(itemView), View.OnClickListener {
@@ -62,8 +62,7 @@ class AdaptadorLibros(private val listaLibros: MutableList<Libros>, val context:
                         listaLibros[libroPosition].strDescription.toString(), listaLibros[libroPosition].intIdImage, listaLibros[libroPosition].genre.toString(),
                         listaLibros[libroPosition].imgArray)
                     //val gson = Gson()
-                    listaOriginal = ArrayList()
-                    listaOriginal.addAll(listaLibros)
+
                     Toast.makeText(context,Libro.getDescription(),Toast.LENGTH_LONG).show();
                     val activityIntent = Intent(context, SinopsisBookActivity::class.java)
                     //activityIntent.putExtra("Libro", gson.toJson(listaLibros[libroPosition]))
@@ -86,18 +85,7 @@ class AdaptadorLibros(private val listaLibros: MutableList<Libros>, val context:
 
     override fun getItemCount(): Int = listaLibros.size
 
-     fun filtrado( buscar:String){
-         var longitud:Int =buscar.length
-         if( longitud==0){
-             listaLibros.clear()
-             listaLibros.addAll(listaOriginal)
 
-         }else{
-
-             
-         }
-
-    }
 
 
 }

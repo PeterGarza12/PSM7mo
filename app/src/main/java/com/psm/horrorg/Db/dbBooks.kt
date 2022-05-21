@@ -25,13 +25,13 @@ class dbBooks(var context: Context?) : DbHelper(context) {
             val db = dbHelper.writableDatabase
 
             val values = ContentValues()
-            values.put("UserId", UserId)
-            values.put("Title", Title)
-            values.put("Description", Description)
-            values.put("IdImage", IdImage)
-            values.put("IdGenre", IdGenre)
-            values.put("TitleGenre", TitleGenre)
-            values.put("ImgArray", ImgArray)
+            values.put("$COL_BOOKS_USER", UserId)
+            values.put("$COL_BOOKS_TITLE", Title)
+            values.put("$COL_BOOKS_DESCRIPTION", Description)
+            values.put("$COL_BOOKS_IDIMAGE", IdImage)
+            values.put("$COL_BOOKS_IDGENRE", IdGenre)
+            values.put("$COL_BOOKS_TITLEGENRE", TitleGenre)
+            values.put("$COL_BOOKS_IMGARRAY", ImgArray)
 
             id = db.insert(TABLE_BOOKS_NAME, null, values)
 
