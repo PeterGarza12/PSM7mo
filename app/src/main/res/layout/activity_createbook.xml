@@ -124,45 +124,18 @@
             app:layout_constraintStart_toStartOf="@+id/tv_create_category"
             app:layout_constraintTop_toBottomOf="@+id/tv_create_category" />
 
-        <TextView
-            android:id="@+id/tv_create_question"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/reggae_one"
-            android:text="¿Quiere que su contenido sea descargable?"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/sp_create_category"
-            app:layout_constraintTop_toBottomOf="@+id/sp_create_category" />
-
         <RadioGroup
             android:id="@+id/rg_create_question"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@+id/tv_create_question"
-            app:layout_constraintTop_toBottomOf="@+id/tv_create_question">
-
-            <RadioButton
-                android:id="@+id/rb_create_yes"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Sí"
-                android:onClick="onClick"/>
-
-            <RadioButton
-                android:id="@+id/rb_create_no"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="No"
-                android:onClick="onClick"/>
-        </RadioGroup>
+            android:layout_marginTop="32dp"
+            app:layout_constraintTop_toBottomOf="@+id/sp_create_category"
+            tools:layout_editor_absoluteX="16dp" />
 
         <Button
             android:id="@+id/btn_create_upload"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
             android:layout_marginBottom="32dp"
             android:backgroundTint="@color/black"
             android:fontFamily="@font/reggae_one"
@@ -171,8 +144,10 @@
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintStart_toStartOf="@+id/rg_create_question"
-            app:layout_constraintTop_toBottomOf="@+id/rg_create_question" />
+            app:layout_constraintTop_toBottomOf="@+id/rg_create_question"
+            app:layout_constraintVertical_bias="1.0" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
