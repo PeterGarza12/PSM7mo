@@ -154,7 +154,7 @@ class SinopsisBookActivity : AppCompatActivity() {
         var y = 200f // la alttura por la que deseamos [intar para no sobreescribir nuestro texto
 
         for(item in arrayDescripcion){
-            canvas.drawText(item,10f,150f,descripcion)
+            canvas.drawText(item,10f,y,descripcion)
             y+= 15
         }
         pdfDocument.finishPage(pagina1)

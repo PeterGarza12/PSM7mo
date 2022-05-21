@@ -92,12 +92,19 @@ class BookActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
             Toast.makeText(this, radioButton!!.text.toString(), Toast.LENGTH_LONG).show()
         }
 
-        var idGenre = 1;
+        var idGenre = 1
+        var categoria = ""
 
         when(spinnerSelected){
-            "Suspenso" ->  idGenre = 1
-            "Criminología" -> idGenre = 2
-            "Creepypastas" -> idGenre = 3
+            "Suspenso" -> { idGenre = 1
+                            categoria = "suspenso"
+                            }
+            "Criminología" -> { idGenre = 2
+                                categoria = "Criminología"
+                                }
+            "Creepypastas" -> { idGenre = 3
+                                categoria = "Creepypastas"
+                                }
             else -> {
                 idGenre = 4
             }
@@ -111,7 +118,7 @@ class BookActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
         }
 
         if(canInsert && radioButton!=null){
-            var id:Long = DBBooks.insertBook(Usuario.getId(), this.et_create_title.text.toString(), this.et_create_sinopsis.text.toString(), imgid, idGenre, "Hola", "Prueba")
+            var id:Long = DBBooks.insertBook(Usuario.getId(), this.et_create_title.text.toString(), this.et_create_sinopsis.text.toString(), imgid, idGenre, categoria, "Prueba")
             if(id>0){
                 Toast.makeText(this, "Libro creado con éxito", Toast.LENGTH_LONG).show()
                 val intent = Intent(this,DrawerActivity::class.java)
